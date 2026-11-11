@@ -1,0 +1,15 @@
+{
+  "screening_player_hands": 40000,
+  "selfplay_player_hands": 40000,
+  "selfplay_table_hands": 5000,
+  "validation_player_hands": 50000,
+  "validation_candidates": 25,
+  "tournament_tables": 3072,
+  "tournament_table_hands": 529966,
+  "screening_leader": "S40",
+  "selfplay_leader": "S65",
+  "validation_leader": "S55",
+  "tournament_leader": "S55",
+  "tournament_leader_mean_points": 16.300141785953347,
+  "clearly_above_all_finalists_on_simultaneous_intervals": false
+}

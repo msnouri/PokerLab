@@ -1,0 +1,1 @@
+{"hole": ["9c", "8c"], "board": [], "seat": 2, "players": 8, "active": 8, "stack": 2000, "big_blind": 20, "pot": 30, "to_call": 20, "bet": 0, "min_raise_to": 40, "max_raise_to": 2000, "position": 0.2857142857142857, "street_raises": 0, "preflop_raiser": false, "checked_before": false, "opponent_looseness": 0.3, "opponent_aggression": 0.25, "tournament": false, "remaining": 8}

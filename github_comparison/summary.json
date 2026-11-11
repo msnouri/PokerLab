@@ -1,0 +1,11 @@
+{
+  "s55_frozen": true,
+  "external_pretrained_models_tested": 0,
+  "upstream_example_policy_configurations_tested": 7,
+  "heads_up_table_hands": 70000,
+  "eight_player_cash_table_hands": 35000,
+  "eight_player_tournament_tables": 896,
+  "tournament_table_hands": 138187,
+  "all_tournament_simultaneous_intervals_above_parity": true,
+  "conclusion": "S55 beats these adapted policies in the tested eight-player tournaments, but loses to aggressive examples in heads-up cash; no evidence of superiority over trained DQN/CFR models."
+}

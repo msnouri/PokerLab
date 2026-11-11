@@ -1,0 +1,45 @@
+{
+  "experiment": "Adapted upstream example policy comparison; NOT pretrained DQN or full Neuron stack",
+  "args": {
+    "deals": 5000,
+    "tables": 128,
+    "workers": 8
+  },
+  "equity_input": "Shared S55 estimator (48 postflop samples, preflop asset)",
+  "cash_stacks": 2000,
+  "cash_bb": 20,
+  "tournament_blinds": [
+    20,
+    30,
+    40,
+    60,
+    100,
+    150,
+    200,
+    300
+  ],
+  "payouts": [
+    50.0,
+    30.0,
+    20.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "upstream_tree_sha": "242741ca6bcbdbebccacef1caee2bbb7273355f7",
+  "source_sha256": {
+    "main.py": "468a0127c91cf00888bb055159190c21fdf152af864b89fb42417db758dbc634",
+    "agents/agent_random.py": "ba9313ce64e5b856317670152076b593086324ec545d7b91deec6e0c2ea1bb2a",
+    "agents/agent_consider_equity.py": "d642914c544baea555b1a890cc80216f7af69c19960f42d050b41d44b68193b7",
+    "agents/agent_keras_rl_dqn.py": "7aa56a33afc9302a8ab4d8d73715f3083e12d3409c611f453dc42cce586614f9",
+    "gym_env/enums.py": "e8487aa82a52b03838b2bf10528f7ba8f339b8fa8d4e90e91908aa6539bb2ddb",
+    "gym_env/env.py": "17bd150da308dc006f0dc6ab9a0e435b37b3e26fc1901d5844fb43440478c8e5"
+  },
+  "s55_policy_sha256": "572a5c574303de54dd9ecbcc4118c49254ebb397896801752eccb8c2320ef0e8",
+  "elapsed_seconds": 58.614206075668335,
+  "deadline_enforced": false,
+  "portable_benchmark_sha256": "72649913b6c2ebbe3f0568b189b589bc63e5c0bdbfe54ee28d858a950d95d1bc",
+  "subsequent_change": "Only default file paths made portable; no agent or game decisions modified."
+}

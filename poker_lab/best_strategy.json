@@ -1,0 +1,31 @@
+{
+  "strategy": "S55",
+  "family": "control",
+  "label": "Equity realization and pot control / 5",
+  "selection": "highest equally weighted mean tournament points across three synthetic opponent fields",
+  "status": "research candidate; not an official event submission",
+  "parameters": {
+    "id": "S55",
+    "family": "control",
+    "label": "Equity realization and pot control / 5",
+    "source": "Brokos ch.1 pp.36-38; ch.6 p.187",
+    "open_fraction": 0.28,
+    "late_bonus": 0.14,
+    "value_equity": 0.74,
+    "call_margin": 0.094,
+    "bet_pot": 0.69,
+    "bluff": 0.055,
+    "semi_bluff": 0.2,
+    "cbet": 0.3,
+    "trap": 0.0,
+    "check_raise": 0.0,
+    "protect": 0.0,
+    "pot_control": 0.85,
+    "polar": false,
+    "push_bb": 0.0,
+    "realization": 0.82,
+    "premium_only": false,
+    "adapt": false,
+    "risk": 0.03
+  }
+}

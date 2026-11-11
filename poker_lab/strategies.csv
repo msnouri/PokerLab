@@ -1,0 +1,81 @@
+id,family,label,source,open_fraction,late_bonus,value_equity,call_margin,bet_pot,bluff,semi_bluff,cbet,trap,check_raise,protect,pot_control,polar,push_bb,realization,premium_only,adapt,risk
+S01,premium,Premium-hand patience / 1,"Hellmuth ch.3,6; limit advice adapted",0.05,0.02,0.63,0.046000000000000006,0.41000000000000003,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.9,True,False,0.0
+S02,premium,Premium-hand patience / 2,"Hellmuth ch.3,6; limit advice adapted",0.065,0.02,0.655,0.05800000000000001,0.53,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.9,True,False,0.0
+S03,premium,Premium-hand patience / 3,"Hellmuth ch.3,6; limit advice adapted",0.09,0.02,0.68,0.07,0.65,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.9,True,False,0.0
+S04,premium,Premium-hand patience / 4,"Hellmuth ch.3,6; limit advice adapted",0.11499999999999999,0.02,0.7050000000000001,0.082,0.77,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.9,True,False,0.015
+S05,premium,Premium-hand patience / 5,"Hellmuth ch.3,6; limit advice adapted",0.14,0.02,0.7300000000000001,0.094,0.89,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.9,True,False,0.03
+S06,tag,Tight aggressive / 1,"Hellmuth ch.4,6",0.12000000000000001,0.14,0.58,0.046000000000000006,0.41000000000000003,0.0050000000000000044,0.2,0.45,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S07,tag,Tight aggressive / 2,"Hellmuth ch.4,6",0.14500000000000002,0.14,0.605,0.05800000000000001,0.53,0.020000000000000004,0.2,0.45,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S08,tag,Tight aggressive / 3,"Hellmuth ch.4,6",0.17,0.14,0.63,0.07,0.65,0.035,0.2,0.45,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S09,tag,Tight aggressive / 4,"Hellmuth ch.4,6",0.195,0.14,0.655,0.082,0.77,0.05,0.2,0.45,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S10,tag,Tight aggressive / 5,"Hellmuth ch.4,6",0.22000000000000003,0.14,0.68,0.094,0.89,0.065,0.2,0.45,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S11,steal,Position and blind stealing / 1,Hellmuth ch.6; Brokos ch.1,0.14,0.32,0.57,0.046000000000000006,0.25,0.07,0.2,0.5,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S12,steal,Position and blind stealing / 2,Hellmuth ch.6; Brokos ch.1,0.165,0.32,0.595,0.05800000000000001,0.33,0.085,0.2,0.5,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S13,steal,Position and blind stealing / 3,Hellmuth ch.6; Brokos ch.1,0.19,0.32,0.62,0.07,0.45,0.1,0.2,0.5,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S14,steal,Position and blind stealing / 4,Hellmuth ch.6; Brokos ch.1,0.215,0.32,0.645,0.082,0.5700000000000001,0.115,0.2,0.5,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S15,steal,Position and blind stealing / 5,Hellmuth ch.6; Brokos ch.1,0.24,0.32,0.67,0.094,0.69,0.13,0.2,0.5,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S16,lag,Loose aggressive pressure / 1,"Hellmuth ch.6, opponent archetypes",0.3,0.23,0.5199999999999999,0.036,0.41000000000000003,0.11000000000000001,0.5,0.7,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S17,lag,Loose aggressive pressure / 2,"Hellmuth ch.6, opponent archetypes",0.32499999999999996,0.23,0.5449999999999999,0.048,0.53,0.125,0.5,0.7,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S18,lag,Loose aggressive pressure / 3,"Hellmuth ch.6, opponent archetypes",0.35,0.23,0.57,0.06,0.65,0.14,0.5,0.7,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S19,lag,Loose aggressive pressure / 4,"Hellmuth ch.6, opponent archetypes",0.375,0.23,0.595,0.072,0.77,0.15500000000000003,0.5,0.7,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S20,lag,Loose aggressive pressure / 5,"Hellmuth ch.6, opponent archetypes",0.39999999999999997,0.23,0.62,0.08399999999999999,0.89,0.17,0.5,0.7,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S21,value,Low-bluff value extraction / 1,Dangel ch.6 pp.132-134; Hellmuth ch.3,0.16999999999999998,0.14,0.5,0.046000000000000006,0.66,0.0,0.05,0.05,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S22,value,Low-bluff value extraction / 2,Dangel ch.6 pp.132-134; Hellmuth ch.3,0.195,0.14,0.525,0.05800000000000001,0.78,0.0,0.05,0.05,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S23,value,Low-bluff value extraction / 3,Dangel ch.6 pp.132-134; Hellmuth ch.3,0.22,0.14,0.55,0.07,0.9,0.0,0.05,0.05,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S24,value,Low-bluff value extraction / 4,Dangel ch.6 pp.132-134; Hellmuth ch.3,0.245,0.14,0.5750000000000001,0.082,1.02,0.0,0.05,0.05,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S25,value,Low-bluff value extraction / 5,Dangel ch.6 pp.132-134; Hellmuth ch.3,0.27,0.14,0.6000000000000001,0.094,1.1400000000000001,0.0,0.05,0.05,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S26,station_exploit,Observed caller exploitation / 1,"Hellmuth ch.3-4, elephant; Dangel ch.5",0.18,0.14,0.5299999999999999,0.046000000000000006,0.56,0.010000000000000002,0.2,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,True,0.0
+S27,station_exploit,Observed caller exploitation / 2,"Hellmuth ch.3-4, elephant; Dangel ch.5",0.20500000000000002,0.14,0.5549999999999999,0.05800000000000001,0.68,0.025,0.2,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,True,0.0
+S28,station_exploit,Observed caller exploitation / 3,"Hellmuth ch.3-4, elephant; Dangel ch.5",0.23,0.14,0.58,0.07,0.8,0.04,0.2,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,True,0.0
+S29,station_exploit,Observed caller exploitation / 4,"Hellmuth ch.3-4, elephant; Dangel ch.5",0.255,0.14,0.605,0.082,0.92,0.055,0.2,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,True,0.015
+S30,station_exploit,Observed caller exploitation / 5,"Hellmuth ch.3-4, elephant; Dangel ch.5",0.28,0.14,0.63,0.094,1.04,0.07,0.2,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,True,0.03
+S31,bluffcatch,Aggression-aware bluff catching / 1,"Hellmuth ch.3-4, jackal; Dangel ch.5",0.19,0.14,0.6499999999999999,-0.014,0.41000000000000003,0.0,0.2,0.3,0.0,0.0,0.0,0.5,False,0.0,0.9,False,True,0.0
+S32,bluffcatch,Aggression-aware bluff catching / 2,"Hellmuth ch.3-4, jackal; Dangel ch.5",0.215,0.14,0.6749999999999999,-0.002,0.53,0.0,0.2,0.3,0.0,0.0,0.0,0.5,False,0.0,0.9,False,True,0.0
+S33,bluffcatch,Aggression-aware bluff catching / 3,"Hellmuth ch.3-4, jackal; Dangel ch.5",0.24,0.14,0.7,0.01,0.65,0.01,0.2,0.3,0.0,0.0,0.0,0.5,False,0.0,0.9,False,True,0.0
+S34,bluffcatch,Aggression-aware bluff catching / 4,"Hellmuth ch.3-4, jackal; Dangel ch.5",0.265,0.14,0.725,0.022,0.77,0.025,0.2,0.3,0.0,0.0,0.0,0.5,False,0.0,0.9,False,True,0.015
+S35,bluffcatch,Aggression-aware bluff catching / 5,"Hellmuth ch.3-4, jackal; Dangel ch.5",0.29,0.14,0.75,0.034,0.89,0.04,0.2,0.3,0.0,0.0,0.0,0.5,False,0.0,0.9,False,True,0.03
+S36,odds,Pot odds and disciplined folds / 1,Dangel ch.6-8; Brokos ch.1 pp.36-38,0.2,0.14,0.6,0.005999999999999998,0.41000000000000003,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.96,False,False,0.0
+S37,odds,Pot odds and disciplined folds / 2,Dangel ch.6-8; Brokos ch.1 pp.36-38,0.225,0.14,0.625,0.018,0.53,0.0,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.96,False,False,0.0
+S38,odds,Pot odds and disciplined folds / 3,Dangel ch.6-8; Brokos ch.1 pp.36-38,0.25,0.14,0.65,0.03,0.65,0.01,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.96,False,False,0.0
+S39,odds,Pot odds and disciplined folds / 4,Dangel ch.6-8; Brokos ch.1 pp.36-38,0.275,0.14,0.675,0.041999999999999996,0.77,0.025,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.96,False,False,0.015
+S40,odds,Pot odds and disciplined folds / 5,Dangel ch.6-8; Brokos ch.1 pp.36-38,0.3,0.14,0.7000000000000001,0.054,0.89,0.04,0.2,0.1,0.0,0.0,0.0,0.0,False,0.0,0.96,False,False,0.03
+S41,semibluff,Draw-based semi-bluffing / 1,Brokos ch.2 pp.57-59; ch.3 pp.84-86,0.21000000000000002,0.14,0.57,0.046000000000000006,0.41000000000000003,0.0,0.72,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S42,semibluff,Draw-based semi-bluffing / 2,Brokos ch.2 pp.57-59; ch.3 pp.84-86,0.23500000000000001,0.14,0.595,0.05800000000000001,0.53,0.0,0.72,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S43,semibluff,Draw-based semi-bluffing / 3,Brokos ch.2 pp.57-59; ch.3 pp.84-86,0.26,0.14,0.62,0.07,0.65,0.01,0.72,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S44,semibluff,Draw-based semi-bluffing / 4,Brokos ch.2 pp.57-59; ch.3 pp.84-86,0.28500000000000003,0.14,0.645,0.082,0.77,0.025,0.72,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S45,semibluff,Draw-based semi-bluffing / 5,Brokos ch.2 pp.57-59; ch.3 pp.84-86,0.31,0.14,0.67,0.094,0.89,0.04,0.72,0.3,0.0,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S46,protection,Equity denial and protection / 1,Brokos ch.2 pp.57-59; Dangel ch.6,0.2,0.14,0.5599999999999999,0.046000000000000006,0.25,0.020000000000000004,0.2,0.25,0.0,0.0,0.75,0.0,False,0.0,0.9,False,False,0.0
+S47,protection,Equity denial and protection / 2,Brokos ch.2 pp.57-59; Dangel ch.6,0.225,0.14,0.585,0.05800000000000001,0.33,0.035,0.2,0.25,0.0,0.0,0.75,0.0,False,0.0,0.9,False,False,0.0
+S48,protection,Equity denial and protection / 3,Brokos ch.2 pp.57-59; Dangel ch.6,0.25,0.14,0.61,0.07,0.45,0.05,0.2,0.25,0.0,0.0,0.75,0.0,False,0.0,0.9,False,False,0.0
+S49,protection,Equity denial and protection / 4,Brokos ch.2 pp.57-59; Dangel ch.6,0.275,0.14,0.635,0.082,0.5700000000000001,0.065,0.2,0.25,0.0,0.0,0.75,0.0,False,0.0,0.9,False,False,0.015
+S50,protection,Equity denial and protection / 5,Brokos ch.2 pp.57-59; Dangel ch.6,0.3,0.14,0.66,0.094,0.69,0.08,0.2,0.25,0.0,0.0,0.75,0.0,False,0.0,0.9,False,False,0.03
+S51,control,Equity realization and pot control / 1,Brokos ch.1 pp.36-38; ch.6 p.187,0.18,0.14,0.6399999999999999,0.046000000000000006,0.25,0.0,0.2,0.3,0.0,0.0,0.0,0.85,False,0.0,0.82,False,False,0.0
+S52,control,Equity realization and pot control / 2,Brokos ch.1 pp.36-38; ch.6 p.187,0.20500000000000002,0.14,0.6649999999999999,0.05800000000000001,0.33,0.010000000000000002,0.2,0.3,0.0,0.0,0.0,0.85,False,0.0,0.82,False,False,0.0
+S53,control,Equity realization and pot control / 3,Brokos ch.1 pp.36-38; ch.6 p.187,0.23,0.14,0.69,0.07,0.45,0.025,0.2,0.3,0.0,0.0,0.0,0.85,False,0.0,0.82,False,False,0.0
+S54,control,Equity realization and pot control / 4,Brokos ch.1 pp.36-38; ch.6 p.187,0.255,0.14,0.715,0.082,0.5700000000000001,0.04,0.2,0.3,0.0,0.0,0.0,0.85,False,0.0,0.82,False,False,0.015
+S55,control,Equity realization and pot control / 5,Brokos ch.1 pp.36-38; ch.6 p.187,0.28,0.14,0.74,0.094,0.69,0.055,0.2,0.3,0.0,0.0,0.0,0.85,False,0.0,0.82,False,False,0.03
+S56,polar,Polarized value and bluff pressure / 1,Brokos ch.3 pp.84-88; ch.4,0.19,0.14,0.69,0.046000000000000006,0.8600000000000001,0.09,0.4,0.3,0.0,0.0,0.0,0.0,True,0.0,0.9,False,False,0.0
+S57,polar,Polarized value and bluff pressure / 2,Brokos ch.3 pp.84-88; ch.4,0.215,0.14,0.715,0.05800000000000001,0.9800000000000001,0.105,0.4,0.3,0.0,0.0,0.0,0.0,True,0.0,0.9,False,False,0.0
+S58,polar,Polarized value and bluff pressure / 3,Brokos ch.3 pp.84-88; ch.4,0.24,0.14,0.74,0.07,1.1,0.12,0.4,0.3,0.0,0.0,0.0,0.0,True,0.0,0.9,False,False,0.0
+S59,polar,Polarized value and bluff pressure / 4,Brokos ch.3 pp.84-88; ch.4,0.265,0.14,0.765,0.082,1.2200000000000002,0.135,0.4,0.3,0.0,0.0,0.0,0.0,True,0.0,0.9,False,False,0.015
+S60,polar,Polarized value and bluff pressure / 5,Brokos ch.3 pp.84-88; ch.4,0.29,0.14,0.79,0.094,1.34,0.15,0.4,0.3,0.0,0.0,0.0,0.0,True,0.0,0.9,False,False,0.03
+S61,checkraise,Mixed check-raise defense / 1,Brokos ch.3 pp.84-86; ch.5,0.19,0.14,0.63,0.046000000000000006,0.41000000000000003,0.020000000000000004,0.55,0.3,0.2,0.65,0.0,0.0,False,0.0,0.9,False,False,0.0
+S62,checkraise,Mixed check-raise defense / 2,Brokos ch.3 pp.84-86; ch.5,0.215,0.14,0.655,0.05800000000000001,0.53,0.035,0.55,0.3,0.2,0.65,0.0,0.0,False,0.0,0.9,False,False,0.0
+S63,checkraise,Mixed check-raise defense / 3,Brokos ch.3 pp.84-86; ch.5,0.24,0.14,0.68,0.07,0.65,0.05,0.55,0.3,0.2,0.65,0.0,0.0,False,0.0,0.9,False,False,0.0
+S64,checkraise,Mixed check-raise defense / 4,Brokos ch.3 pp.84-86; ch.5,0.265,0.14,0.7050000000000001,0.082,0.77,0.065,0.55,0.3,0.2,0.65,0.0,0.0,False,0.0,0.9,False,False,0.015
+S65,checkraise,Mixed check-raise defense / 5,Brokos ch.3 pp.84-86; ch.5,0.29,0.14,0.7300000000000001,0.094,0.89,0.08,0.55,0.3,0.2,0.65,0.0,0.0,False,0.0,0.9,False,False,0.03
+S66,trap,Selective trapping / 1,Hellmuth ch.6; Dangel ch.6 pp.132-134,0.13,0.14,0.6499999999999999,0.046000000000000006,0.66,0.0,0.2,0.1,0.65,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S67,trap,Selective trapping / 2,Hellmuth ch.6; Dangel ch.6 pp.132-134,0.155,0.14,0.6749999999999999,0.05800000000000001,0.78,0.0,0.2,0.1,0.65,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S68,trap,Selective trapping / 3,Hellmuth ch.6; Dangel ch.6 pp.132-134,0.18,0.14,0.7,0.07,0.9,0.01,0.2,0.1,0.65,0.0,0.0,0.0,False,0.0,0.9,False,False,0.0
+S69,trap,Selective trapping / 4,Hellmuth ch.6; Dangel ch.6 pp.132-134,0.205,0.14,0.725,0.082,1.02,0.025,0.2,0.1,0.65,0.0,0.0,0.0,False,0.0,0.9,False,False,0.015
+S70,trap,Selective trapping / 5,Hellmuth ch.6; Dangel ch.6 pp.132-134,0.22999999999999998,0.14,0.75,0.094,1.1400000000000001,0.04,0.2,0.1,0.65,0.0,0.0,0.0,False,0.0,0.9,False,False,0.03
+S71,shortstack,Shallow-stack commitment / 1,Brokos ch.5 pp.160-170; Hellmuth ch.6,0.18,0.14,0.58,0.056,0.41000000000000003,0.020000000000000004,0.4,0.3,0.0,0.0,0.0,0.0,False,15.0,0.9,False,False,0.0
+S72,shortstack,Shallow-stack commitment / 2,Brokos ch.5 pp.160-170; Hellmuth ch.6,0.20500000000000002,0.14,0.605,0.068,0.53,0.035,0.4,0.3,0.0,0.0,0.0,0.0,False,15.0,0.9,False,False,0.0
+S73,shortstack,Shallow-stack commitment / 3,Brokos ch.5 pp.160-170; Hellmuth ch.6,0.23,0.14,0.63,0.08,0.65,0.05,0.4,0.3,0.0,0.0,0.0,0.0,False,15.0,0.9,False,False,0.0
+S74,shortstack,Shallow-stack commitment / 4,Brokos ch.5 pp.160-170; Hellmuth ch.6,0.255,0.14,0.655,0.092,0.77,0.065,0.4,0.3,0.0,0.0,0.0,0.0,False,15.0,0.9,False,False,0.015
+S75,shortstack,Shallow-stack commitment / 5,Brokos ch.5 pp.160-170; Hellmuth ch.6,0.28,0.14,0.68,0.10400000000000001,0.89,0.08,0.4,0.3,0.0,0.0,0.0,0.0,False,15.0,0.9,False,False,0.03
+S76,hybrid,"Position, draws and public-action adaptation / 1",Original combination: Hellmuth ch.6; Brokos ch.1-6; Dangel ch.5-8,0.18,0.23,0.57,0.046000000000000006,0.41000000000000003,0.020000000000000004,0.48,0.3,0.0,0.2,0.3,0.35,False,12.0,0.9,False,True,0.0
+S77,hybrid,"Position, draws and public-action adaptation / 2",Original combination: Hellmuth ch.6; Brokos ch.1-6; Dangel ch.5-8,0.20500000000000002,0.23,0.595,0.05800000000000001,0.53,0.035,0.48,0.3,0.0,0.2,0.3,0.35,False,12.0,0.9,False,True,0.0
+S78,hybrid,"Position, draws and public-action adaptation / 3",Original combination: Hellmuth ch.6; Brokos ch.1-6; Dangel ch.5-8,0.23,0.23,0.62,0.07,0.65,0.05,0.48,0.3,0.0,0.2,0.3,0.35,False,12.0,0.9,False,True,0.0
+S79,hybrid,"Position, draws and public-action adaptation / 4",Original combination: Hellmuth ch.6; Brokos ch.1-6; Dangel ch.5-8,0.255,0.23,0.645,0.082,0.77,0.065,0.48,0.3,0.0,0.2,0.3,0.35,False,12.0,0.9,False,True,0.015
+S80,hybrid,"Position, draws and public-action adaptation / 5",Original combination: Hellmuth ch.6; Brokos ch.1-6; Dangel ch.5-8,0.28,0.23,0.67,0.094,0.89,0.08,0.48,0.3,0.0,0.2,0.3,0.35,False,12.0,0.9,False,True,0.03
