@@ -4,6 +4,10 @@ Book-inspired poker policies, reproducible simulation experiments, and an
 evaluation against selected open-source example policies. This repository
 combines both stages of the project, their raw results, and one LaTeX report.
 
+**New: [Mac desktop GUI](desktop/README.md)** with an interactive six-player
+practice table, all 80 policies, calibrated screenshot reading, and a manual
+state review panel. See the setup guide before using screen capture.
+
 **Read the [compiled report](report/poker_agent_report.pdf) or its
 [LaTeX source](report/poker_agent_report.tex).**
 
@@ -35,6 +39,25 @@ event submission. Read the report's methodology and adapter limitations.
 | [`poker_lab/strategies.csv`](poker_lab/strategies.csv) | All 80 numerical configurations and conceptual attribution |
 | [`github_comparison/`](github_comparison/) | External-policy adapter, source downloader, results and source inventory |
 | [`poker_lab/tests/`](poker_lab/tests/) | Legality, determinism, information boundaries, equity and settlement checks |
+| [`desktop/`](desktop/) | Qt desktop GUI, practice table, calibrated vision, tests, and Mac setup guide |
+
+## Run the desktop GUI on Mac
+
+Requires macOS 13+ and Python 3.12, on Intel or Apple Silicon. Download this
+repository, extract it, and double-click **Launch Poker Lab.command**. The
+launcher installs the GUI dependencies in a local virtual environment on its
+first run. If Finder does not launch it, open Terminal in the extracted folder:
+
+```bash
+bash "Launch Poker Lab.command"
+```
+
+Practice mode works without a poker account or an OCR engine. Number reading
+additionally needs Tesseract; screen capture needs macOS Screen Recording
+permission. External layouts need calibration and matching card templates;
+betting history and table context require manual review. This is a source
+application, not a signed standalone `.app`. Read the [desktop guide](desktop/README.md)
+for setup, limitations, and validation.
 
 ## Install and test
 

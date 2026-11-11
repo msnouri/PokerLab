@@ -1,0 +1,127 @@
+{
+  "scope": "Binary dependency resolution only; not native Mac execution. Python 3.12, macOS 13+.",
+  "arm64": [
+    {
+      "package": "pokerkit",
+      "version": "0.7.7",
+      "wheel": "pokerkit-0.7.7-py3-none-any.whl"
+    },
+    {
+      "package": "eval7",
+      "version": "0.1.11",
+      "wheel": "eval7-0.1.11-cp312-cp312-macosx_10_13_universal2.whl"
+    },
+    {
+      "package": "numpy",
+      "version": "2.3.5",
+      "wheel": "numpy-2.3.5-cp312-cp312-macosx_11_0_arm64.whl"
+    },
+    {
+      "package": "PySide6_Essentials",
+      "version": "6.8.3",
+      "wheel": "PySide6_Essentials-6.8.3-cp39-abi3-macosx_12_0_universal2.whl"
+    },
+    {
+      "package": "pillow",
+      "version": "12.3.0",
+      "wheel": "pillow-12.3.0-cp312-cp312-macosx_11_0_arm64.whl"
+    },
+    {
+      "package": "opencv-python-headless",
+      "version": "4.11.0.86",
+      "wheel": "opencv_python_headless-4.11.0.86-cp37-abi3-macosx_13_0_arm64.whl"
+    },
+    {
+      "package": "mss",
+      "version": "10.2.0",
+      "wheel": "mss-10.2.0-py3-none-any.whl"
+    },
+    {
+      "package": "pytesseract",
+      "version": "0.3.13",
+      "wheel": "pytesseract-0.3.13-py3-none-any.whl"
+    },
+    {
+      "package": "shiboken6",
+      "version": "6.8.3",
+      "wheel": "shiboken6-6.8.3-cp39-abi3-macosx_12_0_universal2.whl"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "wheel": "packaging-26.3-py3-none-any.whl"
+    },
+    {
+      "package": "future",
+      "version": "1.0.0",
+      "wheel": "future-1.0.0-py3-none-any.whl"
+    },
+    {
+      "package": "pyparsing",
+      "version": "3.3.3",
+      "wheel": "pyparsing-3.3.3-py3-none-any.whl"
+    }
+  ],
+  "x86_64": [
+    {
+      "package": "pokerkit",
+      "version": "0.7.7",
+      "wheel": "pokerkit-0.7.7-py3-none-any.whl"
+    },
+    {
+      "package": "eval7",
+      "version": "0.1.11",
+      "wheel": "eval7-0.1.11-cp312-cp312-macosx_10_13_universal2.whl"
+    },
+    {
+      "package": "numpy",
+      "version": "2.3.5",
+      "wheel": "numpy-2.3.5-cp312-cp312-macosx_10_13_x86_64.whl"
+    },
+    {
+      "package": "PySide6_Essentials",
+      "version": "6.8.3",
+      "wheel": "PySide6_Essentials-6.8.3-cp39-abi3-macosx_12_0_universal2.whl"
+    },
+    {
+      "package": "pillow",
+      "version": "12.3.0",
+      "wheel": "pillow-12.3.0-cp312-cp312-macosx_10_13_x86_64.whl"
+    },
+    {
+      "package": "opencv-python-headless",
+      "version": "4.11.0.86",
+      "wheel": "opencv_python_headless-4.11.0.86-cp37-abi3-macosx_13_0_x86_64.whl"
+    },
+    {
+      "package": "mss",
+      "version": "10.2.0",
+      "wheel": "mss-10.2.0-py3-none-any.whl"
+    },
+    {
+      "package": "pytesseract",
+      "version": "0.3.13",
+      "wheel": "pytesseract-0.3.13-py3-none-any.whl"
+    },
+    {
+      "package": "shiboken6",
+      "version": "6.8.3",
+      "wheel": "shiboken6-6.8.3-cp39-abi3-macosx_12_0_universal2.whl"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "wheel": "packaging-26.3-py3-none-any.whl"
+    },
+    {
+      "package": "future",
+      "version": "1.0.0",
+      "wheel": "future-1.0.0-py3-none-any.whl"
+    },
+    {
+      "package": "pyparsing",
+      "version": "3.3.3",
+      "wheel": "pyparsing-3.3.3-py3-none-any.whl"
+    }
+  ]
+}

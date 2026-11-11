@@ -1,0 +1,16 @@
+{
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "frames": 20,
+  "scope": "Bundled table artwork; exact crops; engine supplies history/context. Excludes screen capture and human review. Not a Mac or external-client benchmark.",
+  "street_board_counts": {
+    "0": 4,
+    "3": 7,
+    "4": 6,
+    "5": 3
+  },
+  "fully_correct_frames": 20,
+  "median_pipeline_ms": 623.44,
+  "max_pipeline_ms": 799.7,
+  "failures": []
+}
