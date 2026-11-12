@@ -30,7 +30,7 @@ class VisionProcess:
     def __init__(self,layout,folder,backend='auto',epoch=0):
         self.layout=layout;self.folder=str(folder);self.backend=backend;self.epoch=epoch
         self.ctx=mp.get_context('spawn');self.process=None
-        self.replaced=0;self.restarts=0;self.active_at=None;self.pending=None;self.busy=False;self.ready=False;self.failed=False;self.boot_at=0;self.engine='Starting OCR'
+        self.replaced=0;self.restarts=0;self.active_at=None;self.pending=None;self.latest_job=None;self.busy=False;self.ready=False;self.failed=False;self.boot_at=0;self.engine='Starting OCR'
         self._start()
 
     def _start(self):
@@ -42,6 +42,7 @@ class VisionProcess:
         job={'id':frame_id,'at':captured_at,'source':source,'size':image.size,'pixels':image.convert('RGB').tobytes(),'epoch':self.epoch}
         if self.pending is not None:self.replaced+=1
         self.pending=job
+        self.latest_job=job
         self.flush_pending()
 
     def flush_pending(self):
@@ -61,9 +62,10 @@ class VisionProcess:
             if 'error' in msg:self.ready=False;self.failed=True
             messages.append(msg)
         now=time.monotonic()
-        expired=(self.active_at and now-self.active_at>2.2) or (self.boot_at and now-self.boot_at>30)
+        expired=(self.active_at and now-self.active_at>5) or (self.boot_at and now-self.boot_at>30)
         if expired:
-            self.stop();self.restarts+=1
+            retry=self.pending or self.latest_job
+            self.stop();self.pending=retry;self.latest_job=retry;self.restarts+=1
             messages.append({'error':'Vision deadline exceeded; old result discarded'})
             if self.restarts<3:self._start()
         elif self.process and not self.process.is_alive() and not self.failed and not any('error' in m for m in messages):

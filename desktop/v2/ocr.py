@@ -14,7 +14,7 @@ class TextRead:
 
 
 def map_text_boxes(boxes,regions):
-    """Map whole OCR lines to calibrated regions; crossing lines stay unknown."""
+    """Map OCR boxes to single-value regions; crossing boxes stay unknown."""
     grouped={key:[] for key in regions}
     for x,y,w,h,text,score in boxes:
         matches=[]
@@ -23,7 +23,7 @@ def map_text_boxes(boxes,regions):
             if rx<=x+w/2<=rx+rw and ry<=y+h/2<=ry+rh and overlap>=.8*w*h:
                 matches.append(key)
         if len(matches)==1:grouped[matches[0]].append((y,x,text,score))
-    return {key:TextRead(' '.join(b[2] for b in sorted(rows)),min((b[3] for b in rows),default=0.))
+    return {key:TextRead(' '.join(b[2] for b in sorted(rows,key=lambda b:b[1])),min((b[3] for b in rows),default=0.))
             for key,rows in grouped.items()}
 
 
@@ -57,8 +57,17 @@ class AppleVision:
             for obs in req.results() or []:
                 choices=obs.topCandidates_(1)
                 if choices:
-                    box=obs.boundingBox();x,y=box.origin.x,box.origin.y;w,h=box.size.width,box.size.height
-                    boxes.append((float(x),float(1-y-h),float(w),float(h),str(choices[0].string()),float(choices[0].confidence())))
+                    candidate=choices[0];value=str(candidate.string());score=float(candidate.confidence())
+                    # A line may contain both adjacent stack/bet or status/dealer
+                    # values. Use word geometry instead of assigning the line to
+                    # one field. NSRange offsets are UTF-16 code units.
+                    for match in re.finditer(r'\S+',value):
+                        offset=len(value[:match.start()].encode('utf-16-le'))//2
+                        length=len(match[0].encode('utf-16-le'))//2
+                        word,error=candidate.boundingBoxForRange_error_((offset,length),None)
+                        if word is None:continue
+                        box=word.boundingBox();x,y=box.origin.x,box.origin.y;w,h=box.size.width,box.size.height
+                        boxes.append((float(x),float(1-y-h),float(w),float(h),match[0],score))
             return boxes
 
     def recognize_fields(self,image,regions,accurate=False):

@@ -72,10 +72,23 @@ class StudioGuiTests(unittest.TestCase):
 
     def test_live_expiry_withholds_values_and_export_marks_age(self):
         from desktop.v2.state import Snapshot,Field
-        self.studio.snapshot=Snapshot(1,time.monotonic()-3,'test',{'pot':Field('pot',100,'read',1)})
-        self.studio.pending=False;self.studio.live=True
+        self.studio.snapshot=Snapshot(1,time.monotonic()-6,'test',{'pot':Field('pot',100,'read',1)})
+        self.studio.pending=False;self.studio.live=True;self.studio.playing=True
         self.assertEqual(self.studio.values,{})
         self.assertFalse(self.studio.observation_export()['validity']['current'])
+
+    def test_paused_capture_can_be_read_without_claiming_freshness(self):
+        from desktop.v2.state import Snapshot,Field
+        snap=Snapshot(self.studio.frame_id,time.monotonic()-10,'paused',{'pot':Field('pot',100,'read',1)})
+        message={'snapshot':snap,'epoch':self.studio.epoch,'raw_hashes':self.studio.latest_hashes,'hashes':{}}
+        class FakeWorker:
+            def poll(self):return [message]
+            def stop(self):pass
+        self.studio.worker=FakeWorker();self.studio.live=True;self.studio.playing=False
+        self.studio.poll()
+        self.assertIs(self.studio.snapshot,snap)
+        self.assertFalse(self.studio.observation_export()['validity']['current'])
+        self.assertIn('Paused',self.studio.info['status'])
 
 
 if __name__=='__main__':unittest.main()

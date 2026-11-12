@@ -11,10 +11,10 @@ The previous strategy workbench remains available with `--classic`.
 | Goal | Implemented in Studio | How to check it |
 |---|---|---|
 | Smooth interaction during recognition | Qt Quick interface; capture callbacks, OCR and image registration run outside the UI thread; one persistent recognition process | UI heartbeat dispatch P95/P99 in Diagnostics; test all four views; test while replay is advancing |
-| Fast, fresh updates | Exact-pixel field cache; persistent OCR and card features; capture-to-UI mailbox keeps only the latest image; one OCR processing frame and one replaceable pending frame; 1.7 s reading budget and 2.2 s worker watchdog | Changed-image and repeated-image timings are reported separately; old results are discarded; watchdog and both queue tests |
+| Fast, fresh updates | Exact-pixel field cache; persistent OCR and card features; capture-to-UI mailbox keeps only the latest image; one OCR processing frame and one replaceable pending frame; 3.5 s soft reading budget and 5 s worker watchdog | Changed-image and repeated-image timings are reported separately; old results are discarded; watchdog and both queue tests |
 | Reliable Mac window tracking | ScreenCaptureKit selected-window capture, configured at 20 fps; explicit high-resolution output capped at 1920 × 1300; window-size updates and optional visual anchor registration | Move and resize the selected window on the target Mac; lost anchors reject the state; normalized coordinates avoid desktop-offset assumptions |
 | Faster calibration | Card-region proposals, drag-to-set regions, explicit confirmation, labelled card/indicator examples, learned empty board slots, reusable layouts | Table setup overlays; proposals remain unread until confirmed; new artwork requires examples |
-| Visible uncertainty | Per-field unknown/read/confirmed/stale states; card/chip/dealer checks; two matching observations; live expiry after 2 s; manual correction tied to exact pixels | Coverage and critical-field counts; conflicting/expired readings are withheld; export includes validity and missing critical fields |
+| Visible uncertainty | Per-field unknown/read/confirmed/stale states; card/chip/dealer checks; two matching observations; live expiry after 5 s; manual correction tied to exact pixels | Coverage and critical-field counts; conflicting/expired readings are withheld; export includes validity and missing critical fields |
 
 These are implemented design improvements, not a measured speed or accuracy
 victory over `dickreuter/Poker`. That project already uses background Qt work
@@ -46,7 +46,8 @@ There is no Windows capture implementation in this version.
 
 Apple Vision reads changed text regions in a shared full-image pass, with a
 second accurate pass when needed, rather than making a separate native request
-for every field. Text lines crossing field boundaries are withheld. OCR models
+for every field. Word geometry separates adjacent fields; text boxes crossing
+field boundaries are withheld. OCR models
 warm up once in the background before the first timed frame; startup has a
 separate 30-second bound. PyObjC dependencies are aligned at 12.1 to avoid the
 CoreMedia 13.0 Intel-wheel loading failure found by native CI.

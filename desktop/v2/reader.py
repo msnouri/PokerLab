@@ -101,7 +101,7 @@ class IncrementalReader:
                 except ValueError as exc:self.batch[key]=(None,read.score,str(exc));continue
                 self.batch[key]=(value,read.score,'');pending.pop(key)
 
-    def read(self,image,frame_id,captured_at,source='image',budget=1.7):
+    def read(self,image,frame_id,captured_at,source='image',budget=3.5):
         start=time.monotonic();deadline=start+budget;fields={};calls=hits=0;attempts_before=self.attempts
         try:image,_,_=self.registration.align(image)
         except ValueError as exc:
@@ -124,10 +124,13 @@ class IncrementalReader:
                     hits+=1;continue
                 value,score,n=self.read_one(spec,im,deadline);calls+=n
                 f.value=value;f.score=score;f.quality='read';f.reason=''
-                self.cache[key]=(signature,start,f)
+                self.cache[key]=(signature,time.monotonic(),f)
             except (ValueError,RuntimeError,OSError,TimeoutError) as exc:
                 f.reason=str(exc)
-                self.cache.pop(key,None)
+                # Abstention is cached as UNKNOWN, never converted into a read.
+                # Unchanged unreadable artwork must not force full OCR every tick.
+                if key in hashes:self.cache[key]=(hashes[key],time.monotonic(),f)
+                else:self.cache.pop(key,None)
         snap=Snapshot(frame_id,captured_at,source,fields,read_ms=(time.monotonic()-start)*1000,
                       ocr_calls=self.attempts-attempts_before,cache_hits=hits,table_context={'seats':self.layout.seats,'hero':self.layout.hero,'chip_scale':self.layout.scale})
         validate_snapshot(snap,self.layout.seats,self.layout.hero)

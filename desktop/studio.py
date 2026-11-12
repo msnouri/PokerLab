@@ -13,7 +13,7 @@ from PySide6.QtWidgets import QApplication,QFileDialog
 from .vision import crop
 from .v2.layout import Layout,propose_cards,Registration
 from .v2.reader import critical_keys,readiness,digest
-from .v2.state import Tracker,Field
+from .v2.state import Tracker,Field,MAX_LIVE_AGE
 from .v2.ocr import decode_text
 from .v2.runtime import VisionProcess
 from .v2.metrics import Metrics
@@ -80,8 +80,9 @@ class Studio(QObject):
         snap=self.snapshot;metrics=self.metrics.summary()
         label,missing=readiness(snap,self.layout) if snap else ('Waiting for a frame',critical_keys(self.layout))
         if self.pending and snap:label='Table changed · reading'
-        if self.live and snap and time.monotonic()-snap.captured_at>2:
+        if self.live and snap and time.monotonic()-snap.captured_at>MAX_LIVE_AGE:
             label='Snapshot expired'
+        if self.live and not self.playing:label='Paused · calibration frame'
         if self.worker is None and self.start_worker:label='Vision paused'
         age=(time.monotonic()-snap.captured_at)*1000 if snap else None
         return {'source':self.source,'live':self.live,'playing':self.playing,'recording':self.recording,
@@ -134,13 +135,14 @@ class Studio(QObject):
         return {k:f.value for k,f in self.snapshot.fields.items() if f.known} if self.observation_current() else {}
 
     def observation_current(self):
-        return bool(self.snapshot and not self.pending and (not self.live or time.monotonic()-self.snapshot.captured_at<=2))
+        return bool(self.snapshot and not self.pending and (not self.live or (self.playing and time.monotonic()-self.snapshot.captured_at<=MAX_LIVE_AGE)))
 
     def observation_export(self):
         if not self.snapshot:return None
         label,missing=readiness(self.snapshot,self.layout)
         return {'snapshot':self.snapshot.to_dict(),'events':self.tracker.events,'metrics':self.metrics.summary(),
                 'validity':{'current':self.observation_current(),'pixels_changed':self.pending,
+                            'live_source':self.live,'capture_active':bool(self.live and self.playing),
                             'source_age_ms':round((time.monotonic()-self.snapshot.captured_at)*1000),
                             'readiness':label,'missing_critical_fields':missing},
                 'exported_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())}
@@ -214,7 +216,7 @@ class Studio(QObject):
             if snap is None:continue
             if msg['epoch']!=self.epoch or (self.snapshot and snap.frame_id<=self.snapshot.frame_id):continue
             age=(time.monotonic()-snap.captured_at)*1000
-            if self.live and age>2000:self.metrics.stale+=1;continue
+            if self.live and self.playing and age>MAX_LIVE_AGE*1000:self.metrics.stale+=1;continue
             if self.latest_hashes!=msg.get('raw_hashes',{}):
                 self.metrics.stale+=1;continue
             self.accepted_hashes=msg.get('raw_hashes',{});self.pending=False
@@ -222,7 +224,7 @@ class Studio(QObject):
                 if msg['hashes'].get(key)==signature:snap.fields[key]=Field(key,value,'confirmed',1.,'Manually corrected',snap.captured_at)
                 else:self.overrides.pop(key,None)
             self.tracker.accept(snap,self.layout.seats,self.layout.hero);self.snapshot=snap
-            if not self.live and not self.static_confirmed:
+            if (not self.live or not self.playing) and not self.static_confirmed:
                 self.static_confirmed=True
                 QTimer.singleShot(70,self.confirm_static)
             self.metrics.processing.append(snap.read_ms);self.metrics.age.append(age)
@@ -240,8 +242,10 @@ class Studio(QObject):
             self.changed.emit()
 
     def confirm_static(self):
-        if self.last_image is not None and not self.live:
-            self.frame_id+=1;self.last_stamp=time.monotonic();self.frame_ring[self.frame_id]=self.last_image;self.submit()
+        if self.last_image is not None and (not self.live or not self.playing):
+            self.frame_id+=1
+            if not self.live:self.last_stamp=time.monotonic()
+            self.frame_ring[self.frame_id]=self.last_image;self.submit()
 
     @Slot(str)
     def selectField(self,key):self.selected=key;self.changed.emit()
@@ -316,7 +320,8 @@ class Studio(QObject):
 
     @Slot(str)
     def correct(self,value):
-        if not self.observation_current() or self.selected not in self.layout.regions:
+        reviewable=bool(self.snapshot and not self.pending and (self.observation_current() or (self.live and not self.playing)))
+        if not reviewable or self.selected not in self.layout.regions:
             self.set_error('Wait for a current reading before correcting it');return
         try:
             spec=next(s for s in self.layout.specs if s['key']==self.selected)

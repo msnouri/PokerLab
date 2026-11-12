@@ -6,6 +6,7 @@ import time
 from typing import Any
 
 SCHEMA_VERSION = 2
+MAX_LIVE_AGE = 5.
 STATUSES = {'active', 'folded', 'all-in', 'empty', 'unknown'}
 
 

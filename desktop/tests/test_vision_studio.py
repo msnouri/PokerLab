@@ -197,7 +197,7 @@ class RealRecognitionTests(unittest.TestCase):
         _,p,_=sample_frames(1)[0]
         v=VisionProcess(p,Path('.'),backend='auto');old=v.process
         try:
-            v.active_at=time.monotonic()-3;v.boot_at=0
+            v.active_at=time.monotonic()-6;v.boot_at=0
             messages=v.poll()
             self.assertFalse(old.is_alive());self.assertEqual(v.restarts,1)
             self.assertTrue(any('deadline' in m.get('error','') for m in messages))
