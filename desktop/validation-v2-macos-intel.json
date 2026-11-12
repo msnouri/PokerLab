@@ -1,0 +1,66 @@
+{
+  "scope": "Generated or independently labelled image replay. Excludes native screen capture, UI paint, human review and one-time worker/model startup. Not a commercial-client or relative-to-Dickreuter benchmark.",
+  "platform": "macOS-15.7.9-x86_64-i386-64bit",
+  "backend": "Apple Vision · on device",
+  "frames": 24,
+  "fully_correct_frames": 19,
+  "critical_correct_frames": 22,
+  "fields_total": 1272,
+  "fields_read": 1267,
+  "fields_wrong": 0,
+  "coverage": 0.99607,
+  "accepted_field_accuracy": 1,
+  "changed_frame_p50_ms": 1933.38,
+  "changed_frame_p95_ms": 3470.8,
+  "changed_frame_p99_ms": 3721.01,
+  "repeat_p50_ms": 4.52,
+  "ocr_calls": 182,
+  "cache_hits": 921,
+  "repeat_ocr_calls": 8,
+  "repeat_cache_hits": 1248,
+  "failures": [
+    {
+      "frame": 0,
+      "wrong": {},
+      "unknown": [
+        "seat_2_stack"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 1,
+      "wrong": {},
+      "unknown": [
+        "seat_2_stack"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 7,
+      "wrong": {},
+      "unknown": [
+        "min_raise_to"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 11,
+      "wrong": {},
+      "unknown": [
+        "min_raise_to"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 15,
+      "wrong": {},
+      "unknown": [
+        "seat_0_name"
+      ],
+      "issues": []
+    }
+  ],
+  "fixture_calibration": "Bundled card art and independent labelled ON/OFF/status and single-digit examples from write_examples(); other text/amounts use OCR. No per-hand labels enter the reader.",
+  "validation_commit": "9fd78931de88d290f1d13b8e4c8295a4388c457c",
+  "workflow_run": "https://github.com/msnouri/PokerLab/actions/runs/43161034151"
+}
