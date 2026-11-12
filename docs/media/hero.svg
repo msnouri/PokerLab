@@ -23,9 +23,9 @@
     <rect x="850" y="84" width="488" height="246" rx="110" fill="#163f37" stroke="#4b7360" stroke-width="2"/>
     <rect x="870" y="104" width="448" height="206" rx="94" fill="none" stroke="#2a594a"/>
     <text x="1094" y="150" text-anchor="middle" fill="#8db9a3" font-size="11" letter-spacing="3">OBSERVE / REVIEW / REPLAY</text>
-    <g transform="translate(981 177) rotate(-10)"><rect width="65" height="89" rx="8" fill="#e6ece1"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">A</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>
-    <g transform="translate(1071 163)"><rect width="65" height="89" rx="8" fill="#e6ece1"/><text x="11" y="31" fill="#ad575e" font-size="24" font-weight="700">K</text><path d="M33 72 13 52C-2 32 23 27 33 43c10-16 35-11 20 9Z" fill="#ad575e"/></g>
-    <g transform="translate(1156 177) rotate(10)"><rect width="65" height="89" rx="8" fill="#e6ece1"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">Q</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>
+    <g transform="translate(981 177) rotate(-10)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">A</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>
+    <g transform="translate(1071 163)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#d00000" font-size="24" font-weight="700">K</text><path d="M33 72 13 52C-2 32 23 27 33 43c10-16 35-11 20 9Z" fill="#d00000"/></g>
+    <g transform="translate(1156 177) rotate(10)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">Q</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>
     <rect x="830" y="51" width="129" height="31" rx="15" fill="#223d37" stroke="#4b7360"/><text x="894" y="71" text-anchor="middle" fill="#b6e2c9" font-size="11">LOCAL PROCESSING</text>
     <rect x="1168" y="309" width="180" height="31" rx="15" fill="#22302c" stroke="#74694a"/><text x="1258" y="329" text-anchor="middle" fill="#e5cb8e" font-size="11">VISIBLE UNCERTAINTY</text>
   </g>

@@ -25,16 +25,16 @@ def font(size):
 
 def card_image(card, size=(64, 88)):
     """Original practice card art, also used by the bundled template bank."""
-    im = Image.new("RGB", (64, 88), "#f7f8f6")
+    im = Image.new("RGB", (64, 88), "#fafafa")
     d = ImageDraw.Draw(im)
-    d.rounded_rectangle((0, 0, 63, 87), 5, fill="#f7f8f6", outline="#c8cecd", width=2)
+    d.rounded_rectangle((0, 0, 63, 87), 5, fill="#fafafa", outline="#c8cecd", width=2)
     if card is None:
         d.rounded_rectangle((5, 5, 58, 82), 3, fill="#203c47")
         for y in range(12, 80, 10):
             d.line((9, y, 54, y), fill="#345862", width=2)
     else:
         rank, suit = card
-        color = "#cb4556" if suit in "dh" else "#15242b"
+        color = "#d00000" if suit in "dh" else "#15242b"
         d.text((7, 4), rank, fill=color, font=font(27))
         cx, cy = 32, 58
         if suit == "d":

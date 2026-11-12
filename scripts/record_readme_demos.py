@@ -86,17 +86,21 @@ def main():
             evidence.append({'frame':studio.frame_id,'replay_index':index,'fields_read':studio.info['read'],
                              'ocr_engine':studio.engine,'stable':studio.snapshot.stable})
             hold(window,'Follow the hand through the pixels.','Generated replay advances; the actual worker reads the changed image.','01 / VISION',1)
+        window.grabWindow().save(str(ROOT/'desktop/previews/studio-overview.png'))
         window.setProperty('page',1);window.setProperty('overlays',True)
         studio.selectField('hole_1')
         hold(window,'Calibrate once. Keep the evidence.','Inspect field regions and teach labelled visual examples.','02 / TABLE SETUP',1.5)
         studio.selectField('pot');window.setProperty('filterGroup','Table')
         hold(window,'Every field has a visible source.','The highlighted region connects a reading to its table pixels.','02 / TABLE SETUP',1.5)
+        window.grabWindow().save(str(ROOT/'desktop/previews/studio-setup.png'))
         window.setProperty('page',2);window.setProperty('overlays',False)
         for index in (4,5):
             studio.seek(index);ready()
             hold(window,'Replay a decision. Review what changed.','Step through observations before building a stronger policy.','03 / REPLAY LAB',1)
+        window.grabWindow().save(str(ROOT/'desktop/previews/studio-replay.png'))
         window.setProperty('page',3)
         hold(window,'Measure responsiveness and reading coverage.','Diagnostics distinguish recognition, source age and queued UI dispatch.','04 / DIAGNOSTICS',2)
+        window.grabWindow().save(str(ROOT/'desktop/previews/studio-diagnostics.png'))
         clips['vision-tour.gif']=frames;frames=[]
     finally:
         studio.close();window.close();app.processEvents()
@@ -122,6 +126,8 @@ def main():
             evidence.append({'strategy':sid,'action':workbench.latest['action'],
                              'policy_details':workbench.latest['policy_details']})
             hold(workbench,'Compare policies on the same public state.','S55 stays the default; research options show their actual policy path.','05 / AGENT LAB',1.75,True)
+        workbench.grab().save(str(ROOT/'desktop/preview.png'))
+        workbench.grab().save(str(ROOT/'research/figures/research-agent-gui.png'))
         workbench.use_suggestion()
         until=time.monotonic()+10
         while workbench.practice_busy and time.monotonic()<until:pump(.025)
@@ -137,7 +143,16 @@ def main():
             draw=ImageDraw.Draw(image)
             draw.line((24,image.height-8,image.width-24,image.height-8),fill='#233f3b',width=3)
             draw.line((24,image.height-8,24+(image.width-48)*(index+1)/len(images),image.height-8),fill='#b6e2c9',width=3)
-        images=[im.quantize(colors=128,method=Image.Quantize.MEDIANCUT,dither=Image.Dither.NONE) for im in images]
+        encoded=[]
+        for image in images:
+            # Adaptive GIF palettes can drop tiny red suit marks among a large
+            # green UI. Reserve exact foreground/face colors before quantizing.
+            palette=image.quantize(colors=253,method=Image.Quantize.MEDIANCUT)
+            colors=palette.getpalette();colors.extend([0]*(768-len(colors)))
+            colors[759:768]=[208,0,0,250,250,250,21,36,43]
+            palette.putpalette(colors)
+            encoded.append(image.quantize(palette=palette,dither=Image.Dither.NONE))
+        images=encoded
         images[0].save(path,save_all=True,append_images=images[1:],duration=250,loop=0,optimize=True,disposal=1)
         outputs.append({'path':str(path.relative_to(ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                         'bytes':path.stat().st_size,'duration_ms':len(images)*250,'size':images[0].size})

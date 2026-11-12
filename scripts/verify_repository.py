@@ -44,6 +44,10 @@ def main():
         path=ROOT/item['path'];assert hashlib.sha256(path.read_bytes()).hexdigest()==item['sha256']
         with Image.open(path) as image:
             assert image.is_animated and image.n_frames>1
+            if path.name=='vision-tour.gif':
+                colors=image.convert('RGB').getcolors(image.width*image.height)
+                red_pixels=sum(count for count,(r,g,b) in colors if r>180 and g<40 and b<40)
+                assert red_pixels>=10,'GIF palette lost the red suit marks'
             duration=sum(f.info.get('duration',0) for f in ImageSequence.Iterator(image))
             assert duration==item['duration_ms'],(path,duration,item['duration_ms'])
         assert item['bytes']<8_000_000,'README GIF exceeds 8 MB budget'

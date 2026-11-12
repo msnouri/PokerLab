@@ -104,9 +104,9 @@ ApplicationWindow {
     }
     component ReadCard: Rectangle {
         property string keyName: ""
-        width: 48; height: 62; radius: 7; color: value(keyName) === "—" ? "#203339" : "#e7ece1"
+        width: 48; height: 62; radius: 7; color: value(keyName) === "—" ? "#203339" : "#fafafa"
         border.color: value(keyName) === "—" ? "#3c5558" : "#d2dbc9"
-        Text { anchors.centerIn: parent; text: cardText(keyName); color: /[hd]/.test(value(keyName)) ? "#b5535c" : value(keyName) === "—" ? "#72918d" : "#1d3437"; font.pixelSize: 20; font.weight: Font.DemiBold }
+        Text { anchors.centerIn: parent; text: cardText(keyName); color: /[hd]/.test(value(keyName)) ? "#d00000" : value(keyName) === "—" ? "#72918d" : "#1d3437"; font.pixelSize: 20; font.weight: Font.DemiBold }
     }
 
     Rectangle {

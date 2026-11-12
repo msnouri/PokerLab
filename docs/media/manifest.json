@@ -5,8 +5,8 @@
   "outputs": [
     {
       "path": "docs/media/vision-tour.gif",
-      "sha256": "4f1c97e7b476c08d3b3c1e4ce8d7f31ab15dd0a098689d277657ae6f4e6685e5",
-      "bytes": 1147356,
+      "sha256": "848025103f9e8059666c7843ae3b31916f976abee0e1cb8b2355e583dca703b1",
+      "bytes": 1337889,
       "duration_ms": 12000,
       "size": [
         1140,
@@ -15,8 +15,8 @@
     },
     {
       "path": "docs/media/agent-lab.gif",
-      "sha256": "5758dcd94d0c684b8bccabdaf945f95b5eacf0829c5a6c617a35cc93345b9e32",
-      "bytes": 769785,
+      "sha256": "41a67985efa929d0623a903940fc60156c88179c5f6a455b977295da19ed5401",
+      "bytes": 813821,
       "duration_ms": 8750,
       "size": [
         1140,
