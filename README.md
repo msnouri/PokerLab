@@ -1,5 +1,7 @@
 # Poker Agent Lab
 
+[![macOS Vision Studio checks](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml/badge.svg?branch=main)](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml)
+
 Book-inspired poker policies, reproducible simulation experiments, and an
 evaluation against selected open-source example policies. This repository
 combines both stages of the project, their raw results, and one LaTeX report.

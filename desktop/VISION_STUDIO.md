@@ -170,6 +170,7 @@ unlabelled or incomplete labels.
 ```bash
 make test-gui
 python -m desktop.v2.benchmark --backend vision --frames 24 --output mac-benchmark.json
+python -m desktop.v2.benchmark --backend vision --frames 24 --min-coverage 0.98 --min-critical-coverage 0.85 --output mac-ci-benchmark.json
 python -m desktop.v2.benchmark --backend vision --session /path/to/session.json --output replay-benchmark.json
 ```
 
@@ -231,7 +232,13 @@ decision benchmark. Strategy time is outside this version's scope.
 
 The [macOS CI workflow](../.github/workflows/macos-vision.yml) runs on Apple
 Silicon and Intel with API/stride-conversion checks, observation/worker/GUI
-tests and a native Apple Vision replay benchmark. CI does not grant Screen
+tests and a native Apple Vision replay benchmark. It runs on every push and
+pull request, including documentation commits. Both fresh and repeated reads
+must have zero wrong accepted values. CI also requires at least 98% field
+coverage and 85% of frames with all critical fields correct, so an unusable
+reader cannot pass merely by returning unknowns. Native Mac OCR initialization
+errors fail the suite rather than skipping recognition tests. These are fixture
+acceptance thresholds, not production accuracy guarantees. CI does not grant Screen
 Recording or validate a real poker client's live capture, Finder permissions,
 monitor changes or external artwork. Those require a session on the target Mac.
 

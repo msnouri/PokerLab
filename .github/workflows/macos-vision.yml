@@ -1,7 +1,7 @@
 name: macOS Vision Studio
 on:
   push:
-    paths: ['desktop/**/*.py', 'desktop/**/*.qml', 'desktop/assets/**', 'requirements-gui.txt', 'requirements-vision-test.txt', '.github/workflows/macos-vision.yml']
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
@@ -31,7 +31,7 @@ jobs:
         run: python -m unittest discover -s desktop/tests -v
       - name: Apple Vision labelled replay benchmark
         if: always()
-        run: python -m desktop.v2.benchmark --backend vision --frames 24 --output macos-vision-benchmark.json
+        run: python -m desktop.v2.benchmark --backend vision --frames 24 --min-coverage 0.98 --min-critical-coverage 0.85 --output macos-vision-benchmark.json
       - name: Add benchmark to run summary
         if: always()
         run: |

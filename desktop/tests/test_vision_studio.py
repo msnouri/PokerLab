@@ -216,7 +216,9 @@ class RealRecognitionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         try:cls.engine=make_engine('auto')
-        except Exception as e:raise unittest.SkipTest(str(e))
+        except Exception as e:
+            if sys.platform=='darwin':raise
+            raise unittest.SkipTest(str(e))
         if cls.engine.name.startswith('Tesseract · subprocess'):raise unittest.SkipTest('Native optional OCR is not installed')
 
     @classmethod
