@@ -1,0 +1,76 @@
+{
+  "scope": "Linux Qt Quick offscreen GUI smoke. Native Tesseract, generated replay, first nine frames. UI heartbeat excludes first second and is not physical click latency or FPS. Capture is not exercised.",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "frames": [
+    {
+      "frame": 0,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 1,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 2,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 3,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 4,
+      "read": 51,
+      "wrong": {},
+      "status": "Needs review"
+    },
+    {
+      "frame": 5,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 6,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 7,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    },
+    {
+      "frame": 8,
+      "read": 52,
+      "wrong": {},
+      "status": "Verified snapshot"
+    }
+  ],
+  "metrics": {
+    "frames": 9,
+    "stale_results_discarded": 0,
+    "timeouts": 0,
+    "complete_snapshots": 16,
+    "incomplete_snapshots": 2,
+    "read_p50_ms": 45.49,
+    "read_p95_ms": 191.31,
+    "read_p99_ms": 207.51,
+    "source_age_p95_ms": 415.17,
+    "ui_dispatch_p95_ms": 63.6,
+    "ui_dispatch_p99_ms": 86.69,
+    "ocr_calls": 203,
+    "cache_hits": 746,
+    "note": "UI dispatch measures queued heartbeat delivery, not physical click latency or screen refresh FPS."
+  }
+}

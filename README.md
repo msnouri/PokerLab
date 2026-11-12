@@ -4,9 +4,12 @@ Book-inspired poker policies, reproducible simulation experiments, and an
 evaluation against selected open-source example policies. This repository
 combines both stages of the project, their raw results, and one LaTeX report.
 
-**New: [Mac desktop GUI](desktop/README.md)** with an interactive six-player
-practice table, all 80 policies, calibrated screenshot reading, and a manual
-state review panel. See the setup guide before using screen capture.
+**New: [macOS Vision Studio](desktop/VISION_STUDIO.md)** — a Qt Quick interface
+with selected-window capture, on-device Apple Vision OCR, guided calibration,
+53 table fields for six seats, local replay, and measured diagnostics.
+Strategies remain in the [classic practice workbench](desktop/README.md).
+
+![Vision Studio](desktop/previews/studio-overview.png)
 
 **Read the [compiled report](report/poker_agent_report.pdf) or its
 [LaTeX source](report/poker_agent_report.tex).**
@@ -52,12 +55,15 @@ first run. If Finder does not launch it, open Terminal in the extracted folder:
 bash "Launch Poker Lab.command"
 ```
 
-Practice mode works without a poker account or an OCR engine. Number reading
-additionally needs Tesseract; screen capture needs macOS Screen Recording
-permission. External layouts need calibration and matching card templates;
-betting history and table context require manual review. This is a source
-application, not a signed standalone `.app`. Read the [desktop guide](desktop/README.md)
-for setup, limitations, and validation.
+Vision Studio starts with a generated replay that the reader actually analyzes.
+On Mac, number/text OCR uses Apple Vision; no Tesseract installation is needed
+for Studio. Live capture requires Screen Recording permission. Each external
+table design needs its own calibrated regions and labelled visual examples.
+This is a source application, not a signed standalone `.app`.
+
+See the [Vision Studio guide](desktop/VISION_STUDIO.md) for setup, the complete
+feature table, data fields, benchmarks, and remaining native-device checks.
+Use `python -m desktop --classic` for the previous practice-and-strategy GUI.
 
 ## Install and test
 

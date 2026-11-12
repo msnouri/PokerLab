@@ -1,0 +1,43 @@
+name: macOS Vision Studio
+on:
+  push:
+    paths: ['desktop/**', 'requirements-gui.txt', 'requirements-vision-test.txt', '.github/workflows/macos-vision.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: macos-vision-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-mac:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      QT_QPA_PLATFORM: offscreen
+      QT_QUICK_BACKEND: software
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-gui.txt
+      - run: python -m pip install -r requirements-gui.txt
+      - name: Native API, observation, process and GUI tests
+        run: python -m unittest discover -s desktop/tests -v
+      - name: Apple Vision labelled replay benchmark
+        run: python -m desktop.v2.benchmark --backend vision --frames 24 --output macos-vision-benchmark.json
+      - name: Add benchmark to run summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import os,pathlib
+          path=pathlib.Path('macos-vision-benchmark.json')
+          if path.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as out:
+                  out.write('### Native macOS labelled replay\n```json\n'+path.read_text()+'\n```\n')
+          PY

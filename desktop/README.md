@@ -1,4 +1,8 @@
-# Poker Lab desktop workbench
+# Classic desktop workbench
+
+The new default app is **[macOS Vision Studio](VISION_STUDIO.md)**. This guide
+covers the previous workbench, available with `python -m desktop --classic`.
+The Mac launcher now opens Vision Studio.
 
 A local Python/Qt GUI for the existing Poker Agent Lab policies. The default
 game is six-player no-limit Texas Hold'em, with practice chips and 100-big-blind
@@ -28,7 +32,7 @@ For a manual setup:
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-gui.txt
-python -m desktop
+python -m desktop --classic
 ```
 
 This is a source application with a launcher, not a signed/notarized Mac `.app`.

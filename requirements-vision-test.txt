@@ -1,0 +1,3 @@
+-r requirements-gui.txt
+# Linux CI/development fallback only. macOS uses Apple Vision by default.
+tesserocr==2.12.0; sys_platform == "linux"

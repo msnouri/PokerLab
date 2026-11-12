@@ -1,0 +1,214 @@
+{
+  "scope": "Generated or independently labelled image replay. Excludes native screen capture, UI paint, human review and one-time worker/model startup. Not a commercial-client or relative-to-Dickreuter benchmark.",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "backend": "Tesseract \u00b7 persistent native API",
+  "frames": 24,
+  "fully_correct_frames": 0,
+  "critical_correct_frames": 23,
+  "fields_total": 1272,
+  "fields_read": 1247,
+  "fields_wrong": 0,
+  "coverage": 0.98035,
+  "accepted_field_accuracy": 1.0,
+  "changed_frame_p50_ms": 47.12,
+  "changed_frame_p95_ms": 100.96,
+  "changed_frame_p99_ms": 158.54,
+  "repeat_p50_ms": 10.65,
+  "ocr_calls": 343,
+  "cache_hits": 898,
+  "failures": [
+    {
+      "frame": 0,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 1,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 2,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 3,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 4,
+      "wrong": {},
+      "unknown": [
+        "pot",
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 5,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 6,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 7,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 8,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 9,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 10,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 11,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 12,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 13,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 14,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 15,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 16,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 17,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 18,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 19,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 20,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 21,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 22,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    },
+    {
+      "frame": 23,
+      "wrong": {},
+      "unknown": [
+        "ante"
+      ],
+      "issues": []
+    }
+  ]
+}

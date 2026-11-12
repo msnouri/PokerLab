@@ -23,7 +23,7 @@ if ! .venv/bin/python -c 'import sys; assert sys.version_info[:2] == (3,12)' 2>/
   read -r -p 'Press Return to close.'
   exit 1
 fi
-if ! .venv/bin/python -c 'import PySide6, cv2, mss, PIL, pytesseract, pokerkit, eval7' 2>/dev/null || ! cmp -s requirements-gui.txt .venv/gui-requirements.txt; then
+if ! .venv/bin/python -c "import PySide6, cv2, mss, PIL, pytesseract, pokerkit, eval7; import sys; exec('import ScreenCaptureKit, Vision, Quartz, CoreMedia, dispatch' if sys.platform == 'darwin' else '')" 2>/dev/null || ! cmp -s requirements-gui.txt .venv/gui-requirements.txt; then
   .venv/bin/python -m pip install -r requirements-gui.txt
   cp requirements-gui.txt .venv/gui-requirements.txt
 fi
