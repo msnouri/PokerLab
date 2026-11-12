@@ -9,9 +9,10 @@
 
 # PokerLab
 
-**A macOS poker vision and research workbench.** Turn table pixels into inspectable
-observations, replay the evidence, and compare policies in a legal local simulator.
-On-device Apple Vision OCR, a Qt Quick interface, and reproducible experiments.
+**A research AI agent for testing and comparing poker strategies.** Explore
+heuristic and CFR-family policies, run reproducible benchmarks, and inspect the
+results in an interactive macOS workbench. Table vision, replay tools, and
+on-device Apple Vision OCR connect observed table state to agent research.
 
 [**Get started on Mac →**](#run-the-desktop-gui-on-mac) ·
 [Vision Studio guide](desktop/VISION_STUDIO.md) ·
