@@ -24,8 +24,10 @@ def render_table(view):
     hero=view["hero"]
     # Physical seats rotate around the fixed hero at the bottom.
     positions=[(600,625),(220,480),(214,201),(600,63),(984,201),(980,480)]
+    players=len(view['stacks'])
+    if players==2:positions=[(600,625),(600,63)]
     for offset,(x,y) in enumerate(positions):
-        seat=(hero+offset)%6
+        seat=(hero+offset)%players
         mine=seat==hero
         active=view["active"][seat]
         fill="#243c44" if mine else "#15262e"
@@ -36,7 +38,7 @@ def render_table(view):
             name+=" · FOLDED"
         d.text((x,y-14),name,fill="#c9d8d9" if active or mine else "#607981",font=font(13),anchor="mm")
         d.text((x,y+12),str(view["stacks"][seat]),fill="#ffffff",font=font(20),anchor="mm")
-        if seat==5:
+        if seat==players-1:
             d.ellipse((x+108,y-10,x+130,y+12),fill="#dfc68c")
             d.text((x+119,y+1),"D",fill="#17252a",font=font(12),anchor="mm")
         if not mine and active and view["pending"]:

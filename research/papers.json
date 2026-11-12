@@ -1,0 +1,443 @@
+{
+  "retrieved_at_utc": "2026-11-12T14:10:29.099572+00:00",
+  "citation_source": "OpenAlex cited_by_count, one matched work per paper. Counts differ from Google Scholar; duplicates/preprints are not summed. Rank is within this curated list, not all poker literature.",
+  "papers": [
+    {
+      "id": "deepstack",
+      "title": "DeepStack: Expert-level artificial intelligence in heads-up no-limit poker",
+      "year": 2017,
+      "primary_url": "https://doi.org/10.1126/science.aam6960",
+      "idea": "Depth-limited continual re-solving with learned counterfactual values.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2574978968",
+      "indexed_title": "DeepStack: Expert-level artificial intelligence in heads-up no-limit poker",
+      "indexed_year": 2017,
+      "citation_count": 882,
+      "doi": "https://doi.org/10.1126/science.aam6960",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1126/science.aam6960",
+      "authors": [
+        "Matej Moravčík",
+        "Martin Schmid",
+        "Neil Burch",
+        "Viliam Lisý",
+        "Dustin Morrill",
+        "Nolan Bard",
+        "Trevor Davis",
+        "Kevin Waugh",
+        "Michael Johanson",
+        "Michael Bowling"
+      ]
+    },
+    {
+      "id": "pluribus",
+      "title": "Superhuman AI for multiplayer poker",
+      "year": 2019,
+      "primary_url": "https://doi.org/10.1126/science.aay2400",
+      "idea": "Multiplayer blueprint self-play plus limited-depth online search.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2960876848",
+      "indexed_title": "Superhuman AI for multiplayer poker",
+      "indexed_year": 2019,
+      "citation_count": 680,
+      "doi": "https://doi.org/10.1126/science.aay2400",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1126/science.aay2400",
+      "authors": [
+        "Noam Brown",
+        "Tuomas Sandholm"
+      ],
+      "indexed_authors": [
+        "Noam Brown",
+        "Tüomas Sandholm"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "libratus",
+      "title": "Superhuman AI for heads-up no-limit poker: Libratus beats top professionals",
+      "year": 2018,
+      "primary_url": "https://doi.org/10.1126/science.aao1733",
+      "idea": "Blueprint strategy, nested subgame solving and self-improvement.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2773381986",
+      "indexed_title": "Superhuman AI for heads-up no-limit poker: Libratus beats top professionals",
+      "indexed_year": 2017,
+      "citation_count": 606,
+      "doi": "https://doi.org/10.1126/science.aao1733",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1126/science.aao1733",
+      "authors": [
+        "Noam Brown",
+        "Tuomas Sandholm"
+      ],
+      "indexed_authors": [
+        "Noam Brown",
+        "Tüomas Sandholm"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "cfr",
+      "title": "Regret Minimization in Games with Incomplete Information",
+      "year": 2007,
+      "primary_url": "https://poker.cs.ualberta.ca/publications/NIPS07-cfr.pdf",
+      "idea": "Counterfactual regret minimization and average-strategy self-play.",
+      "option": "R01",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "openalex_id": "https://openalex.org/W2103315867",
+      "indexed_title": "Regret Minimization in Games with Incomplete Information",
+      "indexed_year": 2007,
+      "citation_count": 523,
+      "doi": "https://doi.org/10.7939/r3q23r282",
+      "metadata_url": "https://api.openalex.org/works?search=Regret%20Minimization%20in%20Games%20with%20Incomplete%20Information&per-page=5",
+      "authors": [
+        "Martin Zinkevich",
+        "Michael Johanson",
+        "Michael Bowling",
+        "Carmelo Piccione"
+      ],
+      "indexed_authors": [
+        "Michael Bowling",
+        "Michael Johanson",
+        "Martin Zinkevich",
+        "Carmelo Piccione"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "nfsp",
+      "title": "Deep Reinforcement Learning from Self-Play in Imperfect-Information Games",
+      "year": 2016,
+      "primary_url": "https://arxiv.org/abs/1603.01121",
+      "idea": "Neural fictitious self-play combines best response and average policy learning.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2291986326",
+      "indexed_title": "Deep Reinforcement Learning from Self-Play in Imperfect-Information Games",
+      "indexed_year": 2016,
+      "citation_count": 443,
+      "doi": "https://doi.org/10.48550/arxiv.1603.01121",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.48550/arxiv.1603.01121",
+      "authors": [
+        "Johannes Heinrich",
+        "David Silver"
+      ]
+    },
+    {
+      "id": "cepheus",
+      "title": "Heads-up limit hold’em poker is solved",
+      "year": 2015,
+      "primary_url": "https://doi.org/10.1126/science.1259433",
+      "idea": "Landmark limit-poker result using CFR+; distinct from no-limit Holdem.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2006791053",
+      "indexed_title": "Heads-up limit hold’em poker is solved",
+      "indexed_year": 2015,
+      "citation_count": 380,
+      "doi": "https://doi.org/10.1126/science.1259433",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1126/science.1259433",
+      "authors": [
+        "Michael Bowling",
+        "Neil Burch",
+        "Michael Johanson",
+        "Oskari Tammelin"
+      ]
+    },
+    {
+      "id": "mccfr",
+      "title": "Monte Carlo Sampling for Regret Minimization in Extensive Games",
+      "year": 2009,
+      "primary_url": "https://papers.nips.cc/paper/2009/hash/00411460f7c92d2124a67ea0f4cb5f85-Abstract.html",
+      "idea": "Sample chance and opponent branches to reduce traversal cost.",
+      "option": "R02",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "citation_count": 207,
+      "doi": "https://doi.org/10.7939/r3319s48q",
+      "openalex_id": "https://openalex.org/W2106975967",
+      "indexed_title": "Monte Carlo Sampling for Regret Minimization in Extensive Games",
+      "indexed_year": 2009,
+      "metadata_url": "https://api.openalex.org/works?search=Monte%20Carlo%20Sampling%20for%20Regret%20Minimization%20in%20Extensive%20Games&per-page=3",
+      "authors": [
+        "Marc Lanctot",
+        "Kevin Waugh",
+        "Martin Zinkevich",
+        "Michael Bowling"
+      ],
+      "indexed_authors": [
+        "Michael Bowling",
+        "Martin Zinkevich",
+        "Kevin Waugh",
+        "Marc Lanctot"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "cfr_plus",
+      "title": "Solving Large Imperfect Information Games Using CFR+",
+      "year": 2014,
+      "primary_url": "https://arxiv.org/abs/1407.5042",
+      "idea": "Clip cumulative regrets and weight recent strategies.",
+      "option": "R03",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "openalex_id": "https://openalex.org/W1525285119",
+      "indexed_title": "Solving Large Imperfect Information Games Using CFR+",
+      "indexed_year": 2014,
+      "citation_count": 164,
+      "doi": "https://doi.org/10.48550/arxiv.1407.5042",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.48550/arxiv.1407.5042",
+      "authors": [
+        "Oskari Tammelin"
+      ]
+    },
+    {
+      "id": "deep_cfr",
+      "title": "Deep Counterfactual Regret Minimization",
+      "year": 2019,
+      "primary_url": "https://proceedings.mlr.press/v97/brown19b.html",
+      "idea": "Neural approximations of regret and average strategies for large games.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W2899081098",
+      "indexed_title": "Deep Counterfactual Regret Minimization",
+      "indexed_year": 2018,
+      "citation_count": 105,
+      "doi": "https://doi.org/10.48550/arxiv.1811.00164",
+      "metadata_url": "https://api.openalex.org/works?search=Deep%20Counterfactual%20Regret%20Minimization&per-page=5",
+      "authors": [
+        "Noam Brown",
+        "Adam Lerer",
+        "Sam Gross",
+        "Tuomas Sandholm"
+      ],
+      "indexed_authors": [
+        "Noam Brown",
+        "Adam K. Lerer",
+        "Sam Gross",
+        "Tüomas Sandholm"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "rebel",
+      "title": "Combining Deep Reinforcement Learning and Search for Imperfect-Information Games",
+      "year": 2020,
+      "primary_url": "https://arxiv.org/abs/2007.13544",
+      "idea": "Public-belief-state learning and search.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W3097986043",
+      "indexed_title": "Combining Deep Reinforcement Learning and Search for Imperfect-Information Games",
+      "indexed_year": 2020,
+      "citation_count": 89,
+      "doi": "https://doi.org/10.48550/arxiv.2007.13544",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.48550/arxiv.2007.13544",
+      "authors": [
+        "Noam Brown",
+        "Anton Bakhtin",
+        "Adam K. Lerer",
+        "Qucheng Gong"
+      ]
+    },
+    {
+      "id": "student_games",
+      "title": "Student of Games: A unified learning algorithm for both perfect and imperfect information games",
+      "year": 2023,
+      "primary_url": "https://doi.org/10.1126/sciadv.adg3256",
+      "idea": "Unified search-and-learning agent evaluated on poker and perfect-information games.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W4388711601",
+      "indexed_title": "Student of Games: A unified learning algorithm for both perfect and imperfect information games",
+      "indexed_year": 2023,
+      "citation_count": 62,
+      "doi": "https://doi.org/10.1126/sciadv.adg3256",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1126/sciadv.adg3256",
+      "authors": [
+        "Martin Schmid",
+        "Matej Moravčík",
+        "Neil Burch",
+        "Rudolf Kadlec",
+        "Josh Davidson",
+        "Kevin Waugh",
+        "Nolan Bard",
+        "Finbarr Timbers",
+        "Marc Lanctot",
+        "G. Zacharias Holland",
+        "Elnaz Davoodi",
+        "Alden Christianson",
+        "Michael Bowling"
+      ]
+    },
+    {
+      "id": "pcfr_plus",
+      "title": "Faster Game Solving via Predictive Blackwell Approachability: Connecting Regret Matching and Mirror Descent",
+      "year": 2021,
+      "primary_url": "https://doi.org/10.1609/aaai.v35i6.16676",
+      "idea": "Predict the next counterfactual regret to accelerate self-play.",
+      "option": "R05",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "openalex_id": "https://openalex.org/W3174079223",
+      "indexed_title": "Faster Game Solving via Predictive Blackwell Approachability: Connecting Regret Matching and Mirror Descent",
+      "indexed_year": 2021,
+      "citation_count": 32,
+      "doi": "https://doi.org/10.1609/aaai.v35i6.16676",
+      "metadata_url": "https://api.openalex.org/works?search=Faster%20Game%20Solving%20via%20Predictive%20Blackwell%20Approachability%3A%20Connecting%20Regret%20Matching%20and%20Mirror%20Descent&per-page=5",
+      "authors": [
+        "Gabriele Farina",
+        "Christian Kroer",
+        "Tuomas Sandholm"
+      ],
+      "indexed_authors": [
+        "Gabriele Farina",
+        "Christian Kroer",
+        "Tüomas Sandholm"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "dcfr",
+      "title": "Solving Imperfect-Information Games via Discounted Regret Minimization",
+      "year": 2019,
+      "primary_url": "https://doi.org/10.1609/aaai.v33i01.33011829",
+      "idea": "Discount old positive/negative regrets and average-policy weights.",
+      "option": "R04",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "openalex_id": "https://openalex.org/W2890002687",
+      "indexed_title": "Solving Imperfect-Information Games via Discounted Regret Minimization",
+      "indexed_year": 2019,
+      "citation_count": 27,
+      "doi": "https://doi.org/10.1609/aaai.v33i01.33011829",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1609/aaai.v33i01.33011829",
+      "authors": [
+        "Noam Brown",
+        "Tuomas Sandholm"
+      ],
+      "indexed_authors": [
+        "Noam Brown",
+        "Tüomas Sandholm"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "parallel_cfr",
+      "title": "Real-Time Parallel Counterfactual Regret Minimization",
+      "year": 2026,
+      "primary_url": "https://arxiv.org/abs/2605.19928",
+      "idea": "Recent preprint about parallel depth-limited CFR; not a Mac performance result.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W7161840774",
+      "indexed_title": "Real-Time Parallel Counterfactual Regret Minimization",
+      "indexed_year": 2026,
+      "citation_count": 10,
+      "doi": "https://doi.org/10.48550/arxiv.2605.19928",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.48550/arxiv.2605.19928",
+      "authors": [
+        "Boning Li",
+        "Longbo Huang"
+      ],
+      "indexed_authors": [
+        "Li, Boning",
+        "Longbo Huang"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "pdcfr_plus",
+      "title": "Minimizing Weighted Counterfactual Regret with Optimistic Online Mirror Descent",
+      "year": 2024,
+      "primary_url": "https://www.ijcai.org/proceedings/2024/583",
+      "idea": "Combine predictive regret matching with discounting.",
+      "option": "R06",
+      "implementation": "abstract tabular algorithm + Holdem proxy",
+      "openalex_id": "https://openalex.org/W4401025010",
+      "indexed_title": "Minimizing Weighted Counterfactual Regret with Optimistic Online Mirror Descent",
+      "indexed_year": 2024,
+      "citation_count": 7,
+      "doi": "https://doi.org/10.24963/ijcai.2024/583",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.24963/ijcai.2024/583",
+      "authors": [
+        "Hang Xu",
+        "Kai Li",
+        "Bingyun Liu",
+        "Haobo Fu",
+        "Qiang Fu",
+        "Junliang Xing",
+        "Jian Cheng"
+      ],
+      "indexed_authors": [
+        "Hang Xu",
+        "Kai Li",
+        "Bingyun Liu",
+        "Haobo Fu",
+        "Qiang Fu",
+        "Junliang Xing",
+        "Jian Kai Cheng"
+      ],
+      "author_note": "Author order normalized against primary paper/publisher."
+    },
+    {
+      "id": "spingpt",
+      "title": "SpinGPT: A Large-Language-Model Approach to Playing Poker Correctly",
+      "year": 2025,
+      "primary_url": "https://arxiv.org/abs/2509.22387",
+      "idea": "Recent tournament-oriented LLM training; results and datasets need separate reproduction.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W7161770994",
+      "indexed_title": "SpinGPT: A Large-Language-Model Approach to Playing Poker Correctly",
+      "indexed_year": 2026,
+      "citation_count": 2,
+      "doi": "https://doi.org/10.1007/978-3-032-23657-9_8",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.48550/arxiv.2509.22387",
+      "authors": [
+        "Narada Maugin",
+        "Tristan Cazenave"
+      ]
+    },
+    {
+      "id": "deep_pdcfr",
+      "title": "Deep (Predictive) Discounted Counterfactual Regret Minimization",
+      "year": 2026,
+      "primary_url": "https://ojs.aaai.org/index.php/AAAI/article/view/38780",
+      "idea": "Neural approximation of advanced regret updates using value baselines.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "openalex_id": "https://openalex.org/W7138353505",
+      "indexed_title": "Deep (Predictive) Discounted Counterfactual Regret Minimization",
+      "indexed_year": 2026,
+      "citation_count": 0,
+      "doi": "https://doi.org/10.1609/aaai.v40i20.38780",
+      "metadata_url": "https://api.openalex.org/works/https://doi.org/10.1609/aaai.v40i20.38780",
+      "authors": [
+        "Hang Xu",
+        "Kai Li",
+        "Haobo Fu",
+        "Qiang Fu",
+        "Junliang Xing",
+        "Jian Cheng"
+      ]
+    },
+    {
+      "id": "ddcfr",
+      "title": "Dynamic Discounted Counterfactual Regret Minimization",
+      "year": 2024,
+      "primary_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/a89331e2ecbbd9d9618bc94717a91155-Abstract-Conference.html",
+      "idea": "Learn a dynamic regret-discounting schedule rather than fixing one.",
+      "option": null,
+      "implementation": "literature only; full system not reproduced",
+      "citation_count": null,
+      "metadata_error": "No verified OpenAlex title match; unrelated fuzzy-search result rejected.",
+      "authors": [
+        "Hang Xu",
+        "Kai Li",
+        "Haobo Fu",
+        "Qiang Fu",
+        "Junliang Xing",
+        "Jian Cheng"
+      ]
+    }
+  ]
+}

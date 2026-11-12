@@ -11,9 +11,9 @@ if str(LAB) not in sys.path:
     sys.path.insert(0, str(LAB))
 
 from pokerlab.agent import Agent, Observation, CARD_TEXT, equity
-from pokerlab.strategies import all_strategies
+from pokerlab.strategies import selectable_strategies
 
-STRATEGIES = {s.id: s for s in all_strategies()}
+STRATEGIES = {s.id: s for s in selectable_strategies()}
 
 
 def cards(text):
@@ -60,6 +60,8 @@ def validate(data):
     for key in ("preflop_raiser", "checked_before", "tournament"):
         if not isinstance(data[key], bool):
             raise ValueError(f"{key.replace('_', ' ')} must be true or false.")
+    if data.get('heads_up_in_position') is not None and type(data['heads_up_in_position']) is not bool:
+        raise ValueError('Heads-up position must be a boolean or unknown')
     lo, hi = data["min_raise_to"], data["max_raise_to"]
     if (lo is None) != (hi is None):
         raise ValueError("Both raise bounds must be supplied, or both left unavailable.")
@@ -90,7 +92,8 @@ class Advisor:
         return {"action": action, "raise_to": amount if action == "raise" else None,
                 "call_cost": obs.to_call, "equity": equity(tuple(sorted(obs.hole)), obs.board, obs.active - 1),
                 "pot_odds": obs.to_call / (obs.pot + obs.to_call) if obs.to_call else 0,
-                "policy_ms": (time.perf_counter() - start) * 1000, "strategy": strategy}
+                "policy_ms": (time.perf_counter() - start) * 1000, "strategy": strategy,
+                "policy_details":dict(agent.last_details)}
 
 
 def example():

@@ -220,9 +220,11 @@ class Window(QMainWindow):
         heading.addStretch()
         heading.addWidget(text("STRATEGY",True))
         self.strategy=QComboBox()
-        for sid,s in STRATEGIES.items():
+        for sid in sorted(STRATEGIES,key=lambda k:(not k.startswith('R'),k)):
+            s=STRATEGIES[sid]
             self.strategy.addItem(f"{sid} · {s.label}",sid)
-        self.strategy.setCurrentIndex(list(STRATEGIES).index("S55"))
+            self.strategy.setItemData(self.strategy.count()-1,s.source,Qt.ItemDataRole.ToolTipRole)
+        self.strategy.setCurrentIndex(self.strategy.findData("S55"))
         self.strategy.setMaximumWidth(340)
         self.strategy.currentIndexChanged.connect(self.invalidate)
         heading.addWidget(self.strategy)
@@ -246,7 +248,9 @@ class Window(QMainWindow):
     def practice_tab(self):
         widget=QWidget();layout=QVBoxLayout(widget);layout.setContentsMargins(0,0,8,0)
         row=QHBoxLayout()
-        row.addWidget(text("SIX-MAX NO-LIMIT HOLD’EM",True));row.addStretch()
+        row.addWidget(text("NO-LIMIT HOLD’EM",True))
+        self.player_count=QComboBox();self.player_count.addItem('Six players',6);self.player_count.addItem('Heads-up · two players',2)
+        self.player_count.currentIndexChanged.connect(self.change_practice_players);row.addWidget(self.player_count);row.addStretch()
         self.new_button=button("New hand",self.new_hand)
         row.addWidget(self.new_button)
         row.addWidget(button("Send frame to reader",self.practice_frame))
@@ -465,6 +469,18 @@ class Window(QMainWindow):
             self.refresh_practice()
         self.run(self.table.new_hand,done)
 
+    def change_practice_players(self):
+        if self.practice_busy:return
+        players=self.player_count.currentData()
+        self.invalidate();self.practice_busy=True;self.player_count.setEnabled(False);self.tabs.setEnabled(False)
+        self.update_controls()
+        def done(result,error):
+            self.practice_busy=False;self.player_count.setEnabled(True);self.tabs.setEnabled(True)
+            if error:self.message(error)
+            else:self.table=result
+            self.refresh_practice()
+        self.run(lambda:PracticeTable(players=players),done)
+
     def use_suggestion(self):
         if self.latest and self.latest["revision"]==self.revision and self.tabs.currentIndex()==0:
             result=self.latest
@@ -489,6 +505,8 @@ class Window(QMainWindow):
         self.advising=True;self.update_controls()
         revision=self.revision
         data=self.state_data();strategy=self.strategy.currentData()
+        if self.tabs.currentIndex()==0 and self.last_view and self.last_view.get('observation'):
+            data['heads_up_in_position']=self.last_view['observation'].get('heads_up_in_position')
         start=time.monotonic()
         self.action.setText("Thinking…")
         def done(result,error):
@@ -505,7 +523,8 @@ class Window(QMainWindow):
             action=result["action"]
             title=f"RAISE TO {result['raise_to']}" if action=="raise" else f"CALL {result['call_cost']}" if action=="call" else action.upper()
             self.action.setText(title)
-            self.detail.setText(f"{strategy} · {STRATEGIES[strategy].family.replace('_',' ')}\nHeuristic recommendation; no action EV estimate.")
+            scope=result.get('policy_details',{}).get('scope','Heuristic recommendation; no action EV estimate.')
+            self.detail.setText(f"{strategy} · {STRATEGIES[strategy].family.replace('_',' ')}\n{scope}")
             self.metrics.setText(f"Random-range equity {result['equity']:.0%}   ·   Pot odds {result['pot_odds']:.0%}")
             self.use_advice.setEnabled(self.tabs.currentIndex()==0)
             self.update_age()

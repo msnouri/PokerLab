@@ -1,0 +1,58 @@
+[
+  {
+    "candidate": "S55",
+    "decisions": 22854,
+    "blueprint_decisions": 0,
+    "blueprint_fraction": 0.0,
+    "max_matchup_p95_ms": 0.42904065,
+    "max_blueprint_p95_ms": 0
+  },
+  {
+    "candidate": "R01",
+    "decisions": 24135,
+    "blueprint_decisions": 6412,
+    "blueprint_fraction": 0.26567226020302465,
+    "max_matchup_p95_ms": 0.43334180000000005,
+    "max_blueprint_p95_ms": 0.5840598
+  },
+  {
+    "candidate": "R02",
+    "decisions": 23967,
+    "blueprint_decisions": 6214,
+    "blueprint_fraction": 0.2592731672716652,
+    "max_matchup_p95_ms": 0.41926890000000006,
+    "max_blueprint_p95_ms": 0.5607858000000001
+  },
+  {
+    "candidate": "R03",
+    "decisions": 24125,
+    "blueprint_decisions": 6401,
+    "blueprint_fraction": 0.2653264248704663,
+    "max_matchup_p95_ms": 0.4164042000000003,
+    "max_blueprint_p95_ms": 0.6447055500000004
+  },
+  {
+    "candidate": "R04",
+    "decisions": 24012,
+    "blueprint_decisions": 6286,
+    "blueprint_fraction": 0.2617857737797768,
+    "max_matchup_p95_ms": 0.3953994000000001,
+    "max_blueprint_p95_ms": 0.6356406000000003
+  },
+  {
+    "candidate": "R05",
+    "decisions": 24067,
+    "blueprint_decisions": 6342,
+    "blueprint_fraction": 0.26351435575684545,
+    "max_matchup_p95_ms": 0.3891625000000001,
+    "max_blueprint_p95_ms": 0.5348673999999999
+  },
+  {
+    "candidate": "R06",
+    "decisions": 24012,
+    "blueprint_decisions": 6289,
+    "blueprint_fraction": 0.2619107113110112,
+    "max_matchup_p95_ms": 0.3790989000000001,
+    "max_blueprint_p95_ms": 0.5518800000000004
+  }
+]

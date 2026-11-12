@@ -3,8 +3,14 @@
 [![macOS Vision Studio checks](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml/badge.svg?branch=main)](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml)
 
 Book-inspired poker policies, reproducible simulation experiments, and an
-evaluation against selected open-source example policies. This repository
-combines both stages of the project, their raw results, and one LaTeX report.
+evaluation against selected open-source example policies. The repository also
+includes six paper-based research solvers and a separate evaluation report.
+
+**New: [research strategies and benchmarks](research/README.md)** — 18 papers,
+six selectable CFR-family options, heads-up practice, and 385,000 hands across
+an initial screen and a fresh-deal confirmation. The current research proxies
+underperform S55; S55 remains the default. Read the [research PDF](research/poker_research_report.pdf)
+or its [LaTeX source](research/poker_research_report.tex).
 
 **New: [macOS Vision Studio](desktop/VISION_STUDIO.md)** — a Qt Quick interface
 with selected-window capture, on-device Apple Vision OCR, guided calibration,
@@ -27,8 +33,9 @@ Strategies remain in the [classic practice workbench](desktop/README.md).
 - External comparison: 70,000 heads-up hands, 35,000 eight-player cash hands,
   and 896 tournaments against seven adapted Neuron Poker example policies.
 - S55 led those tournament comparisons but lost heavily to aggressive
-  example policies in heads-up cash play. **No pretrained DQN or CFR policy
-  was benchmarked. No general superiority claim is supported.**
+  example policies in heads-up cash play. That external comparison did not
+  benchmark a pretrained DQN or CFR policy. The separate research study tests
+  our own reduced CFR-family blueprints. **No general superiority claim is supported.**
 
 The simulations assume ordinary two-card no-limit Texas Hold'em. Tournament
 payouts and the full blind schedule are research assumptions, not a verified
@@ -45,6 +52,8 @@ event submission. Read the report's methodology and adapter limitations.
 | [`github_comparison/`](github_comparison/) | External-policy adapter, source downloader, results and source inventory |
 | [`poker_lab/tests/`](poker_lab/tests/) | Legality, determinism, information boundaries, equity and settlement checks |
 | [`desktop/`](desktop/) | Qt desktop GUI, practice table, calibrated vision, tests, and Mac setup guide |
+| [`research/`](research/) | Paper catalog, BibTeX, research report, figures and reproduction guide |
+| [`poker_lab/research_results/`](poker_lab/research_results/) | Frozen-policy benchmark, duplicate-deal raw hands, retained initial screen |
 
 ## Run the desktop GUI on Mac
 
@@ -66,6 +75,9 @@ This is a source application, not a signed standalone `.app`.
 See the [Vision Studio guide](desktop/VISION_STUDIO.md) for setup, the complete
 feature table, data fields, benchmarks, and remaining native-device checks.
 Use `python -m desktop --classic` for the previous practice-and-strategy GUI.
+The **Open agent lab** button in Studio opens that workbench. It now offers
+two- or six-player practice and research options R01–R06, with explicit fallback
+status in recommendations.
 
 ## Install and test
 
@@ -88,7 +100,8 @@ python -m pokerlab.bot < example_observation.jsonl
 ```
 
 The bot defaults to S55. Choose a different candidate with `--strategy S01`
-through `--strategy S80`. The JSON interface is neutral and requires mapping
+through `--strategy S80`, or a research option `R01` through `R06`.
+The JSON interface is neutral and requires mapping
 to a competition's actual SDK.
 
 ## Reproduce the external-policy comparison

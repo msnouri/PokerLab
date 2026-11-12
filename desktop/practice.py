@@ -8,10 +8,11 @@ from pokerkit import Automation, Card, NoLimitTexasHoldem
 
 
 class PracticeTable:
-    def __init__(self, seed=None):
+    def __init__(self, seed=None, players=6):
+        if players not in (2,6):raise ValueError('Practice supports two or six players')
         self.rng = random.Random(seed)
         self.hand_no = 0
-        self.players = 6
+        self.players = players
         self.bb = 20
         self.bots = [Agent(STRATEGIES[s]) for s in ("S08", "S18", "S23", "S33", "S53", "S78")]
         self.new_hand()
@@ -58,7 +59,7 @@ class PracticeTable:
                            s.min_completion_betting_or_raising_to_amount if can_raise else None,
                            s.max_completion_betting_or_raising_to_amount if can_raise else None,
                            i / (self.players - 1), self.raises, self.raiser == i, i in self.checked,
-                           remaining=self.players)
+                           remaining=self.players,heads_up_in_position=(i>next(j for j in range(self.players) if j!=i and s.statuses[j]) if sum(s.statuses)==2 else None))
 
     def _act(self, i, action, amount=0):
         self._sync_street()

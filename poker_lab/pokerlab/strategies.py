@@ -30,6 +30,7 @@ class Strategy:
     premium_only: bool = False
     adapt: bool = False
     risk: float = 0.
+    research: str = ''
 
 
 # Sources use printed page numbers for Brokos and Dangel, EPUB chapters for
@@ -106,3 +107,13 @@ def baseline_strategies(field='mixed'):
 
 def registry_rows():
     return [asdict(s) for s in all_strategies()]
+
+
+def selectable_strategies():
+    """Preserve the original 80-study registry; extend only user selection."""
+    methods=[('cfr','CFR 2007'),('mccfr','External-sampling MCCFR 2009'),('cfr_plus','CFR+ 2014'),
+             ('dcfr','Discounted CFR 2019'),('pcfr_plus','Predictive CFR+ 2021'),('pdcfr_plus','Predictive discounted CFR+ 2024')]
+    base=next(s for s in all_strategies() if s.id=='S55')
+    return all_strategies()+[replace(base,id=f'R{i:02d}',family='research_'+method,
+        label=label+' · HU postflop proxy',source='research/papers.json; reduced game, S55 fallback',research=method)
+        for i,(method,label) in enumerate(methods,1)]

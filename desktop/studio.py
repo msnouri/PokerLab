@@ -533,6 +533,12 @@ class Studio(QObject):
         name,_=QFileDialog.getSaveFileName(None,'Export measured timings','vision_timings.json','JSON (*.json)')
         if name:Path(name).write_text(json.dumps(self.metrics.summary(),indent=2)+'\n');self.note='Timing report exported';self.changed.emit()
 
+    @Slot()
+    def openAgentLab(self):
+        import subprocess
+        subprocess.Popen([sys.executable,'-m','desktop','--classic'],cwd=str(Path(__file__).resolve().parents[1]))
+        self.note='Agent lab opened. Research options R01–R06 are in the strategy selector.';self.changed.emit()
+
     @Slot(str)
     def set_error(self,message):self.note=message;self.changed.emit()
 

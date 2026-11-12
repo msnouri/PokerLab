@@ -6,7 +6,7 @@ Each input line must contain fields of Observation (see agent.py).
 import argparse,json,sys
 from pathlib import Path
 from .agent import Agent,Observation
-from .strategies import all_strategies
+from .strategies import selectable_strategies
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     a=p.parse_args()
     config=Path(__file__).resolve().parents[1]/'best_strategy.json'
     sid=a.strategy or (json.loads(config.read_text())['strategy'] if config.exists() else 'S78')
-    choices={s.id:s for s in all_strategies()}
+    choices={s.id:s for s in selectable_strategies()}
     if sid not in choices:p.error('Unknown strategy '+sid)
     agent=Agent(choices[sid])
     import random
@@ -28,6 +28,7 @@ def main():
             o=Observation(**data)
             action,amount=agent.decide(o,rng.random())
             out={'action':('check' if o.to_call==0 else 'call') if action=='call' else action}
+            if agent.strategy.research:out['research']=agent.last_details
             if action=='raise':out['raise_to']=amount
         except Exception as error:
             print(type(error).__name__+': '+str(error),file=sys.stderr)

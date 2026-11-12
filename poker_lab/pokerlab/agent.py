@@ -50,6 +50,7 @@ class Observation:
     opponent_aggression: float = .25
     tournament: bool = False
     remaining: int = 8
+    heads_up_in_position: bool | None = None
 
 
 def stable_seed(hole,board,opponents):
@@ -113,6 +114,11 @@ class Agent:
     def __init__(self,strategy:Strategy):
         self.strategy=strategy
         preflop_table() # Asset loading belongs to initialization, not decisions.
+        self.last_details={'policy_path':'heuristic'}
+        self.research_policy=None
+        if strategy.research:
+            from .research.policy import PaperPolicy
+            self.research_policy=PaperPolicy(strategy.research)
 
     def decide(self,o:Observation,draw:float=.5):
         """Return ('fold'|'call'|'raise', raise_to). Zero cost call is check.
@@ -120,6 +126,10 @@ class Agent:
         `draw` is a uniform variate supplied by the runner, independent of the
         deal and hidden information. Raising amounts include prior street bets.
         """
+        if self.research_policy is not None:
+            action=self.research_policy.decide(o,draw)
+            self.last_details=self.research_policy.details
+            return action
         s=self.strategy
         can_raise=o.min_raise_to is not None and o.max_raise_to is not None
         def raise_to(amount):

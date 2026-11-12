@@ -31,6 +31,7 @@ def play_hand(strategies,stacks,bb,seed,stats=None,tournament=False,trace=False)
     stats=stats if stats is not None else [[3.,10.,2.,8.] for _ in range(n)]
     raiser=None;street=-1;raises=0;checked=set();voluntary=set()
     counts=[Counter() for _ in range(n)];times=[];log=[];observations=[]
+    seat_times=[[] for _ in range(n)];seat_modes=[[] for _ in range(n)]
     decisions=0
     board=()
     holes=[tuple(repr(c) for c in state.hole_cards[i]) for i in range(n)]
@@ -51,10 +52,13 @@ def play_hand(strategies,stacks,bb,seed,stats=None,tournament=False,trace=False)
                       minraise,maxraise,pos,raises,raiser==i,i in checked,
                       sum(stats[j][0]/stats[j][1] for j in others)/max(1,len(others)),
                       sum(stats[j][2]/stats[j][3] for j in others)/max(1,len(others)),
-                      tournament,n)
+                      tournament,n,heads_up_in_position=(i>others[0] if len(others)==1 else None))
         t=perf_counter_ns()
         action,amount=agents[i].decide(o,decision_rng[i].random())
+        details=getattr(agents[i],'last_details',{})
+        if details.get('policy_path'):counts[i]['mode_'+details['policy_path']]+=1
         elapsed=perf_counter_ns()-t
+        seat_times[i].append(elapsed);seat_modes[i].append(details.get('policy_path','external'))
         times.append(elapsed);decisions+=1
         if trace: observations.append(asdict(o))
         if action=='raise':
@@ -84,4 +88,5 @@ def play_hand(strategies,stacks,bb,seed,stats=None,tournament=False,trace=False)
     assert all(x>=0 for x in after)
     return {'after':after,'net':[a-b for a,b in zip(after,before)],'counts':counts,
             'times_ns':times,'actions':log,'observations':observations,
-            'board':list(board),'holes':holes if trace else [],'decisions':decisions}
+            'board':list(board),'holes':holes if trace else [],'decisions':decisions,
+            'seat_times_ns':seat_times,'seat_modes':seat_modes}

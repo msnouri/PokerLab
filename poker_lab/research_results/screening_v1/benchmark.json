@@ -1,0 +1,1263 @@
+{
+  "matchups": [
+    {
+      "protocol": "field",
+      "candidate": "R01",
+      "opponent": "S08",
+      "bb100": -56.259,
+      "ci95_low": -87.42517565127359,
+      "ci95_high": -25.092824348726413,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1275,
+        "research_closed_action": 59
+      },
+      "research_lookup_fraction": 0.23979687793868723,
+      "decision_p50_ms": 0.023408,
+      "decision_p95_ms": 0.36000379999999993,
+      "blueprint_p95_ms": 0.5047385,
+      "paired_difference_vs_s55": {
+        "bb100": -59.839,
+        "ci95_low": -84.19951300085616,
+        "ci95_high": -35.47848699914384,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R01",
+      "opponent": "S18",
+      "bb100": -110.0,
+      "ci95_low": -146.72842858543427,
+      "ci95_high": -73.27157141456573,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2466,
+        "research_closed_action": 98
+      },
+      "research_lookup_fraction": 0.3174562306900103,
+      "decision_p50_ms": 0.024644,
+      "decision_p95_ms": 0.37319910000000006,
+      "blueprint_p95_ms": 0.527594,
+      "paired_difference_vs_s55": {
+        "bb100": -107.934,
+        "ci95_low": -140.90677381208982,
+        "ci95_high": -74.96122618791017,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R01",
+      "opponent": "S23",
+      "bb100": -65.487,
+      "ci95_low": -98.3801368588957,
+      "ci95_high": -32.59386314110429,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1608,
+        "research_closed_action": 63
+      },
+      "research_lookup_fraction": 0.2706615047971722,
+      "decision_p50_ms": 0.0259735,
+      "decision_p95_ms": 0.41982825,
+      "blueprint_p95_ms": 0.5515049999999998,
+      "paired_difference_vs_s55": {
+        "bb100": -79.698,
+        "ci95_low": -111.9367561941347,
+        "ci95_high": -47.459243805865285,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R01",
+      "opponent": "S33",
+      "bb100": -46.286,
+      "ci95_low": -72.85434662604405,
+      "ci95_high": -19.71765337395595,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1760,
+        "research_closed_action": 62
+      },
+      "research_lookup_fraction": 0.28382518948556684,
+      "decision_p50_ms": 0.025762,
+      "decision_p95_ms": 0.40301125,
+      "blueprint_p95_ms": 0.55990915,
+      "paired_difference_vs_s55": {
+        "bb100": -45.984,
+        "ci95_low": -69.25273685816825,
+        "ci95_high": -22.715263141831752,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R02",
+      "opponent": "S08",
+      "bb100": -63.164,
+      "ci95_low": -94.9211845470485,
+      "ci95_high": -31.406815452951506,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1286,
+        "research_closed_action": 62
+      },
+      "research_lookup_fraction": 0.24123053836053274,
+      "decision_p50_ms": 0.023121,
+      "decision_p95_ms": 0.352372,
+      "blueprint_p95_ms": 0.48714325,
+      "paired_difference_vs_s55": {
+        "bb100": -66.744,
+        "ci95_low": -92.35942253350132,
+        "ci95_high": -41.128577466498676,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R02",
+      "opponent": "S18",
+      "bb100": -105.11,
+      "ci95_low": -143.16928664829362,
+      "ci95_high": -67.05071335170639,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2439,
+        "research_closed_action": 91
+      },
+      "research_lookup_fraction": 0.3153607447633825,
+      "decision_p50_ms": 0.024197999999999997,
+      "decision_p95_ms": 0.36580985000000005,
+      "blueprint_p95_ms": 0.4911886999999999,
+      "paired_difference_vs_s55": {
+        "bb100": -103.044,
+        "ci95_low": -136.881014608075,
+        "ci95_high": -69.206985391925,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R02",
+      "opponent": "S23",
+      "bb100": -77.883,
+      "ci95_low": -111.94965602869212,
+      "ci95_high": -43.81634397130788,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1589,
+        "research_closed_action": 63
+      },
+      "research_lookup_fraction": 0.26832151300236406,
+      "decision_p50_ms": 0.023522,
+      "decision_p95_ms": 0.31731739999999997,
+      "blueprint_p95_ms": 0.4733417999999995,
+      "paired_difference_vs_s55": {
+        "bb100": -92.094,
+        "ci95_low": -125.78446109165012,
+        "ci95_high": -58.403538908349866,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R02",
+      "opponent": "S33",
+      "bb100": -81.811,
+      "ci95_low": -114.65955705742394,
+      "ci95_high": -48.96244294257608,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1756,
+        "research_closed_action": 72
+      },
+      "research_lookup_fraction": 0.28290639600451106,
+      "decision_p50_ms": 0.0263185,
+      "decision_p95_ms": 0.40877859999999955,
+      "blueprint_p95_ms": 0.548178,
+      "paired_difference_vs_s55": {
+        "bb100": -81.509,
+        "ci95_low": -110.69627089781214,
+        "ci95_high": -52.32172910218786,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R03",
+      "opponent": "S08",
+      "bb100": -53.185,
+      "ci95_low": -83.77950411593645,
+      "ci95_high": -22.59049588406356,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1281,
+        "research_closed_action": 56
+      },
+      "research_lookup_fraction": 0.24078947368421053,
+      "decision_p50_ms": 0.022758,
+      "decision_p95_ms": 0.30517360000000027,
+      "blueprint_p95_ms": 0.432845,
+      "paired_difference_vs_s55": {
+        "bb100": -56.765,
+        "ci95_low": -79.5257669604522,
+        "ci95_high": -34.0042330395478,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R03",
+      "opponent": "S18",
+      "bb100": -101.741,
+      "ci95_low": -138.41680368031996,
+      "ci95_high": -65.06519631968004,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2465,
+        "research_closed_action": 92
+      },
+      "research_lookup_fraction": 0.3176137095735086,
+      "decision_p50_ms": 0.024438500000000002,
+      "decision_p95_ms": 0.33798980000000006,
+      "blueprint_p95_ms": 0.45326459999999996,
+      "paired_difference_vs_s55": {
+        "bb100": -99.675,
+        "ci95_low": -132.38027548428778,
+        "ci95_high": -66.96972451571222,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R03",
+      "opponent": "S23",
+      "bb100": -64.6,
+      "ci95_low": -97.50566078865228,
+      "ci95_high": -31.694339211347717,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1610,
+        "research_closed_action": 61
+      },
+      "research_lookup_fraction": 0.27099814845985526,
+      "decision_p50_ms": 0.024155,
+      "decision_p95_ms": 0.34459975,
+      "blueprint_p95_ms": 0.4684991999999999,
+      "paired_difference_vs_s55": {
+        "bb100": -78.811,
+        "ci95_low": -111.2795016856845,
+        "ci95_high": -46.34249831431552,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R03",
+      "opponent": "S33",
+      "bb100": -44.99,
+      "ci95_low": -71.51355754834381,
+      "ci95_high": -18.466442451656192,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1754,
+        "research_closed_action": 58
+      },
+      "research_lookup_fraction": 0.2833144887740268,
+      "decision_p50_ms": 0.025988,
+      "decision_p95_ms": 0.41556140000000014,
+      "blueprint_p95_ms": 0.5486031999999998,
+      "paired_difference_vs_s55": {
+        "bb100": -44.688,
+        "ci95_low": -67.8991473209992,
+        "ci95_high": -21.4768526790008,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R04",
+      "opponent": "S08",
+      "bb100": -53.586,
+      "ci95_low": -83.89339485831698,
+      "ci95_high": -23.278605141683023,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1281,
+        "research_closed_action": 56
+      },
+      "research_lookup_fraction": 0.24078947368421053,
+      "decision_p50_ms": 0.0234935,
+      "decision_p95_ms": 0.2945431500000002,
+      "blueprint_p95_ms": 0.430297,
+      "paired_difference_vs_s55": {
+        "bb100": -57.166,
+        "ci95_low": -79.80340904490126,
+        "ci95_high": -34.528590955098736,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R04",
+      "opponent": "S18",
+      "bb100": -100.648,
+      "ci95_low": -136.78081732082165,
+      "ci95_high": -64.51518267917834,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2474,
+        "research_closed_action": 91
+      },
+      "research_lookup_fraction": 0.3184451023297722,
+      "decision_p50_ms": 0.025381,
+      "decision_p95_ms": 0.3871474500000001,
+      "blueprint_p95_ms": 0.52054385,
+      "paired_difference_vs_s55": {
+        "bb100": -98.582,
+        "ci95_low": -130.65389236914024,
+        "ci95_high": -66.51010763085975,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R04",
+      "opponent": "S23",
+      "bb100": -64.614,
+      "ci95_low": -97.5343234238415,
+      "ci95_high": -31.693676576158502,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1615,
+        "research_closed_action": 61
+      },
+      "research_lookup_fraction": 0.27161116717120753,
+      "decision_p50_ms": 0.023454500000000003,
+      "decision_p95_ms": 0.14014364999999984,
+      "blueprint_p95_ms": 0.3698044,
+      "paired_difference_vs_s55": {
+        "bb100": -78.825,
+        "ci95_low": -111.30524505748835,
+        "ci95_high": -46.34475494251165,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R04",
+      "opponent": "S33",
+      "bb100": -44.106,
+      "ci95_low": -70.68641814420806,
+      "ci95_high": -17.52558185579195,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1758,
+        "research_closed_action": 57
+      },
+      "research_lookup_fraction": 0.2838230545689377,
+      "decision_p50_ms": 0.023855,
+      "decision_p95_ms": 0.2901971999999997,
+      "blueprint_p95_ms": 0.4365581999999999,
+      "paired_difference_vs_s55": {
+        "bb100": -43.804,
+        "ci95_low": -67.06615391844551,
+        "ci95_high": -20.5418460815545,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R05",
+      "opponent": "S08",
+      "bb100": -52.782,
+      "ci95_low": -83.1813080368158,
+      "ci95_high": -22.382691963184186,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1283,
+        "research_closed_action": 56
+      },
+      "research_lookup_fraction": 0.24107478391582113,
+      "decision_p50_ms": 0.023341,
+      "decision_p95_ms": 0.17034734999999981,
+      "blueprint_p95_ms": 0.4497246999999998,
+      "paired_difference_vs_s55": {
+        "bb100": -56.362,
+        "ci95_low": -79.03183847707123,
+        "ci95_high": -33.692161522928764,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R05",
+      "opponent": "S18",
+      "bb100": -102.27,
+      "ci95_low": -139.05598941054677,
+      "ci95_high": -65.4840105894532,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2472,
+        "research_closed_action": 94
+      },
+      "research_lookup_fraction": 0.31814671814671813,
+      "decision_p50_ms": 0.0233415,
+      "decision_p95_ms": 0.3216057500000001,
+      "blueprint_p95_ms": 0.43357694999999985,
+      "paired_difference_vs_s55": {
+        "bb100": -100.204,
+        "ci95_low": -132.99547630377197,
+        "ci95_high": -67.412523696228,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R05",
+      "opponent": "S23",
+      "bb100": -64.616,
+      "ci95_low": -97.54138440425999,
+      "ci95_high": -31.69061559574002,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1610,
+        "research_closed_action": 61
+      },
+      "research_lookup_fraction": 0.27099814845985526,
+      "decision_p50_ms": 0.02312,
+      "decision_p95_ms": 0.1397313999999999,
+      "blueprint_p95_ms": 0.33344884999999985,
+      "paired_difference_vs_s55": {
+        "bb100": -78.827,
+        "ci95_low": -111.31652256771437,
+        "ci95_high": -46.33747743228562,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R05",
+      "opponent": "S33",
+      "bb100": -44.997,
+      "ci95_low": -71.55737254286015,
+      "ci95_high": -18.43662745713985,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1756,
+        "research_closed_action": 58
+      },
+      "research_lookup_fraction": 0.28354593896334573,
+      "decision_p50_ms": 0.023122,
+      "decision_p95_ms": 0.2885215999999991,
+      "blueprint_p95_ms": 0.41819249999999997,
+      "paired_difference_vs_s55": {
+        "bb100": -44.695,
+        "ci95_low": -67.93323677437067,
+        "ci95_high": -21.456763225629334,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R06",
+      "opponent": "S08",
+      "bb100": -52.972,
+      "ci95_low": -83.3730835084599,
+      "ci95_high": -22.570916491540103,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 3983,
+        "research_blueprint": 1283,
+        "research_closed_action": 56
+      },
+      "research_lookup_fraction": 0.24107478391582113,
+      "decision_p50_ms": 0.023171,
+      "decision_p95_ms": 0.14905554999999987,
+      "blueprint_p95_ms": 0.3186735,
+      "paired_difference_vs_s55": {
+        "bb100": -56.552,
+        "ci95_low": -79.25741703978466,
+        "ci95_high": -33.84658296021534,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R06",
+      "opponent": "S18",
+      "bb100": -100.414,
+      "ci95_low": -137.07627648718983,
+      "ci95_high": -63.75172351281019,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 5204,
+        "research_blueprint": 2476,
+        "research_closed_action": 92
+      },
+      "research_lookup_fraction": 0.3185795162120432,
+      "decision_p50_ms": 0.0239355,
+      "decision_p95_ms": 0.1594365000000001,
+      "blueprint_p95_ms": 0.33253900000000003,
+      "paired_difference_vs_s55": {
+        "bb100": -98.348,
+        "ci95_low": -131.01783202047503,
+        "ci95_high": -65.67816797952497,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R06",
+      "opponent": "S23",
+      "bb100": -64.616,
+      "ci95_low": -97.54138440425999,
+      "ci95_high": -31.69061559574002,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4270,
+        "research_blueprint": 1609,
+        "research_closed_action": 61
+      },
+      "research_lookup_fraction": 0.2708754208754209,
+      "decision_p50_ms": 0.025427,
+      "decision_p95_ms": 0.3443236,
+      "blueprint_p95_ms": 0.47814899999999994,
+      "paired_difference_vs_s55": {
+        "bb100": -78.827,
+        "ci95_low": -111.31652256771437,
+        "ci95_high": -46.33747743228562,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "R06",
+      "opponent": "S33",
+      "bb100": -45.309,
+      "ci95_low": -71.85666926134667,
+      "ci95_high": -18.761330738653335,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "fallback_preflop": 4379,
+        "research_blueprint": 1756,
+        "research_closed_action": 59
+      },
+      "research_lookup_fraction": 0.2835001614465612,
+      "decision_p50_ms": 0.024639,
+      "decision_p95_ms": 0.2774209999999999,
+      "blueprint_p95_ms": 0.40176525,
+      "paired_difference_vs_s55": {
+        "bb100": -45.007,
+        "ci95_low": -68.33133027551047,
+        "ci95_high": -21.68266972448953,
+        "independent_deals": 2500
+      }
+    },
+    {
+      "protocol": "field",
+      "candidate": "S55",
+      "opponent": "S08",
+      "bb100": 3.58,
+      "ci95_low": -16.982486467129362,
+      "ci95_high": 24.14248646712936,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "heuristic": 4923
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.01518,
+      "decision_p95_ms": 0.35268399999999955,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "field",
+      "candidate": "S55",
+      "opponent": "S18",
+      "bb100": -2.066,
+      "ci95_low": -25.25466012345081,
+      "ci95_high": 21.122660123450814,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "heuristic": 6961
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.015195,
+      "decision_p95_ms": 0.3797989,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "field",
+      "candidate": "S55",
+      "opponent": "S23",
+      "bb100": 14.211,
+      "ci95_low": -3.8957056301744064,
+      "ci95_high": 32.31770563017441,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "heuristic": 5410
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.014267,
+      "decision_p95_ms": 0.354706,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "field",
+      "candidate": "S55",
+      "opponent": "S33",
+      "bb100": -0.302,
+      "ci95_low": -21.732638143476574,
+      "ci95_high": 21.128638143476575,
+      "independent_deals": 2500,
+      "policy_modes": {
+        "heuristic": 5798
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.016302,
+      "decision_p95_ms": 0.4086546999999999,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R01",
+      "opponent": "R02",
+      "bb100": 14.5525,
+      "ci95_low": -7.088800666899372,
+      "ci95_high": 36.19380066689937,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 807,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.3087222647283856,
+      "decision_p50_ms": 0.024588,
+      "decision_p95_ms": 0.3598634,
+      "blueprint_p95_ms": 0.45208749999999986
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R01",
+      "opponent": "R03",
+      "bb100": -3.4075,
+      "ci95_low": -9.253411196767148,
+      "ci95_high": 2.4384111967671482,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 797,
+        "research_closed_action": 16
+      },
+      "research_lookup_fraction": 0.30583269378357636,
+      "decision_p50_ms": 0.025232499999999998,
+      "decision_p95_ms": 0.3688154,
+      "blueprint_p95_ms": 0.46827899999999995
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R01",
+      "opponent": "R04",
+      "bb100": 1.47,
+      "ci95_low": -7.716053953206724,
+      "ci95_high": 10.656053953206724,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 798,
+        "research_closed_action": 15
+      },
+      "research_lookup_fraction": 0.306216423637759,
+      "decision_p50_ms": 0.024886,
+      "decision_p95_ms": 0.32655424999999993,
+      "blueprint_p95_ms": 0.4559332
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R01",
+      "opponent": "R05",
+      "bb100": -3.53,
+      "ci95_low": -9.38057651442539,
+      "ci95_high": 2.3205765144253907,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 797,
+        "research_closed_action": 15
+      },
+      "research_lookup_fraction": 0.30595009596928985,
+      "decision_p50_ms": 0.025390999999999997,
+      "decision_p95_ms": 0.0864498999999995,
+      "blueprint_p95_ms": 0.10359139999999986
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R01",
+      "opponent": "R06",
+      "bb100": -3.9425,
+      "ci95_low": -9.847858147179299,
+      "ci95_high": 1.9628581471792979,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 797,
+        "research_closed_action": 15
+      },
+      "research_lookup_fraction": 0.30595009596928985,
+      "decision_p50_ms": 0.024276,
+      "decision_p95_ms": 0.04735594999999982,
+      "blueprint_p95_ms": 0.06414259999999977
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R02",
+      "opponent": "R03",
+      "bb100": -12.4025,
+      "ci95_low": -34.92711264558656,
+      "ci95_high": 10.122112645586565,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 13
+      },
+      "research_lookup_fraction": 0.3067178502879079,
+      "decision_p50_ms": 0.0222925,
+      "decision_p95_ms": 0.06410739999999963,
+      "blueprint_p95_ms": 0.07404809999999891
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R02",
+      "opponent": "R04",
+      "bb100": -7.595,
+      "ci95_low": -29.411403726363325,
+      "ci95_high": 14.221403726363327,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 800,
+        "research_closed_action": 12
+      },
+      "research_lookup_fraction": 0.30710172744721687,
+      "decision_p50_ms": 0.0243965,
+      "decision_p95_ms": 0.055398799999999866,
+      "blueprint_p95_ms": 0.0608414
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R02",
+      "opponent": "R05",
+      "bb100": -12.525,
+      "ci95_low": -35.04549895591122,
+      "ci95_high": 9.995498955911218,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 12
+      },
+      "research_lookup_fraction": 0.3068356374807988,
+      "decision_p50_ms": 0.0209455,
+      "decision_p95_ms": 0.33722249999999987,
+      "blueprint_p95_ms": 0.47251269999999995
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R02",
+      "opponent": "R06",
+      "bb100": -12.525,
+      "ci95_low": -35.04549895591122,
+      "ci95_high": 9.995498955911218,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 12
+      },
+      "research_lookup_fraction": 0.3068356374807988,
+      "decision_p50_ms": 0.024007,
+      "decision_p95_ms": 0.12386519999999994,
+      "blueprint_p95_ms": 0.3848154999999999
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R03",
+      "opponent": "R04",
+      "bb100": 4.8775,
+      "ci95_low": -2.2318973067662373,
+      "ci95_high": 11.986897306766238,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.3066001534919417,
+      "decision_p50_ms": 0.0248235,
+      "decision_p95_ms": 0.12596464999999965,
+      "blueprint_p95_ms": 0.3568293
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R03",
+      "opponent": "R05",
+      "bb100": -0.12249999999999997,
+      "ci95_low": -0.36288682898884744,
+      "ci95_high": 0.1178868289888475,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.3066001534919417,
+      "decision_p50_ms": 0.024593999999999998,
+      "decision_p95_ms": 0.06109634999999998,
+      "blueprint_p95_ms": 0.09517619999999997
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R03",
+      "opponent": "R06",
+      "bb100": -0.535,
+      "ci95_low": -1.379174884042769,
+      "ci95_high": 0.3091748840427688,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 799,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.3066001534919417,
+      "decision_p50_ms": 0.0235425,
+      "decision_p95_ms": 0.05930969999999995,
+      "blueprint_p95_ms": 0.07158849999999956
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R04",
+      "opponent": "R05",
+      "bb100": -5.0,
+      "ci95_low": -12.113136414269313,
+      "ci95_high": 2.113136414269313,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 798,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.30633397312859884,
+      "decision_p50_ms": 0.017544,
+      "decision_p95_ms": 0.1924321999999998,
+      "blueprint_p95_ms": 0.3687812499999997
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R04",
+      "opponent": "R06",
+      "bb100": -5.4125,
+      "ci95_low": -12.570435752037302,
+      "ci95_high": 1.7454357520373023,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 798,
+        "research_closed_action": 14
+      },
+      "research_lookup_fraction": 0.30633397312859884,
+      "decision_p50_ms": 0.0237345,
+      "decision_p95_ms": 0.06985049999999976,
+      "blueprint_p95_ms": 0.09711934999999992
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "R05",
+      "opponent": "R06",
+      "bb100": -0.4125,
+      "ci95_low": -1.221965852717548,
+      "ci95_high": 0.39696585271754814,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "fallback_preflop": 1793,
+        "research_blueprint": 798,
+        "research_closed_action": 15
+      },
+      "research_lookup_fraction": 0.306216423637759,
+      "decision_p50_ms": 0.023959,
+      "decision_p95_ms": 0.10688124999999998,
+      "blueprint_p95_ms": 0.35995549999999976
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R01",
+      "bb100": 52.6925,
+      "ci95_low": 23.36729425618817,
+      "ci95_high": 82.01770574381183,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2498
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.019619499999999998,
+      "decision_p95_ms": 0.40311909999999984,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R02",
+      "bb100": 67.255,
+      "ci95_low": 35.780271653616516,
+      "ci95_high": 98.72972834638347,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2491
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.019549999999999998,
+      "decision_p95_ms": 0.39491749999999964,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R03",
+      "bb100": 46.0175,
+      "ci95_low": 18.23885603131848,
+      "ci95_high": 73.79614396868152,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2494
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.01978,
+      "decision_p95_ms": 0.33389149999999956,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R04",
+      "bb100": 46.0175,
+      "ci95_low": 18.23885603131848,
+      "ci95_high": 73.79614396868152,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2495
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.01963,
+      "decision_p95_ms": 0.3451458,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R05",
+      "bb100": 45.2275,
+      "ci95_low": 17.285655606722806,
+      "ci95_high": 73.16934439327719,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2494
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.019835,
+      "decision_p95_ms": 0.07814744999999991,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "round_robin",
+      "candidate": "S55",
+      "opponent": "R06",
+      "bb100": 47.0325,
+      "ci95_low": 19.021922988752802,
+      "ci95_high": 75.04307701124719,
+      "independent_deals": 1000,
+      "policy_modes": {
+        "heuristic": 2495
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.0196395,
+      "decision_p95_ms": 0.07396719999999984,
+      "blueprint_p95_ms": null
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R01",
+      "opponent": "fixed_five",
+      "bb100": -30.140000000000004,
+      "ci95_low": -109.42892005205773,
+      "ci95_high": 49.14892005205773,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 555,
+        "fallback_multiway": 191,
+        "research_closed_action": 43
+      },
+      "research_lookup_fraction": 0.23606975754997872,
+      "decision_p50_ms": 0.0196615,
+      "decision_p95_ms": 0.3292938499999999,
+      "blueprint_p95_ms": 0.3235985999999999
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R02",
+      "opponent": "fixed_five",
+      "bb100": -37.62333333333333,
+      "ci95_low": -113.7019069633497,
+      "ci95_high": 38.45524029668304,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 553,
+        "fallback_multiway": 191,
+        "research_closed_action": 39
+      },
+      "research_lookup_fraction": 0.23582089552238805,
+      "decision_p50_ms": 0.0157025,
+      "decision_p95_ms": 0.19588355,
+      "blueprint_p95_ms": 0.2427942
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R03",
+      "opponent": "fixed_five",
+      "bb100": -23.746666666666666,
+      "ci95_low": -103.24231438950973,
+      "ci95_high": 55.74898105617639,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 554,
+        "fallback_multiway": 191,
+        "research_closed_action": 42
+      },
+      "research_lookup_fraction": 0.2358450404427416,
+      "decision_p50_ms": 0.0223275,
+      "decision_p95_ms": 0.3634377499999997,
+      "blueprint_p95_ms": 0.3829475500000001
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R04",
+      "opponent": "fixed_five",
+      "bb100": -19.646666666666672,
+      "ci95_low": -98.25427340885477,
+      "ci95_high": 58.96094007552142,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 561,
+        "fallback_multiway": 191,
+        "research_closed_action": 41
+      },
+      "research_lookup_fraction": 0.23821656050955414,
+      "decision_p50_ms": 0.023280500000000003,
+      "decision_p95_ms": 0.40945504999999993,
+      "blueprint_p95_ms": 0.491612
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R05",
+      "opponent": "fixed_five",
+      "bb100": -26.143333333333334,
+      "ci95_low": -105.76055436167799,
+      "ci95_high": 53.47388769501133,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 556,
+        "fallback_multiway": 191,
+        "research_closed_action": 40
+      },
+      "research_lookup_fraction": 0.23669646658152405,
+      "decision_p50_ms": 0.017813,
+      "decision_p95_ms": 0.2822923,
+      "blueprint_p95_ms": 0.363385
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "R06",
+      "opponent": "fixed_five",
+      "bb100": -26.143333333333334,
+      "ci95_low": -105.76055436167799,
+      "ci95_high": 53.47388769501133,
+      "independent_deals": 250,
+      "policy_modes": {
+        "fallback_preflop": 1562,
+        "research_blueprint": 556,
+        "fallback_multiway": 191,
+        "research_closed_action": 39
+      },
+      "research_lookup_fraction": 0.23679727427597955,
+      "decision_p50_ms": 0.0235635,
+      "decision_p95_ms": 0.40354949999999945,
+      "blueprint_p95_ms": 0.49339350000000004
+    },
+    {
+      "protocol": "six_max",
+      "candidate": "S55",
+      "opponent": "fixed_five",
+      "bb100": 70.88333333333333,
+      "ci95_low": 15.434844756332865,
+      "ci95_high": 126.33182191033379,
+      "independent_deals": 250,
+      "policy_modes": {
+        "heuristic": 2187
+      },
+      "research_lookup_fraction": 0.0,
+      "decision_p50_ms": 0.013871,
+      "decision_p95_ms": 0.36198584999999983,
+      "blueprint_p95_ms": null
+    }
+  ],
+  "field_aggregate": [
+    {
+      "candidate": "S55",
+      "bb100": 3.85575,
+      "ci95_low": -6.590860013363894,
+      "ci95_high": 14.302360013363895,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "independent_deals": 10000
+      }
+    },
+    {
+      "candidate": "R01",
+      "bb100": -69.508,
+      "ci95_low": -85.53058352568823,
+      "ci95_high": -53.48541647431177,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -73.36375,
+        "ci95_low": -87.640905563641,
+        "ci95_high": -59.08659443635899,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 9.4790978158029e-24,
+      "holm_p": 4.73954890790145e-23
+    },
+    {
+      "candidate": "R02",
+      "bb100": -81.992,
+      "ci95_low": -99.11866945344039,
+      "ci95_high": -64.86533054655962,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -85.84775,
+        "ci95_low": -101.22885443152643,
+        "ci95_high": -70.46664556847358,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 1.057632859672635e-27,
+      "holm_p": 6.34579715803581e-27
+    },
+    {
+      "candidate": "R03",
+      "bb100": -66.129,
+      "ci95_low": -82.07057828871214,
+      "ci95_high": -50.18742171128786,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -69.98475,
+        "ci95_low": -84.08286838308197,
+        "ci95_high": -55.88663161691803,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 2.8008842866532113e-22,
+      "holm_p": 9.91229192737354e-22
+    },
+    {
+      "candidate": "R04",
+      "bb100": -65.7385,
+      "ci95_low": -81.57573136309932,
+      "ci95_high": -49.90126863690068,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -69.59425,
+        "ci95_low": -83.59562337134118,
+        "ci95_high": -55.59287662865882,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 2.478072981843385e-22,
+      "holm_p": 9.91229192737354e-22
+    },
+    {
+      "candidate": "R05",
+      "bb100": -66.16625,
+      "ci95_low": -82.10687961102373,
+      "ci95_high": -50.22562038897628,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -70.022,
+        "ci95_low": -84.12942434870887,
+        "ci95_high": -55.914575651291145,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 2.834995602015421e-22,
+      "holm_p": 9.91229192737354e-22
+    },
+    {
+      "candidate": "R06",
+      "bb100": -65.82775,
+      "ci95_low": -81.74901357914636,
+      "ci95_high": -49.90648642085363,
+      "independent_deals": 10000,
+      "paired_difference_vs_s55": {
+        "bb100": -69.6835,
+        "ci95_low": -83.78530305333179,
+        "ci95_high": -55.5816969466682,
+        "independent_deals": 10000
+      },
+      "p_two_sided": 4.3127373831619375e-22,
+      "holm_p": 9.91229192737354e-22
+    }
+  ],
+  "total_hands": 192500,
+  "chip_conservation_errors": 0,
+  "illegal_actions": 0,
+  "wall_seconds": 64.92,
+  "protocol": {
+    "field_pairs_per_opponent": 2500,
+    "round_robin_pairs": 1000,
+    "six_max_deals": 250,
+    "heads_up_seat_repeats": 2,
+    "six_max_seat_repeats": 6,
+    "starting_stack_bb": 100,
+    "rake": 0,
+    "confidence_unit": "One shuffled deal, averaged across all seat repetitions. Field opponents use distinct seed blocks.",
+    "inference": "Frozen blueprint plus shared 48-sample equity estimator; timing excludes capture, UI and agent initialization.",
+    "multiple_comparisons": "Holm adjustment for six aggregate paired differences against S55; other intervals exploratory."
+  },
+  "blueprint_sha256": "1f7839e565ac0396a3e9ae68c74b9bed7736bcf8698521d83dcdd52ef8568c37",
+  "raw_sha256": "8d192b0a03181c5b016ca319be8ef615a48cef3bd4625381abe65afeb2789eb0"
+}

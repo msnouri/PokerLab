@@ -141,6 +141,7 @@ ApplicationWindow {
             }
             Item { width: 1; height: 22 }
             Caption { text: "CURRENT LAYOUT"; font.pixelSize: 9 }
+            Action { text: "Open agent lab  ↗"; width: 152; onClicked: studio.openAgentLab() }
             Text { text: root.state.layout || "Untitled"; width: 152; wrapMode: Text.WordWrap; color: "#b8ccc7"; font.pixelSize: 12 }
             Text { text: root.state.seats + " seats  ·  Hero " + (root.state.hero + 1); color: root.muted; font.pixelSize: 10 }
         }

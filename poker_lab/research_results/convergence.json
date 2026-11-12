@@ -1,0 +1,378 @@
+{
+  "game": "Standard three-card Kuhn poker; exact chance without replacement",
+  "known_value_p0": -0.05555555555555555,
+  "seed": 17,
+  "note": "MCCFR uses 10x as many iterations. Timings are sequential local Python wall time; no equal-work or full-Holdem speed claim.",
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.3.5",
+      "pokerkit": "0.7.7",
+      "eval7": "0.1.11",
+      "scipy": "1.17.0"
+    }
+  },
+  "rows": [
+    {
+      "algorithm": "cfr",
+      "iterations": 10,
+      "training_seconds": 0.0028989960001126747,
+      "value_p0": -0.05311271033885934,
+      "best_response_p0": 0.0160104848677253,
+      "best_response_p1": 0.1213871027665899,
+      "nash_conv": 0.1373975876343152,
+      "exploitability": 0.0686987938171576
+    },
+    {
+      "algorithm": "cfr",
+      "iterations": 30,
+      "training_seconds": 0.008614464999482152,
+      "value_p0": -0.057100434181965115,
+      "best_response_p0": -0.027700751000011598,
+      "best_response_p1": 0.07365407656150519,
+      "nash_conv": 0.04595332556149359,
+      "exploitability": 0.022976662780746795
+    },
+    {
+      "algorithm": "cfr",
+      "iterations": 100,
+      "training_seconds": 0.01986833499995555,
+      "value_p0": -0.05614724147718675,
+      "best_response_p0": -0.0466408711788093,
+      "best_response_p1": 0.06309282581064019,
+      "nash_conv": 0.016451954631830884,
+      "exploitability": 0.008225977315915442
+    },
+    {
+      "algorithm": "cfr",
+      "iterations": 300,
+      "training_seconds": 0.05428614699940226,
+      "value_p0": -0.05575134526638806,
+      "best_response_p0": -0.05274360407088538,
+      "best_response_p1": 0.058811525303186646,
+      "nash_conv": 0.0060679212323012655,
+      "exploitability": 0.0030339606161506327
+    },
+    {
+      "algorithm": "cfr",
+      "iterations": 1000,
+      "training_seconds": 0.17449953300001653,
+      "value_p0": -0.055625031582249046,
+      "best_response_p0": -0.0548458428811395,
+      "best_response_p1": 0.05672107617512678,
+      "nash_conv": 0.0018752332939872829,
+      "exploitability": 0.0009376166469936414
+    },
+    {
+      "algorithm": "cfr",
+      "iterations": 3000,
+      "training_seconds": 0.5200308229996153,
+      "value_p0": -0.055580493937929604,
+      "best_response_p0": -0.05521361168592226,
+      "best_response_p1": 0.05605087302688694,
+      "nash_conv": 0.000837261340964679,
+      "exploitability": 0.0004186306704823395
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 100,
+      "training_seconds": 0.009346629999527067,
+      "value_p0": -0.04835765604754397,
+      "best_response_p0": 0.01375711574952565,
+      "best_response_p1": 0.13400480623416328,
+      "nash_conv": 0.14776192198368893,
+      "exploitability": 0.07388096099184446
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 300,
+      "training_seconds": 0.027226187999985996,
+      "value_p0": -0.052940905041935604,
+      "best_response_p0": -0.007171829159049903,
+      "best_response_p1": 0.13491109012481337,
+      "nash_conv": 0.12773926096576346,
+      "exploitability": 0.06386963048288173
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 1000,
+      "training_seconds": 0.09918485500020324,
+      "value_p0": -0.05276327870535055,
+      "best_response_p0": -0.04146483192088879,
+      "best_response_p1": 0.09998171003456852,
+      "nash_conv": 0.05851687811367973,
+      "exploitability": 0.029258439056839863
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 3000,
+      "training_seconds": 0.30327353899974696,
+      "value_p0": -0.05813380215360253,
+      "best_response_p0": -0.03711925694292367,
+      "best_response_p1": 0.08109121700181376,
+      "nash_conv": 0.04397196005889009,
+      "exploitability": 0.021985980029445046
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 10000,
+      "training_seconds": 0.992719273000148,
+      "value_p0": -0.05626017827773597,
+      "best_response_p0": -0.046174983591835445,
+      "best_response_p1": 0.06764370661931884,
+      "nash_conv": 0.0214687230274834,
+      "exploitability": 0.0107343615137417
+    },
+    {
+      "algorithm": "mccfr",
+      "iterations": 30000,
+      "training_seconds": 2.9951525890000994,
+      "value_p0": -0.05558051380766793,
+      "best_response_p0": -0.05414685914420658,
+      "best_response_p1": 0.06009910711469174,
+      "nash_conv": 0.005952247970485158,
+      "exploitability": 0.002976123985242579
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 10,
+      "training_seconds": 0.0017114000002038665,
+      "value_p0": -0.058724911551706505,
+      "best_response_p0": -0.01767385321296419,
+      "best_response_p1": 0.08304803454965382,
+      "nash_conv": 0.06537418133668962,
+      "exploitability": 0.03268709066834481
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 30,
+      "training_seconds": 0.005009465000512137,
+      "value_p0": -0.05562525578728231,
+      "best_response_p0": -0.049043949109385476,
+      "best_response_p1": 0.05975952429573106,
+      "nash_conv": 0.010715575186345583,
+      "exploitability": 0.005357787593172791
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 100,
+      "training_seconds": 0.018931143000372685,
+      "value_p0": -0.0555840065492694,
+      "best_response_p0": -0.05481278496585043,
+      "best_response_p1": 0.057201593168073606,
+      "nash_conv": 0.002388808202223175,
+      "exploitability": 0.0011944041011115875
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 300,
+      "training_seconds": 0.051988397000059194,
+      "value_p0": -0.055557151413935996,
+      "best_response_p0": -0.05496444752139701,
+      "best_response_p1": 0.05583124932700867,
+      "nash_conv": 0.0008668018056116611,
+      "exploitability": 0.00043340090280583055
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 1000,
+      "training_seconds": 0.17596460900040256,
+      "value_p0": -0.05555591758265188,
+      "best_response_p0": -0.055506130043794094,
+      "best_response_p1": 0.05568086068883521,
+      "nash_conv": 0.00017473064504111568,
+      "exploitability": 8.736532252055784e-05
+    },
+    {
+      "algorithm": "cfr_plus",
+      "iterations": 3000,
+      "training_seconds": 0.518186429000707,
+      "value_p0": -0.055555582141691595,
+      "best_response_p0": -0.05553891382674042,
+      "best_response_p1": 0.055617376214109004,
+      "nash_conv": 7.846238736858302e-05,
+      "exploitability": 3.923119368429151e-05
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 10,
+      "training_seconds": 0.001446952999685891,
+      "value_p0": -0.05543126897285283,
+      "best_response_p0": -0.03549332877382519,
+      "best_response_p1": 0.08105089662535261,
+      "nash_conv": 0.045557567851527425,
+      "exploitability": 0.022778783925763713
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 30,
+      "training_seconds": 0.005081180999695789,
+      "value_p0": -0.05557729533040259,
+      "best_response_p0": -0.05189680481786965,
+      "best_response_p1": 0.06346911811010153,
+      "nash_conv": 0.011572313292231878,
+      "exploitability": 0.005786156646115939
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 100,
+      "training_seconds": 0.01936733999991702,
+      "value_p0": -0.05555940084888944,
+      "best_response_p0": -0.052711744048809045,
+      "best_response_p1": 0.05604442798975612,
+      "nash_conv": 0.003332683940947073,
+      "exploitability": 0.0016663419704735366
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 300,
+      "training_seconds": 0.05947669200031669,
+      "value_p0": -0.05555913953447536,
+      "best_response_p0": -0.05474914048754562,
+      "best_response_p1": 0.056141816549980905,
+      "nash_conv": 0.0013926760624352885,
+      "exploitability": 0.0006963380312176443
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 1000,
+      "training_seconds": 0.1899645209996379,
+      "value_p0": -0.0555555960823329,
+      "best_response_p0": -0.05530824963916056,
+      "best_response_p1": 0.05560125009612138,
+      "nash_conv": 0.000293000456960818,
+      "exploitability": 0.000146500228480409
+    },
+    {
+      "algorithm": "dcfr",
+      "iterations": 3000,
+      "training_seconds": 0.555932522999683,
+      "value_p0": -0.0555555222278393,
+      "best_response_p0": -0.05545909470375479,
+      "best_response_p1": 0.0555982845724767,
+      "nash_conv": 0.00013918986872191175,
+      "exploitability": 6.959493436095587e-05
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 10,
+      "training_seconds": 0.002979318999678071,
+      "value_p0": -0.06373754876806645,
+      "best_response_p0": -0.04151764074733101,
+      "best_response_p1": 0.0819307848529115,
+      "nash_conv": 0.04041314410558049,
+      "exploitability": 0.020206572052790243
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 30,
+      "training_seconds": 0.006753230999493098,
+      "value_p0": -0.055875079514640796,
+      "best_response_p0": -0.055219170199595574,
+      "best_response_p1": 0.05686189567201899,
+      "nash_conv": 0.0016427254724234175,
+      "exploitability": 0.0008213627362117087
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 100,
+      "training_seconds": 0.01935973699983151,
+      "value_p0": -0.05556450167997698,
+      "best_response_p0": -0.055545638130398534,
+      "best_response_p1": 0.05559209723837796,
+      "nash_conv": 4.645910797942965e-05,
+      "exploitability": 2.3229553989714824e-05
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 300,
+      "training_seconds": 0.056491382999411144,
+      "value_p0": -0.05555589022169885,
+      "best_response_p0": -0.0555551845724426,
+      "best_response_p1": 0.055556922477615955,
+      "nash_conv": 1.7379051733545925e-06,
+      "exploitability": 8.689525866772962e-07
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 1000,
+      "training_seconds": 0.18227925100018183,
+      "value_p0": -0.055555564623182674,
+      "best_response_p0": -0.05555554550395561,
+      "best_response_p1": 0.05555559259161691,
+      "nash_conv": 4.7087661297906536e-08,
+      "exploitability": 2.3543830648953268e-08
+    },
+    {
+      "algorithm": "pcfr_plus",
+      "iterations": 3000,
+      "training_seconds": 0.5783787860000302,
+      "value_p0": -0.05555555589172942,
+      "best_response_p0": -0.055555555182901756,
+      "best_response_p1": 0.05555555692863126,
+      "nash_conv": 1.7457295053979749e-09,
+      "exploitability": 8.728647526989874e-10
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 10,
+      "training_seconds": 0.002102862999890931,
+      "value_p0": -0.05920100790972663,
+      "best_response_p0": -0.029752036240051183,
+      "best_response_p1": 0.08871450188728427,
+      "nash_conv": 0.05896246564723309,
+      "exploitability": 0.029481232823616546
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 30,
+      "training_seconds": 0.006397461999767984,
+      "value_p0": -0.05555812112641825,
+      "best_response_p0": -0.055454553580376736,
+      "best_response_p1": 0.0557638682523133,
+      "nash_conv": 0.0003093146719365669,
+      "exploitability": 0.00015465733596828346
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 100,
+      "training_seconds": 0.02208122999945772,
+      "value_p0": -0.05555555746818594,
+      "best_response_p0": -0.05555548845560465,
+      "best_response_p1": 0.055555709421068356,
+      "nash_conv": 2.2096546370420356e-07,
+      "exploitability": 1.1048273185210178e-07
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 300,
+      "training_seconds": 0.06158294599936198,
+      "value_p0": -0.05555555555823166,
+      "best_response_p0": -0.05555555546161306,
+      "best_response_p1": 0.055555555770838205,
+      "nash_conv": 3.092251454894779e-10,
+      "exploitability": 1.5461257274473894e-10
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 1000,
+      "training_seconds": 0.1962107269991975,
+      "value_p0": -0.05555555555555736,
+      "best_response_p0": -0.055555555555486524,
+      "best_response_p1": 0.05555555555571354,
+      "nash_conv": 2.2701285296022888e-13,
+      "exploitability": 1.1350642648011444e-13
+    },
+    {
+      "algorithm": "pdcfr_plus",
+      "iterations": 3000,
+      "training_seconds": 0.5999103249996551,
+      "value_p0": -0.05555555555555547,
+      "best_response_p0": -0.05555555555555544,
+      "best_response_p1": 0.055555555555557135,
+      "nash_conv": 1.6930901125533637e-15,
+      "exploitability": 8.465450562766819e-16
+    }
+  ]
+}

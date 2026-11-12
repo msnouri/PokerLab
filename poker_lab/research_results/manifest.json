@@ -1,0 +1,12 @@
+{
+  "date_utc": "2026-11-12",
+  "stage": "fresh-deal confirmation v2",
+  "source_note": "See Git history for the implementation; runtime recorded in convergence.json. No benchmark-time training.",
+  "command": "PYTHONPATH=poker_lab python -m pokerlab.research.benchmark --pairs 2500 --round-robin-pairs 1000 --multiway-deals 250 --seed-offset 300000000 --workers 8 --output poker_lab/research_results",
+  "sha256": {
+    "poker_lab/research_results/benchmark.json": "a198d4b767b551d6e9e966ffb503254afea8f879f45ed1bd5b5d3a00fd1f85b5",
+    "poker_lab/research_results/hands.csv.gz": "613334f6319d1b0a36e585ebea377a3cabfb92aa9aef1466b72c8e7e3a085c15",
+    "poker_lab/research_results/convergence.json": "72a23af4ad0b5d153ad9e3af4cc8efb5b0f2c34f43d7e37c2297727392cb175d",
+    "poker_lab/pokerlab/research/blueprints.json": "115fb38eb57802fa349a6631139945fd07d183edacb6b9fe9bda9d40d71daf7d"
+  }
+}
