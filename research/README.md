@@ -126,8 +126,8 @@ PYTHONPATH=poker_lab python -m pokerlab.bot --strategy R06 < observations.jsonl
 ```
 
 The original `all_strategies()` and original experiment retain exactly 80
-heuristic candidates. `selectable_strategies()` exposes all 86 to the GUI and
-JSON bot. No existing experiment output or historical report is overwritten.
+heuristic candidates. `selectable_strategies()` exposes those, R01–R06 and the
+four library policies T01–T04 (90 in total) to the GUI and JSON bot. No existing experiment output or historical report is overwritten.
 
 ## Citation snapshot
 

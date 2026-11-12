@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run from Finder or with: bash "Launch Poker Lab.command"
+# Run from Finder or with: bash "Launch Poker Lab.command"   (add --lab to open the Agent Lab directly)
 set -euo pipefail
 cd -- "$(dirname -- "$0")"
 POKER_PYTHON=''
@@ -27,4 +27,4 @@ if ! .venv/bin/python -c "import PySide6, cv2, mss, PIL, pytesseract, pokerkit, 
   .venv/bin/python -m pip install -r requirements-gui.txt
   cp requirements-gui.txt .venv/gui-requirements.txt
 fi
-exec .venv/bin/python -m desktop
+exec .venv/bin/python -m desktop "$@"

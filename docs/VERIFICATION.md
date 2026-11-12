@@ -82,3 +82,18 @@ They do not present this as live Mac capture or demonstrate real-time speed.
 See [media manifest](media/manifest.json) and
 [recording script](../scripts/record_readme_demos.py). No footage or assets from
 the reference Poker repository were copied.
+
+## Agent Lab and library policies
+
+| Claim | Check | Not covered |
+|---|---|---|
+| Agent Lab deals legal hands, conserves chips and keeps opponents' cards private until a showdown they reached | `desktop/tests/test_lab.py`, two table sizes × five depths | Opponents are this repository's heuristics |
+| Window opens on a live decision; Coach, Quiz and Watch behave as documented | Same file, Qt offscreen on Linux | Not yet run on a Mac display; the macOS CI job runs these tests headless |
+| T01 ranges are an equilibrium of the jam-or-fold game | `library/build_pushfold.py` stores exploitability (< 0.002 bb at every depth); `tests/test_library.py` | Equities are Monte Carlo (1,500 samples per class pair); hands at the range border carry noise |
+| T01–T04 take only legal actions | `tests/test_library.py`, 1,000 hands across five formats | — |
+| Library results | `poker_lab/library_results/benchmark.json`, 64,000 paired hands per policy | In-repo opponents only; one seed set |
+| App bundle recipe | Built and started headless on Linux | Never built, signed or opened on macOS |
+
+The Agent Lab screenshots were taken from the running window with `--seed 86`
+(`python -m desktop --lab --seed 86 --screenshot out.png`) and a scripted
+heads-up 12 bb session; they are unedited.

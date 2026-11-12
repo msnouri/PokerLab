@@ -119,6 +119,9 @@ class Agent:
         if strategy.research:
             from .research.policy import PaperPolicy
             self.research_policy=PaperPolicy(strategy.research)
+        elif strategy.policy:
+            from .library import build
+            self.research_policy=build(strategy.policy)
 
     def decide(self,o:Observation,draw:float=.5):
         """Return ('fold'|'call'|'raise', raise_to). Zero cost call is check.

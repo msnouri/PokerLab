@@ -16,7 +16,7 @@ sys.path.insert(0,str(ROOT/'poker_lab'))
 
 def main():
     from pokerlab.strategies import all_strategies,selectable_strategies
-    assert len(all_strategies())==80 and len(selectable_strategies())==86
+    assert len(all_strategies())==80 and len(selectable_strategies())==90
     assert len(json.loads((ROOT/'research/papers.json').read_text())['papers'])==18
     spec=importlib.util.spec_from_file_location('research_report',ROOT/'research/build_report.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
@@ -56,7 +56,7 @@ def main():
         assert d['fields_wrong']==d['repeat_fields_wrong']==0
         assert d['coverage']>=.98 and d['critical_correct_frames']/d['frames']>=.85
         assert d['validation']['passed']
-    summary={'passed':True,'original_policies':80,'selectable_policies':86,'papers':18,
+    summary={'passed':True,'original_policies':80,'selectable_policies':90,'papers':18,
         'audited_final_hands':final['total_hands'],'retained_initial_hands':initial_count,
         'local_links_checked':checked_links,'animations_checked':len(media['outputs']),
         'scope':'Data, media and link integrity; not live capture or production accuracy.'}

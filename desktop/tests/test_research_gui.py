@@ -40,7 +40,7 @@ class ResearchGuiTests(unittest.TestCase):
         from desktop.app import Window
         window = Window()
         try:
-            self.assertEqual(window.strategy.count(), 86)
+            self.assertEqual(window.strategy.count(), 90)
             self.assertEqual(window.strategy.currentData(), 'S55')
             window.strategy.setCurrentIndex(window.strategy.findData('R03'))
             window.player_count.setCurrentIndex(window.player_count.findData(2))
@@ -62,7 +62,7 @@ class ResearchGuiTests(unittest.TestCase):
             with patch('subprocess.Popen') as spawn:
                 studio.openAgentLab()
             arguments = spawn.call_args.args[0]
-            self.assertEqual(arguments[1:], ['-m', 'desktop', '--classic'])
+            self.assertEqual(arguments[1:], ['-m', 'desktop', '--lab'])
             self.assertFalse(spawn.call_args.kwargs.get('shell', False))
         finally:
             studio.close()

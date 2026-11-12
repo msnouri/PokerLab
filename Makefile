@@ -1,10 +1,14 @@
-.PHONY: install test report gui test-gui test-research research-report
+.PHONY: install test report gui lab test-gui test-research research-report library-benchmark
 install:
 	python3 -m pip install -r requirements.txt
 test:
 	cd poker_lab && python3 -m unittest discover -s tests -v
 gui:
 	python3 -m desktop
+lab:
+	python3 -m desktop --lab
+library-benchmark:
+	cd poker_lab && python3 -m pokerlab.library.benchmark --deals 4000 --workers 4
 test-gui:
 	QT_QPA_PLATFORM=offscreen python3 -m unittest discover -s desktop/tests -v
 test-research:

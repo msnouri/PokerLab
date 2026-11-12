@@ -536,8 +536,10 @@ class Studio(QObject):
     @Slot()
     def openAgentLab(self):
         import subprocess
-        subprocess.Popen([sys.executable,'-m','desktop','--classic'],cwd=str(Path(__file__).resolve().parents[1]))
-        self.note='Agent lab opened. Research options R01–R06 are in the strategy selector.';self.changed.emit()
+        # A packaged app has no `-m`; its executable takes the same flags directly.
+        command=[sys.executable,'--lab'] if getattr(sys,'frozen',False) else [sys.executable,'-m','desktop','--lab']
+        subprocess.Popen(command,cwd=None if getattr(sys,'frozen',False) else str(Path(__file__).resolve().parents[1]))
+        self.note='Agent lab opened. Heuristic, research (R) and library (T) policies are in its selector.';self.changed.emit()
 
     @Slot(str)
     def set_error(self,message):self.note=message;self.changed.emit()
