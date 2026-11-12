@@ -30,7 +30,7 @@ policy path, including S55 fallback reasons.
 | R05 | Predictive CFR+ | Farina et al., 2021 |
 | R06 | Predictive discounted CFR+ | Xu et al., IJCAI 2024 |
 
-![Research option in the practice workbench](figures/research-agent-gui.png)
+![Research option R06 coaching a heads-up postflop spot in the Agent Lab](figures/research-agent-lab.png)
 
 These are actual tabular regret solvers trained offline in a **one-street,
 heads-up, 12-private-bucket game**. The frozen artifact contains 36 depth/method

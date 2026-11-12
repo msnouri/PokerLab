@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/media/hero.svg" alt="PokerLab — See the table. Inspect the evidence. Calibrate, replay and compare policies." width="1100">
+  <img src="docs/media/hero.svg" alt="PokerLab — Play the table. See every policy's reasoning. Coach, compare, replay." width="1100">
 </p>
 
 <p align="center">
@@ -20,31 +20,22 @@ on-device Apple Vision OCR connect observed table state to agent research.
 [Research results](research/README.md) ·
 [What is verified](docs/VERIFICATION.md)
 
-## See the workspace in action
+## See it in action
 
-![Vision Studio: actual reading, calibration, replay and diagnostics](docs/media/vision-tour.gif)
+![Agent Lab walkthrough: coach, policy comparison, showdown, choosing opponents, quiz, watch and the Nash jam range](docs/media/agent-lab.gif)
 
-**Observe → calibrate → replay → inspect.** Follow cards, pot amounts, stacks,
-controls and per-field uncertainty. Trace a reading back to its source pixels.
-Save layouts and replay observations before changing the model.
+**Sit down, get coached, decide.** `python -m desktop --lab` (or **Open agent
+lab** in Studio) deals a hand and puts four things next to the table:
 
-| See the state | Keep the evidence | Compare the policies |
-|---|---|---|
-| 53 fields for a six-seat table, with explicit unknowns and stale-state checks | Calibrated regions, labelled examples, saved sessions and timing diagnostics | 80 heuristic configurations, six CFR-family research options and four reference-backed library policies; two- or six-player practice |
-
-## Agent Lab: play a hand, see what every policy would do
-
-![Agent Lab: table, coach, policy comparison, preflop range and session](docs/media/agent-lab.png)
-
-`python -m desktop --lab` (or **Open agent lab** in Studio) deals a hand and
-puts four things next to the table:
-
-- **Coach** — the selected policy's move, with equity against the price.
+- **Coach** — your policy's move, with equity against the price.
 - **Same spot, other policies** — pin up to five and see where they disagree.
-  Above, S55 opens A9o from the hijack and the chart-based T04 folds it.
 - **Preflop range** — the policy is asked about all 169 hands in your exact
   spot, so the matrix is what it does, not a drawing of what it should do.
 - **Session** — net big blinds, bb/100 and how often you matched the coach.
+
+| Choose who you play against | Short stacks: the Nash jam range |
+|---|---|
+| ![Opponents dialog: a policy or Random for each seat](docs/media/agent-lab-opponents.png) | ![Heads-up at 12 bb with the Nash jam range](docs/media/agent-lab-shortstack.png) |
 
 It plays like a cash game: named opponents keep their seats, the button moves,
 stacks carry over and a busted player rebuys. **Opponents…** seats a policy of
@@ -59,14 +50,23 @@ range together take a few milliseconds. [Agent Lab guide](docs/AGENT_LAB.md).
 PokerKit handles legal actions and settlement. S55 stays the default: neither
 the reduced-game research proxies nor the library policies beat it here.
 
-The first workbench, with the manual table reader, is still available as
-`python -m desktop --classic`:
+![Agent Lab: table, coach, policy comparison, preflop range and session](docs/media/agent-lab.png)
 
-![First workbench: select S55, CFR+ and PDCFR+, then play a legal practice action](docs/media/agent-lab.gif)
+## Vision Studio: read a table from pixels
 
-*Both GIFs and the Agent Lab screenshot show the actual Qt app with generated
-practice tables, recorded on Linux/offscreen. They are edited walkthroughs, not live-client recordings or
-latency benchmarks. [Recording script and provenance](docs/VERIFICATION.md#readme-demo-provenance).*
+![Vision Studio: actual reading, calibration, replay and diagnostics](docs/media/vision-tour.gif)
+
+**Observe → calibrate → replay → inspect.** Follow cards, pot amounts, stacks,
+controls and per-field uncertainty. Trace a reading back to its source pixels.
+Save layouts and replay observations before changing the model.
+
+| See the state | Keep the evidence | Compare the policies |
+|---|---|---|
+| 53 fields for a six-seat table, with explicit unknowns and stale-state checks | Calibrated regions, labelled examples, saved sessions and timing diagnostics | 80 heuristic configurations, six CFR-family research options and four reference-backed library policies; two- or six-player practice |
+
+*The GIFs and screenshots show the actual Qt app with generated practice
+tables, recorded on Linux/offscreen. They are edited walkthroughs, not live-client recordings or
+latency benchmarks. [Recording scripts and provenance](docs/VERIFICATION.md#readme-demo-provenance).*
 
 ## Evidence you can inspect
 

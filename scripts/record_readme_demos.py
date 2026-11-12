@@ -132,7 +132,8 @@ def main():
         until=time.monotonic()+10
         while workbench.practice_busy and time.monotonic()<until:pump(.025)
         hold(workbench,'Play the suggestion in the local simulator.','PokerKit enforces legal moves and settles the practice hand.','06 / PRACTICE',2,True)
-        clips['agent-lab.gif']=frames
+        # docs/media/agent-lab.gif is now recorded by scripts/record_agent_lab_demo.py.
+        clips['classic-workbench.gif']=frames
     finally:
         workbench.close();app.processEvents()
     outputs=[]

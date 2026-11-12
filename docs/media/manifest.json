@@ -15,13 +15,15 @@
     },
     {
       "path": "docs/media/agent-lab.gif",
-      "sha256": "41a67985efa929d0623a903940fc60156c88179c5f6a455b977295da19ed5401",
-      "bytes": 813821,
-      "duration_ms": 8750,
+      "sha256": "c1f9a98be6b6e93ec9bc568e3156ae9b898cc9fac95b8960220ceafea4839e7e",
+      "bytes": 1743517,
+      "duration_ms": 23750,
       "size": [
         1140,
-        883
-      ]
+        786
+      ],
+      "recorded_by": "scripts/record_agent_lab_demo.py",
+      "platform": "Linux-6.18.44-fc-v445-x86_64-with-glibc2.39"
     }
   ],
   "observations": [

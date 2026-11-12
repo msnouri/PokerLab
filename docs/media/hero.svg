@@ -10,19 +10,19 @@
     <rect x="48" y="37" width="38" height="38" rx="10" fill="#b6e2c9"/>
     <text x="59" y="65" font-size="29" font-weight="700" fill="#17372e">P</text>
     <text x="103" y="63" fill="#dcebe0" font-size="19" font-weight="700" letter-spacing="3">POKERLAB</text>
-    <text x="48" y="111" fill="#a8d4c0" font-size="12" letter-spacing="2.7">MACOS VISION + POKER RESEARCH</text>
-    <text x="45" y="174" fill="#eff3e9" font-size="53" font-weight="700" letter-spacing="-1.5">See the table.</text>
-    <text x="45" y="233" fill="#b6e2c9" font-size="53" font-weight="700" letter-spacing="-1.5">Inspect the evidence.</text>
-    <text x="48" y="273" fill="#a0b6b7" font-size="19">Calibrate. Replay. Compare policies.</text>
+    <text x="48" y="111" fill="#a8d4c0" font-size="12" letter-spacing="2.7">POKER RESEARCH LAB + MACOS VISION</text>
+    <text x="45" y="174" fill="#eff3e9" font-size="53" font-weight="700" letter-spacing="-1.5">Play the table.</text>
+    <text x="45" y="233" fill="#b6e2c9" font-size="53" font-weight="700" letter-spacing="-1.5">See every policy's reasoning.</text>
+    <text x="48" y="273" fill="#a0b6b7" font-size="19">Get coached. Compare policies. Choose your opponents.</text>
     <rect x="48" y="315" width="530" height="46" rx="12" fill="#132c2d" stroke="#35584d"/>
     <text x="67" y="344" fill="#e0e9dd" font-size="16">53 table fields</text>
     <text x="226" y="344" fill="#5d7c75" font-size="18">/</text>
-    <text x="248" y="344" fill="#e0e9dd" font-size="16">86 policies</text>
+    <text x="248" y="344" fill="#e0e9dd" font-size="16">90 policies</text>
     <text x="380" y="344" fill="#5d7c75" font-size="18">/</text>
     <text x="402" y="344" fill="#e5cb8e" font-size="16">385k hands</text>
     <rect x="850" y="84" width="488" height="246" rx="110" fill="#163f37" stroke="#4b7360" stroke-width="2"/>
     <rect x="870" y="104" width="448" height="206" rx="94" fill="none" stroke="#2a594a"/>
-    <text x="1094" y="150" text-anchor="middle" fill="#8db9a3" font-size="11" letter-spacing="3">OBSERVE / REVIEW / REPLAY</text>
+    <text x="1094" y="150" text-anchor="middle" fill="#8db9a3" font-size="11" letter-spacing="3">PLAY / COMPARE / REVIEW</text>
     <g transform="translate(981 177) rotate(-10)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">A</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>
     <g transform="translate(1071 163)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#d00000" font-size="24" font-weight="700">K</text><path d="M33 72 13 52C-2 32 23 27 33 43c10-16 35-11 20 9Z" fill="#d00000"/></g>
     <g transform="translate(1156 177) rotate(10)"><rect width="65" height="89" rx="8" fill="#fafafa"/><text x="11" y="31" fill="#253f3a" font-size="24" font-weight="700">Q</text><path d="M33 36c-25 20-25 31-8 30l-3 10h22l-3-10c17 1 17-10-8-30" fill="#253f3a"/></g>

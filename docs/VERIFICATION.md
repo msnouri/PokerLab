@@ -79,8 +79,10 @@ The vision worker reads pixels; fixture ground-truth labels are not injected.
 Strategy advice comes from the selected policy and actions use the local legal
 engine. Captions identify Linux/offscreen recording and the edited walkthrough.
 They do not present this as live Mac capture or demonstrate real-time speed.
-See [media manifest](media/manifest.json) and
-[recording script](../scripts/record_readme_demos.py). No footage or assets from
+See [media manifest](media/manifest.json), the
+[Vision Studio recording script](../scripts/record_readme_demos.py) and the
+[Agent Lab recording script](../scripts/record_agent_lab_demo.py); the Agent Lab
+walkthrough's showdown scene comes from a second table (seed 23). No footage or assets from
 the reference Poker repository were copied.
 
 ## Agent Lab and library policies
