@@ -1,26 +1,64 @@
-# Poker Agent Lab
+<p align="center">
+  <img src="docs/media/hero.svg" alt="PokerLab — See the table. Inspect the evidence. Calibrate, replay and compare policies." width="1100">
+</p>
 
-[![macOS Vision Studio checks](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml/badge.svg?branch=main)](https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml)
+<p align="center">
+  <a href="https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml"><img src="https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml/badge.svg?branch=main" alt="Native Mac checks"></a>
+  <a href="https://github.com/msnouri/PokerLab/actions/workflows/repository-verification.yml"><img src="https://github.com/msnouri/PokerLab/actions/workflows/repository-verification.yml/badge.svg?branch=main" alt="Repository evidence checks"></a>
+</p>
 
-Book-inspired poker policies, reproducible simulation experiments, and an
-evaluation against selected open-source example policies. The repository also
-includes six paper-based research solvers and a separate evaluation report.
+# PokerLab
 
-**New: [research strategies and benchmarks](research/README.md)** — 18 papers,
-six selectable CFR-family options, heads-up practice, and 385,000 hands across
-an initial screen and a fresh-deal confirmation. The current research proxies
-underperform S55; S55 remains the default. Read the [research PDF](research/poker_research_report.pdf)
-or its [LaTeX source](research/poker_research_report.tex).
+**A macOS poker vision and research workbench.** Turn table pixels into inspectable
+observations, replay the evidence, and compare policies in a legal local simulator.
+On-device Apple Vision OCR, a Qt Quick interface, and reproducible experiments.
 
-**New: [macOS Vision Studio](desktop/VISION_STUDIO.md)** — a Qt Quick interface
-with selected-window capture, on-device Apple Vision OCR, guided calibration,
-53 table fields for six seats, local replay, and measured diagnostics.
-Strategies remain in the [classic practice workbench](desktop/README.md).
+[**Get started on Mac →**](#run-the-desktop-gui-on-mac) ·
+[Vision Studio guide](desktop/VISION_STUDIO.md) ·
+[Research results](research/README.md) ·
+[What is verified](docs/VERIFICATION.md)
 
-![Vision Studio](desktop/previews/studio-overview.png)
+## See the workspace in action
 
-**Read the [compiled report](report/poker_agent_report.pdf) or its
-[LaTeX source](report/poker_agent_report.tex).**
+![Vision Studio: actual reading, calibration, replay and diagnostics](docs/media/vision-tour.gif)
+
+**Observe → calibrate → replay → inspect.** Follow cards, pot amounts, stacks,
+controls and per-field uncertainty. Trace a reading back to its source pixels.
+Save layouts and replay observations before changing the model.
+
+| See the state | Keep the evidence | Compare the policies |
+|---|---|---|
+| 53 fields for a six-seat table, with explicit unknowns and stale-state checks | Calibrated regions, labelled examples, saved sessions and timing diagnostics | 80 heuristic configurations + six CFR-family research options; two- or six-player practice |
+
+## Choose an agent. Test a hand.
+
+![Agent Lab: select S55, CFR+ and PDCFR+, then play a legal practice action](docs/media/agent-lab.gif)
+
+Open **Agent lab** from Studio, select a policy and compare recommendations on
+an identical public state. PokerKit handles legal actions and settlement.
+S55 stays the default: the six reduced-game research proxies currently
+underperform it. Their actual blueprint or fallback path is shown in the GUI.
+
+*Both GIFs show the actual Qt app with generated practice tables, recorded on
+Linux/offscreen. They are edited walkthroughs, not live-client recordings or
+latency benchmarks. [Recording script and provenance](docs/VERIFICATION.md#readme-demo-provenance).*
+
+## Evidence you can inspect
+
+- **Native Mac CI:** Apple Silicon and Intel, GUI/worker/observation checks,
+  research-solver checks and native Apple Vision replay. JSON artifacts are
+  uploaded by each job. [Verification ledger](docs/VERIFICATION.md).
+- **Recorded Mac replay:** 1,270/1,272 fields read on ARM and 1,268/1,272 on
+  Intel, with zero wrong accepted values. Changed-frame recognition p95:
+  **1.36 s / 3.54 s**. These 24-frame calibrated fixtures exclude capture,
+  display and startup; live end-to-end performance still needs device testing.
+- **Research you can rerun:** 18 papers and **385,000 hands** across the initial
+  and revised paper-policy experiments, with raw outcomes, paired confidence
+  intervals and frozen-model hashes. [Research PDF](research/poker_research_report.pdf)
+  · [LaTeX](research/poker_research_report.tex) · [Reading list](research/READING_LIST.md).
+- **Original study and external comparison:** book-inspired policies, validation,
+  tournaments and adapted open-source opponents. [Original PDF](report/poker_agent_report.pdf)
+  · [LaTeX](report/poker_agent_report.tex).
 
 ## Findings
 

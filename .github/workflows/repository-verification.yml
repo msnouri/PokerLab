@@ -1,0 +1,35 @@
+name: Repository verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: repository-verification-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            poker_lab/requirements.txt
+            poker_lab/requirements-dev.txt
+      - run: python -m pip install -r requirements.txt
+      - name: Original engine legality, evaluation and tournament tests
+        run: PYTHONPATH=poker_lab python -m unittest discover -s poker_lab/tests -v
+      - name: Audit raw hands, confidence intervals, model hashes and README media
+        run: python scripts/verify_repository.py --output repository-verification.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: repository-verification
+          path: repository-verification.json
+          if-no-files-found: warn

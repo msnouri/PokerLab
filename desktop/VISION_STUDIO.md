@@ -71,7 +71,7 @@ The opening demo is a generated six-seat table. The reader analyzes its rendered
 pixels, using known card art and independently rendered labelled control/status
 examples. Names and multi-digit amounts use OCR; single-digit and unavailable-bound
 examples are also calibrated. Per-hand fixture labels enter only the separate
-benchmark. No strategy runs in Studio. To use the existing practice game and all 80 policies:
+benchmark. No strategy runs in Studio. To use the existing practice game and all 86 selectable policies:
 
 ```bash
 python -m desktop --classic
@@ -198,32 +198,32 @@ kernels use one thread to avoid contention with capture and OCR. Inspect
 changed-frame and repeated-frame numbers separately.
 
 Native macOS CI also passed on both architectures at commit
-`9fd78931de88d290f1d13b8e4c8295a4388c457c`:
+`e5536de8fea5de5e5abc35c932d463159616885a`:
 
 | Runner / Apple Vision | Fields read | Wrong accepted | All critical fields correct | All 53 fields correct | Changed P50 / P95 | Repeat P50 |
 |---|---:|---:|---:|---:|---:|---:|
-| Apple Silicon | 1,270/1,272 | 0 | 24/24 | 22/24 | 1.35 / 2.12 s | 2.00 ms |
-| Intel | 1,267/1,272 | 0 | 22/24 | 19/24 | 1.93 / 3.47 s | 4.52 ms |
+| Apple Silicon | 1,270/1,272 | 0 | 24/24 | 22/24 | 0.90 / 1.36 s | 1.63 ms |
+| Intel | 1,268/1,272 | 0 | 22/24 | 20/24 | 1.93 / 3.54 s | 5.98 ms |
 
 See the complete [Apple Silicon measurement](validation-v2-macos-arm64.json),
 [Intel measurement](validation-v2-macos-intel.json), and
-[successful native run](https://github.com/msnouri/PokerLab/actions/runs/43161034151).
-Each Mac suite ran 54 desktop tests: 52 passed and two optional tests for the
-legacy Tesseract workbench were skipped. Native Apple Vision, GUI rendering,
+[successful native run](https://github.com/msnouri/PokerLab/actions/runs/43248833720).
+Each Mac suite ran 64 desktop tests: 62 passed and two optional tests for the
+legacy Tesseract workbench were skipped. All 13 research tests also passed on each architecture. Native Apple Vision, GUI rendering,
 ScreenCaptureKit protocol imports and BGRA stride conversion were exercised.
 The original eight engine tests also passed locally.
 
 These are 24 generated, calibrated frames per architecture, using known card,
 indicator and single-digit artwork plus native text OCR. They exclude live
 screen capture, UI paint, human review and startup. Apple Silicon withheld two
-optional minimum-raise readings; Intel withheld five values, including two
+optional minimum-raise readings; Intel withheld four values, including two
 critical stack readings. Unread values remain unknown. Zero wrong accepted
 values in this small fixture is not a production accuracy guarantee, and no
 speed comparison against another repository was run.
 
 Initial engineering targets for a calibrated single table are changed-frame
 recognition P95 ≤250 ms, frame-to-observation P95 ≤750 ms, and warm queued UI
-heartbeat P95 ≤50 ms. The native CI changed-frame P95 target was not met; the measured 2.12–3.47 s
+heartbeat P95 ≤50 ms. The native CI changed-frame P95 target was not met; the measured 1.36–3.54 s
 reading P95 remains within the original 5–10 s decision-time goal for this
 vision stage. Capture, strategy work and target-device UI latency still need
 measurement before claiming an end-to-end decision time. UI heartbeat
@@ -266,3 +266,5 @@ existing repository's rendered card templates. `v2/demo.py:write_examples`
 creates labelled indicator and single-digit assets from fixed label strings independently of
 the generated hands; these are saved with demo layouts and recordings. Uploaded books and private
 table captures are not included in the repository.
+
+For historical failures, signature status and the remaining device checks, see the [verification ledger](../docs/VERIFICATION.md).

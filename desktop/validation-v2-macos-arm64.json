@@ -1,7 +1,7 @@
 {
   "scope": "Generated or independently labelled image replay. Excludes native screen capture, UI paint, human review and one-time worker/model startup. Not a commercial-client or relative-to-Dickreuter benchmark.",
   "platform": "macOS-15.8.2-arm64-arm-64bit",
-  "backend": "Apple Vision · on device",
+  "backend": "Apple Vision \u00b7 on device",
   "frames": 24,
   "fully_correct_frames": 22,
   "critical_correct_frames": 24,
@@ -10,14 +10,14 @@
   "fields_wrong": 0,
   "coverage": 0.99843,
   "accepted_field_accuracy": 1,
-  "changed_frame_p50_ms": 1354.8,
-  "changed_frame_p95_ms": 2123.19,
-  "changed_frame_p99_ms": 2238.2,
-  "repeat_p50_ms": 2,
+  "changed_frame_p50_ms": 896.09,
+  "changed_frame_p95_ms": 1360.34,
+  "changed_frame_p99_ms": 1409.33,
+  "repeat_p50_ms": 1.63,
   "ocr_calls": 183,
   "cache_hits": 921,
-  "repeat_ocr_calls": 2,
-  "repeat_cache_hits": 1259,
+  "repeat_ocr_calls": 0,
+  "repeat_cache_hits": 1272,
   "failures": [
     {
       "frame": 7,
@@ -36,7 +36,15 @@
       "issues": []
     }
   ],
+  "repeat_fields_wrong": 0,
+  "repeat_failures": [],
   "fixture_calibration": "Bundled card art and independent labelled ON/OFF/status and single-digit examples from write_examples(); other text/amounts use OCR. No per-hand labels enter the reader.",
-  "validation_commit": "9fd78931de88d290f1d13b8e4c8295a4388c457c",
-  "workflow_run": "https://github.com/msnouri/PokerLab/actions/runs/43161034151"
+  "validation": {
+    "passed": true,
+    "min_coverage": 0.98,
+    "min_critical_coverage": 0.85,
+    "errors": []
+  },
+  "validation_commit": "e5536de8fea5de5e5abc35c932d463159616885a",
+  "workflow_run": "https://github.com/msnouri/PokerLab/actions/runs/43248833720"
 }

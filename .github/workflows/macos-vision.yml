@@ -44,3 +44,9 @@ jobs:
               with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as out:
                   out.write('### Native macOS labelled replay\n```json\n'+path.read_text()+'\n```\n')
           PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: native-vision-${{ matrix.os }}
+          path: macos-vision-benchmark.json
+          if-no-files-found: warn
