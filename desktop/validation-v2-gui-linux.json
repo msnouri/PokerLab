@@ -4,55 +4,55 @@
   "frames": [
     {
       "frame": 0,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 1,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 2,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 3,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 4,
-      "read": 51,
+      "read": 52,
       "wrong": {},
       "status": "Needs review"
     },
     {
       "frame": 5,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 6,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 7,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     },
     {
       "frame": 8,
-      "read": 52,
+      "read": 53,
       "wrong": {},
       "status": "Verified snapshot"
     }
@@ -63,14 +63,14 @@
     "timeouts": 0,
     "complete_snapshots": 16,
     "incomplete_snapshots": 2,
-    "read_p50_ms": 20.74,
-    "read_p95_ms": 115.89,
-    "read_p99_ms": 126.42,
-    "source_age_p95_ms": 301.98,
-    "ui_dispatch_p95_ms": 30.42,
-    "ui_dispatch_p99_ms": 99.08,
-    "ocr_calls": 99,
-    "cache_hits": 794,
+    "read_p50_ms": 11.96,
+    "read_p95_ms": 100.07,
+    "read_p99_ms": 114.65,
+    "source_age_p95_ms": 286.56,
+    "ui_dispatch_p95_ms": 55.83,
+    "ui_dispatch_p99_ms": 77.11,
+    "ocr_calls": 81,
+    "cache_hits": 795,
     "note": "UI dispatch measures queued heartbeat delivery, not physical click latency or screen refresh FPS."
   }
 }

@@ -58,7 +58,7 @@ def main():
             folder=Path(temp);rows=sample_frames(args.frames,example_folder=folder);layout=rows[0][1]
             frames=[(im,truth) for im,_,truth in rows]
             report=evaluate(frames,layout,folder,args.backend)
-        report['fixture_calibration']='Bundled card art and independent labelled ON/OFF/status examples from write_examples(); text/amounts use OCR. No per-hand labels enter the reader.'
+        report['fixture_calibration']='Bundled card art and independent labelled ON/OFF/status and single-digit examples from write_examples(); other text/amounts use OCR. No per-hand labels enter the reader.'
     text=json.dumps(report,indent=2)+'\n'
     if args.output:args.output.write_text(text)
     print(text)

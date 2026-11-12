@@ -160,7 +160,22 @@ class IncrementalTests(unittest.TestCase):
             for i,(image,layout,truth) in enumerate(rows):
                 snap,_=reader.read(image,i,time.monotonic())
                 for key in layout.templates:
+                    if key not in ('turn',) and not key.startswith('button_') and not key.endswith(('_status','_dealer')):continue
                     self.assertEqual(snap.value(key),truth[key],key)
+
+    def test_numeric_examples_do_not_force_unknown_amounts_to_zero(self):
+        from desktop.v2.demo import font
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d);banks=write_examples(folder)
+            p=Layout(regions={'to_call':[0,0,1,1]},confirmed=['to_call'],templates={'to_call':{'n_0':banks['to_call']['n_0']}})
+            class AmountOCR(CountingOCR):
+                def recognize(self,*args,**kwargs):self.calls+=1;return TextRead('25',.99)
+            engine=AmountOCR();reader=IncrementalReader(p,folder,engine=engine)
+            zero=Image.open(folder/banks['to_call']['n_0']).convert('RGB')
+            a,_=reader.read(zero,1,time.monotonic());self.assertEqual(a.value('to_call'),0);self.assertEqual(engine.calls,0)
+            positive=Image.new('RGB',(95,30),'#101e26');draw=ImageDraw.Draw(positive)
+            draw.rounded_rectangle((0,0,95,30),5,fill='#192e37');draw.text((47.5,15),'25',font=font(18),fill='#f0f1e6',anchor='mm')
+            b,_=reader.read(positive,2,time.monotonic());self.assertEqual(b.value('to_call'),25);self.assertEqual(engine.calls,1)
 
     def test_lost_anchor_withholds_entire_state(self):
         with tempfile.TemporaryDirectory() as d:
@@ -217,8 +232,9 @@ class RealRecognitionTests(unittest.TestCase):
             if f.known:self.assertEqual(f.value,truth[key],key)
 
     def test_process_latest_frame_contract(self):
-        im,p,truth=sample_frames(1)[0]
-        v=VisionProcess(p,Path('.'),backend='auto')
+        folder=tempfile.TemporaryDirectory();root=Path(folder.name)
+        im,p,truth=sample_frames(1,example_folder=root)[0]
+        v=VisionProcess(p,root,backend='auto')
         try:
             for i in range(1,8):v.submit(im,i,time.monotonic(),'test')
             end=time.monotonic()+(40 if sys.platform=='darwin' else 12);ids=[];errors=[]
@@ -229,7 +245,7 @@ class RealRecognitionTests(unittest.TestCase):
                 if 7 in ids:break
                 time.sleep(.02)
             self.assertIn(7,ids,str(errors));self.assertEqual(ids,sorted(ids));self.assertLess(len(ids),7)
-        finally:v.stop()
+        finally:v.stop();folder.cleanup()
 
     def test_process_deadline_terminates_old_worker(self):
         _,p,_=sample_frames(1)[0]

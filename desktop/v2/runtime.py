@@ -64,9 +64,10 @@ class VisionProcess:
         now=time.monotonic()
         expired=(self.active_at and now-self.active_at>5) or (self.boot_at and now-self.boot_at>30)
         if expired:
+            phase='frame' if self.active_at else 'initialization'
             retry=self.pending or self.latest_job
             self.stop();self.pending=retry;self.latest_job=retry;self.restarts+=1
-            messages.append({'error':'Vision deadline exceeded; old result discarded'})
+            messages.append({'error':f'Vision {phase} deadline exceeded; old result discarded'})
             if self.restarts<3:self._start()
         elif self.process and not self.process.is_alive() and not self.failed and not any('error' in m for m in messages):
             self.failed=True

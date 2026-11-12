@@ -53,6 +53,15 @@ class IncrementalReader:
         f=visual_feature(image)
         scores=sorted(((float(f@v),label) for label,v in bank.items()),reverse=True)
         score,label=scores[0];second=scores[1][0] if len(scores)>1 else 0.
+        if kind in ('money','integer','bound'):
+            # Numeric banks may contain only a few taught values. An unmatched
+            # amount must fall through to OCR, never become the nearest zero.
+            if score<.999 or score-second<.002:return None
+            if label=='none' and kind=='bound':return None,min(1.,score)
+            if not label.startswith('n_'):raise ValueError('Invalid numeric example label')
+            value=int(label[2:])
+            if not 0<=value<=1_000_000_000:raise ValueError('Numeric example is out of range')
+            return value,min(1.,score)
         if score<.94 or score-second<.04: raise ValueError('Visual indicator is ambiguous')
         if kind=='status':
             if label not in ('active','folded','all-in','empty'):raise ValueError('Unrecognized status label')
@@ -94,11 +103,13 @@ class IncrementalReader:
         pending={}
         for spec in self.layout.specs:
             key=spec['key']
-            if spec['kind'] in ('card','board') or key in self.visual or key not in self.layout.confirmed or key not in self.layout.regions:continue
-            try:signature=digest(crop(image,self.layout.regions[key]))
+            if spec['kind'] in ('card','board') or key not in self.layout.confirmed or key not in self.layout.regions:continue
+            if key in self.visual and spec['kind'] not in ('money','integer','bound'):continue
+            try:im=crop(image,self.layout.regions[key]);signature=digest(im)
             except ValueError:continue
             cache=self.cache.get(key)
             if self.cache_fresh(cache,signature,start):continue
+            if key in self.visual and self.classify(key,im,spec['kind']) is not None:continue
             pending[key]=spec;self.batch[key]=(None,0.,'Text not recognized')
         previous_count=0
         for pass_index,accurate in enumerate((False,True,True)):

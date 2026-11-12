@@ -3,215 +3,30 @@
   "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
   "backend": "Tesseract \u00b7 persistent native API",
   "frames": 24,
-  "fully_correct_frames": 0,
+  "fully_correct_frames": 23,
   "critical_correct_frames": 23,
   "fields_total": 1272,
-  "fields_read": 1247,
+  "fields_read": 1271,
   "fields_wrong": 0,
-  "coverage": 0.98035,
+  "coverage": 0.99921,
   "accepted_field_accuracy": 1.0,
-  "changed_frame_p50_ms": 36.78,
-  "changed_frame_p95_ms": 72.93,
-  "changed_frame_p99_ms": 143.84,
-  "repeat_p50_ms": 1.64,
-  "ocr_calls": 205,
+  "changed_frame_p50_ms": 27.62,
+  "changed_frame_p95_ms": 68.67,
+  "changed_frame_p99_ms": 99.45,
+  "repeat_p50_ms": 1.3,
+  "ocr_calls": 171,
   "cache_hits": 921,
   "repeat_ocr_calls": 0,
   "repeat_cache_hits": 1272,
   "failures": [
     {
-      "frame": 0,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 1,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 2,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 3,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
       "frame": 4,
       "wrong": {},
       "unknown": [
-        "pot",
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 5,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 6,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 7,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 8,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 9,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 10,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 11,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 12,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 13,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 14,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 15,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 16,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 17,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 18,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 19,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 20,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 21,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 22,
-      "wrong": {},
-      "unknown": [
-        "ante"
-      ],
-      "issues": []
-    },
-    {
-      "frame": 23,
-      "wrong": {},
-      "unknown": [
-        "ante"
+        "pot"
       ],
       "issues": []
     }
   ],
-  "fixture_calibration": "Bundled card art and independent labelled ON/OFF/status examples from write_examples(); text/amounts use OCR. No per-hand labels enter the reader."
+  "fixture_calibration": "Bundled card art and independent labelled ON/OFF/status and single-digit examples from write_examples(); other text/amounts use OCR. No per-hand labels enter the reader."
 }

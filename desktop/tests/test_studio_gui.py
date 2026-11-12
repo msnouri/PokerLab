@@ -47,6 +47,7 @@ class StudioGuiTests(unittest.TestCase):
         self.studio.configure(6,0,100);self.app.processEvents()
         units=self.window.findChild(QObject,'chipUnits')
         self.assertEqual(units.property('currentText'),'×100')
+        self.assertNotIn('ante',self.studio.layout.templates)
 
     def test_proposal_requires_confirmation(self):
         self.studio.propose()

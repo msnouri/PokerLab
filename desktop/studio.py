@@ -307,7 +307,10 @@ class Studio(QObject):
                 if label not in ('active','folded','all-in','empty'):raise ValueError('Use active, folded, all-in, or empty')
             elif kind in ('turn','dealer','control'):
                 if label not in ('true','false'):raise ValueError('Use true or false')
-            else:raise ValueError('Teach is for cards or visual indicators; correct numeric fields directly')
+            elif kind in ('money','integer','bound'):
+                amount=decode_text(label,kind,self.layout.scale)
+                label='none' if amount is None else 'n_'+str(amount)
+            else:raise ValueError('Teach cards, indicators, or an exact displayed amount')
             assets=self.folder/'templates';assets.mkdir(exist_ok=True)
             rel=f'templates/{key}_{label}.png'
             crop(self.last_image,self.layout.regions[self.selected]).save(self.folder/rel)
@@ -349,6 +352,9 @@ class Studio(QObject):
     @Slot(int,int,int)
     def configure(self,seats,hero,scale):
         if not 2<=seats<=9 or not 0<=hero<seats or not 1<=scale<=10000:return
+        if scale!=self.layout.scale:
+            numeric={s['key'] for s in self.layout.specs if s['kind'] in ('money','integer','bound')}
+            self.layout.templates={k:v for k,v in self.layout.templates.items() if k not in numeric}
         self.layout.seats=seats;self.layout.hero=hero;self.layout.scale=scale
         allowed={s['key'] for s in self.layout.specs}
         self.layout.regions={k:v for k,v in self.layout.regions.items() if k in allowed}

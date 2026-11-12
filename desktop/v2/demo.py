@@ -21,6 +21,10 @@ def write_examples(folder):
             ('turn',120,30,17,'#101e26',{'true':'ON','false':'OFF'}),
             ('dealer',52,24,13,'#152a33',{'true':'ON','false':'OFF'}),
             ('status',110,24,13,'#152a33',{s:s.upper() for s in ('active','folded','all-in','empty')})]
+    digits={'n_'+str(i):str(i) for i in range(10)}
+    groups += [('ante',80,38,21,'#101e26',digits),('stack',100,28,20,'#152a33',digits),
+               ('bet',64,28,17,'#152a33',digits),('call',95,30,18,'#101e26',digits),
+               ('bound',110,30,18,'#101e26',{**digits,'none':'NONE'}),('pot',200,52,32,'#133f3a',digits)]
     for group,w,h,size,outside,labels in groups:
         banks[group]={}
         for label,text in labels.items():
@@ -29,7 +33,9 @@ def write_examples(folder):
             draw.text((w/2,h/2),text,font=font(size),fill='#f0f1e6',anchor='mm')
             rel=f'demo-examples/{group}_{label}.png';image.save(folder/rel);banks[group][label]=rel
     return {'turn':banks['turn'],**{'button_'+a:banks['control'] for a in ('fold','check','call','bet','raise','all_in')},
-            **{f'seat_{i}_dealer':banks['dealer'] for i in range(6)},**{f'seat_{i}_status':banks['status'] for i in range(6)}}
+            **{f'seat_{i}_dealer':banks['dealer'] for i in range(6)},**{f'seat_{i}_status':banks['status'] for i in range(6)},
+            **{f'seat_{i}_stack':banks['stack'] for i in range(6)},**{f'seat_{i}_bet':banks['bet'] for i in range(6)},
+            'ante':banks['ante'],'pot':banks['pot'],'to_call':banks['call'],'min_raise_to':banks['bound'],'max_raise_to':banks['bound']}
 
 
 def fixture(view):

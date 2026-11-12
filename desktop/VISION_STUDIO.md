@@ -69,7 +69,8 @@ The initial dependency installation needs internet; observation is local.
 
 The opening demo is a generated six-seat table. The reader analyzes its rendered
 pixels, using known card art and independently rendered labelled control/status
-examples. Names and amounts use OCR. Per-hand fixture labels enter only the
+examples. Names and multi-digit amounts use OCR; single-digit and unavailable-bound
+examples are also calibrated. Per-hand fixture labels enter only the
 separate benchmark. No strategy
 runs in Studio. To use the existing practice game and all 80 policies:
 
@@ -88,7 +89,8 @@ python -m desktop --classic
 3. Open **Table setup** to pause capture. Set seat count, your physical seat
    number, and chip scale. The inspector groups all fields into Cards, Table,
    Seats and Controls. Select a field and draw a tight rectangle around its
-   visible value. Drawing a region confirms it.
+   visible value area, allowing room for wider future amounts. Drawing a region
+   confirms it.
 4. **Detect cards** proposes light-card regions. Review and confirm each
    proposal; it is a convenience for compatible artwork, not a general poker
    table detector. Draw missing or incorrect regions manually.
@@ -97,6 +99,9 @@ python -m desktop --classic
    Player-status examples use `active`, `folded`, `all-in`, or `empty`.
    A single positive example cannot establish reliable absence detection.
    For an empty board slot, select it and use **Learn empty slot**.
+   You can also teach an exact displayed amount, such as `0`, using the selected
+   chip scale. Numeric examples require a near-exact match; other values fall
+   back to OCR. Changing chip scale clears numeric examples.
 6. Optionally choose **Set anchor**, then draw a distinctive static feature
    inside the table. Registration checks supported uniform scaling and drift;
    changed aspect ratios, reflow, cropping or lost anchors require recalibration.
@@ -174,23 +179,23 @@ Development on Linux can use the optional native Tesseract backend with
 replay development; the product target remains Mac.
 
 The included [Linux replay measurement](validation-v2-linux.json) uses 24
-generated labelled frames, 53 fields each. The fixture renderer supplies
-independent labelled artwork for control/status calibration, just as the card
-recognizer has known card art. No per-hand labels are used by the reader. It read **1,247 of 1,272 fields**
-with **zero wrong accepted values**: **98.0% coverage**, not 100% complete-state
-accuracy. It withheld the ante on all 24 frames and one pot reading. Therefore
-**23/24 frames had every critical field correct**, while **0/24 had every
-optional and critical field read**. This small in-domain test does not estimate
-accuracy on another client, artwork or computer.
+generated labelled frames, 53 fields each. It uses independently rendered card,
+indicator and single-digit artwork for calibration; remaining text and amounts
+use OCR. No per-hand labels are used by the reader. It read **1,271 of 1,272 fields**
+with **zero wrong accepted values**: **99.92% coverage**. One pot was
+withheld. **23/24 frames had every field correct**, including every
+critical field. This small in-domain test does not estimate accuracy on another
+client, artwork or computer.
 
-Changed-frame recognition measured **36.78 ms median, 72.93 ms P95**; repeated
-pixels measured **1.64 ms median**. These measurements reuse the engine and
-field cache and exclude screen capture, UI paint, review and startup. They are
-Linux/native-Tesseract measurements, not Mac/Apple-Vision measurements and not
-relative speedup figures. The first read, new artwork and cache expiry can take
-longer. Known fields are rechecked after 30 seconds and unknowns after 2 seconds;
-any pixel change invalidates that field immediately. Small OpenCV ROI kernels
-use one thread to avoid contention with capture and OCR. Inspect changed-frame and repeated-frame numbers separately.
+Changed-frame recognition measured **27.62 ms median, 68.67 ms P95**;
+repeated pixels measured **1.30 ms median**. These measurements reuse the engine
+and field cache and exclude screen capture, UI paint, review and startup. They
+are Linux/native-Tesseract measurements, not Mac/Apple-Vision measurements and
+not relative speedup figures. The first read, new artwork and cache expiry can
+take longer. Known fields are rechecked after 30 seconds and unknowns after 2
+seconds; any pixel change invalidates that field immediately. Small OpenCV ROI
+kernels use one thread to avoid contention with capture and OCR. Inspect
+changed-frame and repeated-frame numbers separately.
 
 Initial engineering targets for a calibrated single table are changed-frame
 recognition P95 ≤250 ms, frame-to-observation P95 ≤750 ms, and warm queued UI
@@ -206,7 +211,7 @@ monitor changes or external artwork. Those require a session on the target Mac.
 
 The [offscreen GUI smoke record](validation-v2-gui-linux.json) advances nine
 rendered frames through the actual worker and all four views. Its queued UI
-heartbeat P95 was **30.42 ms**. It is not a native Mac display test, physical
+heartbeat P95 was **55.83 ms**. It is not a native Mac display test, physical
 click latency, or a smoothness guarantee on the target machine.
 
 ## Implementation map
@@ -224,6 +229,6 @@ click latency, or a smoothness guarantee on the target machine.
 The fixture renderer bundles DejaVu Sans for consistent test text; see
 [`assets/DejaVu-LICENSE.txt`](assets/DejaVu-LICENSE.txt). Card artwork uses the
 existing repository's rendered card templates. `v2/demo.py:write_examples`
-creates labelled indicator assets from fixed label strings independently of
+creates labelled indicator and single-digit assets from fixed label strings independently of
 the generated hands; these are saved with demo layouts and recordings. Uploaded books and private
 table captures are not included in the repository.
