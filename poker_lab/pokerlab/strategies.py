@@ -31,6 +31,7 @@ class Strategy:
     adapt: bool = False
     risk: float = 0.
     research: str = ''
+    policy: str = ''
 
 
 # Sources use printed page numbers for Brokos and Dangel, EPUB chapters for
@@ -116,4 +117,12 @@ def selectable_strategies():
     base=next(s for s in all_strategies() if s.id=='S55')
     return all_strategies()+[replace(base,id=f'R{i:02d}',family='research_'+method,
         label=label+' · HU postflop proxy',source='research/papers.json; reduced game, S55 fallback',research=method)
-        for i,(method,label) in enumerate(methods,1)]
+        for i,(method,label) in enumerate(methods,1)]+library_strategies()
+
+
+def library_strategies():
+    """Plug-in policies from pokerlab.library (T-series); see docs/ADDING_A_STRATEGY.md."""
+    from .library import entries
+    base=next(s for s in all_strategies() if s.id=='S55')
+    return [replace(base,id=e.id,family='library_'+e.key,label=e.label,source=e.source,policy=e.key)
+            for e in entries()]

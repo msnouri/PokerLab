@@ -103,7 +103,7 @@ class IntegrationTests(unittest.TestCase):
 
     def test_registry_preserves_historical_experiment(self):
         self.assertEqual(len(all_strategies()), 80)
-        self.assertEqual(len(self.registry), 86)
+        self.assertEqual(len(self.registry), 90)
         self.assertEqual({s.research for s in self.registry.values() if s.research}, set(ALGORITHMS))
 
     def test_frozen_model_contains_public_history_policies(self):

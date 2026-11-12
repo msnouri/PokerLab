@@ -71,10 +71,11 @@ The opening demo is a generated six-seat table. The reader analyzes its rendered
 pixels, using known card art and independently rendered labelled control/status
 examples. Names and multi-digit amounts use OCR; single-digit and unavailable-bound
 examples are also calibrated. Per-hand fixture labels enter only the separate
-benchmark. No strategy runs in Studio. To use the existing practice game and all 86 selectable policies:
+benchmark. No strategy runs in Studio. To play practice hands with all 90 selectable policies, open the
+[Agent Lab](../docs/AGENT_LAB.md) (`--classic` keeps the first workbench with the manual table reader):
 
 ```bash
-python -m desktop --classic
+python -m desktop --lab
 ```
 
 ## Read your own table

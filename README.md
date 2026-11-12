@@ -10,11 +10,12 @@
 # PokerLab
 
 **A research AI agent for testing and comparing poker strategies.** Explore
-heuristic and CFR-family policies, run reproducible benchmarks, and inspect the
-results in an interactive macOS workbench. Table vision, replay tools, and
+heuristic, CFR-family and textbook-theory policies, run reproducible benchmarks,
+and play against them in a desktop lab that shows each policy's reasoning and ranges. Table vision, replay tools, and
 on-device Apple Vision OCR connect observed table state to agent research.
 
 [**Get started on Mac →**](#run-the-desktop-gui-on-mac) ·
+[Agent Lab guide](docs/AGENT_LAB.md) ·
 [Vision Studio guide](desktop/VISION_STUDIO.md) ·
 [Research results](research/README.md) ·
 [What is verified](docs/VERIFICATION.md)
@@ -29,19 +30,42 @@ Save layouts and replay observations before changing the model.
 
 | See the state | Keep the evidence | Compare the policies |
 |---|---|---|
-| 53 fields for a six-seat table, with explicit unknowns and stale-state checks | Calibrated regions, labelled examples, saved sessions and timing diagnostics | 80 heuristic configurations + six CFR-family research options; two- or six-player practice |
+| 53 fields for a six-seat table, with explicit unknowns and stale-state checks | Calibrated regions, labelled examples, saved sessions and timing diagnostics | 80 heuristic configurations, six CFR-family research options and four reference-backed library policies; two- or six-player practice |
 
-## Choose an agent. Test a hand.
+## Agent Lab: play a hand, see what every policy would do
 
-![Agent Lab: select S55, CFR+ and PDCFR+, then play a legal practice action](docs/media/agent-lab.gif)
+![Agent Lab: table, coach, policy comparison, preflop range and session](docs/media/agent-lab.png)
 
-Open **Agent lab** from Studio, select a policy and compare recommendations on
-an identical public state. PokerKit handles legal actions and settlement.
-S55 stays the default: the six reduced-game research proxies currently
-underperform it. Their actual blueprint or fallback path is shown in the GUI.
+`python -m desktop --lab` (or **Open agent lab** in Studio) deals a hand and
+puts four things next to the table:
 
-*Both GIFs show the actual Qt app with generated practice tables, recorded on
-Linux/offscreen. They are edited walkthroughs, not live-client recordings or
+- **Coach** — the selected policy's move, with equity against the price.
+- **Same spot, other policies** — pin up to five and see where they disagree.
+  Above, S55 opens A9o from the hijack and the chart-based T04 folds it.
+- **Preflop range** — the policy is asked about all 169 hands in your exact
+  spot, so the matrix is what it does, not a drawing of what it should do.
+- **Session** — net big blinds, bb/100 and how often you matched the coach.
+
+It plays like a cash game: named opponents keep their seats, the button moves,
+stacks carry over and a busted player rebuys. **Opponents…** seats a policy of
+your choice in each chair, or random ones whose policy stays hidden until you
+choose to show it.
+
+**Quiz** mode hides the answer until you act and grades the decision; **Watch**
+lets the policy play your seat. Keyboard first: `F` `C` `R`, `1`–`5` for sizes,
+`↵` for the coach's move, `Space` for the next hand. Advice, comparison and
+range together take a few milliseconds. [Agent Lab guide](docs/AGENT_LAB.md).
+
+PokerKit handles legal actions and settlement. S55 stays the default: neither
+the reduced-game research proxies nor the library policies beat it here.
+
+The first workbench, with the manual table reader, is still available as
+`python -m desktop --classic`:
+
+![First workbench: select S55, CFR+ and PDCFR+, then play a legal practice action](docs/media/agent-lab.gif)
+
+*Both GIFs and the Agent Lab screenshot show the actual Qt app with generated
+practice tables, recorded on Linux/offscreen. They are edited walkthroughs, not live-client recordings or
 latency benchmarks. [Recording script and provenance](docs/VERIFICATION.md#readme-demo-provenance).*
 
 ## Evidence you can inspect
@@ -76,6 +100,14 @@ latency benchmarks. [Recording script and provenance](docs/VERIFICATION.md#readm
   benchmark a pretrained DQN or CFR policy. The separate research study tests
   our own reduced CFR-family blueprints. **No general superiority claim is supported.**
 
+- Library policies (T01–T04: Nash jam-or-fold solved in this repository,
+  solver-frequency opening by seat, minimum-defence-frequency play with
+  geometric sizing, and their combination): 64,000 paired hands per policy
+  across four formats. None beats S55 six-max; the MDF policy loses about
+  98 bb/100 to the baseline field at 100 bb.
+  [Results](poker_lab/library_results/README.md) ·
+  [sources](docs/STRATEGY_REFERENCES.md).
+
 The simulations assume ordinary two-card no-limit Texas Hold'em. Tournament
 payouts and the full blind schedule are research assumptions, not a verified
 event submission. Read the report's methodology and adapter limitations.
@@ -90,7 +122,10 @@ event submission. Read the report's methodology and adapter limitations.
 | [`poker_lab/strategies.csv`](poker_lab/strategies.csv) | All 80 numerical configurations and conceptual attribution |
 | [`github_comparison/`](github_comparison/) | External-policy adapter, source downloader, results and source inventory |
 | [`poker_lab/tests/`](poker_lab/tests/) | Legality, determinism, information boundaries, equity and settlement checks |
-| [`desktop/`](desktop/) | Qt desktop GUI, practice table, calibrated vision, tests, and Mac setup guide |
+| [`desktop/`](desktop/) | Vision Studio, Agent Lab, first workbench, calibrated vision, tests, and Mac setup guide |
+| [`poker_lab/pokerlab/library/`](poker_lab/pokerlab/library/) | Plug-in policies T01–T04, the push/fold solver, and their paired benchmark |
+| [`docs/`](docs/) | [Agent Lab](docs/AGENT_LAB.md), [adding a strategy](docs/ADDING_A_STRATEGY.md), [roadmap](docs/ROADMAP.md), verification ledger |
+| [`packaging/`](packaging/) | PyInstaller recipe for a Mac app bundle (unsigned; untested on macOS) |
 | [`research/`](research/) | Paper catalog, BibTeX, research report, figures and reproduction guide |
 | [`poker_lab/research_results/`](poker_lab/research_results/) | Frozen-policy benchmark, duplicate-deal raw hands, retained initial screen |
 
@@ -113,10 +148,11 @@ This is a source application, not a signed standalone `.app`.
 
 See the [Vision Studio guide](desktop/VISION_STUDIO.md) for setup, the complete
 feature table, data fields, benchmarks, and remaining native-device checks.
-Use `python -m desktop --classic` for the previous practice-and-strategy GUI.
-The **Open agent lab** button in Studio opens that workbench. It now offers
-two- or six-player practice and research options R01–R06, with explicit fallback
-status in recommendations.
+The **Open agent lab** button in Studio, or `bash "Launch Poker Lab.command" --lab`,
+opens the [Agent Lab](docs/AGENT_LAB.md): two- or six-player practice at five
+stack depths with all 90 policies, including research options R01–R06 and
+library policies T01–T04, each showing whether its own model or the S55
+fallback produced the action. `python -m desktop --classic` opens the first workbench.
 
 ## Install and test
 
@@ -139,7 +175,9 @@ python -m pokerlab.bot < example_observation.jsonl
 ```
 
 The bot defaults to S55. Choose a different candidate with `--strategy S01`
-through `--strategy S80`, or a research option `R01` through `R06`.
+through `--strategy S80`, a research option `R01` through `R06`, or a library
+policy `T01` through `T04`. To add your own, see
+[Adding a strategy](docs/ADDING_A_STRATEGY.md).
 The JSON interface is neutral and requires mapping
 to a competition's actual SDK.
 
@@ -183,4 +221,6 @@ The uploaded books and their extracted text are not part of this repository.
 The project uses PokerKit and eval7; Treys is used for independent evaluator
 tests. See [`THIRD_PARTY_NOTICES.txt`](poker_lab/THIRD_PARTY_NOTICES.txt).
 The source downloader preserves the external project's license. No external
-API is used during gameplay, and no poker client is automated.
+API is used during gameplay, and no poker client is automated. Major poker
+sites prohibit bots and real-time assistance; PokerLab is for practice tables,
+benchmarks and study. See the scope note in the [roadmap](docs/ROADMAP.md).

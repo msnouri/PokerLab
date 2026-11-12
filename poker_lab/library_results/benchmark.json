@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "deals_per_format": 4000,
+  "big_blind": 20,
+  "formats": {
+    "six_max_100bb": {
+      "players": 6,
+      "depth": 100,
+      "field": "mixed"
+    },
+    "six_max_15bb": {
+      "players": 6,
+      "depth": 15,
+      "field": "mixed"
+    },
+    "heads_up_100bb_vs_S55": {
+      "players": 2,
+      "depth": 100,
+      "field": "S55"
+    },
+    "heads_up_12bb_vs_S55": {
+      "players": 2,
+      "depth": 12,
+      "field": "S55"
+    }
+  },
+  "opponents": "baseline_strategies(\"mixed\") or S55; stacks reset each hand",
+  "scope": "Simulated chips against in-repo heuristics; not evidence about human, solver or real-money play.",
+  "results": {
+    "six_max_100bb": {
+      "S55": {
+        "hands": 24000,
+        "bb_per_100": 58.31,
+        "ci95": 20.92
+      },
+      "T01": {
+        "hands": 24000,
+        "bb_per_100": 58.31,
+        "ci95": 20.92,
+        "paired_vs_S55_bb_per_100": 0.0,
+        "paired_ci95": 0.0
+      },
+      "T02": {
+        "hands": 24000,
+        "bb_per_100": 51.41,
+        "ci95": 20.09,
+        "paired_vs_S55_bb_per_100": -6.9,
+        "paired_ci95": 6.03
+      },
+      "T03": {
+        "hands": 24000,
+        "bb_per_100": -39.97,
+        "ci95": 25.87,
+        "paired_vs_S55_bb_per_100": -98.28,
+        "paired_ci95": 21.25
+      },
+      "T04": {
+        "hands": 24000,
+        "bb_per_100": -18.09,
+        "ci95": 23.44,
+        "paired_vs_S55_bb_per_100": -76.4,
+        "paired_ci95": 19.8
+      }
+    },
+    "six_max_15bb": {
+      "S55": {
+        "hands": 24000,
+        "bb_per_100": 12.26,
+        "ci95": 5.76
+      },
+      "T01": {
+        "hands": 24000,
+        "bb_per_100": 12.33,
+        "ci95": 5.76,
+        "paired_vs_S55_bb_per_100": 0.06,
+        "paired_ci95": 0.04
+      },
+      "T02": {
+        "hands": 24000,
+        "bb_per_100": 11.01,
+        "ci95": 5.33,
+        "paired_vs_S55_bb_per_100": -1.25,
+        "paired_ci95": 2.25
+      },
+      "T03": {
+        "hands": 24000,
+        "bb_per_100": 0.1,
+        "ci95": 6.43,
+        "paired_vs_S55_bb_per_100": -12.17,
+        "paired_ci95": 3.92
+      },
+      "T04": {
+        "hands": 24000,
+        "bb_per_100": 5.7,
+        "ci95": 5.86,
+        "paired_vs_S55_bb_per_100": -6.56,
+        "paired_ci95": 4.05
+      }
+    },
+    "heads_up_100bb_vs_S55": {
+      "S55": {
+        "hands": 8000,
+        "bb_per_100": 0.0,
+        "ci95": 18.94
+      },
+      "T01": {
+        "hands": 8000,
+        "bb_per_100": 0.0,
+        "ci95": 18.94,
+        "paired_vs_S55_bb_per_100": 0.0,
+        "paired_ci95": 0.0
+      },
+      "T02": {
+        "hands": 8000,
+        "bb_per_100": 5.51,
+        "ci95": 19.61,
+        "paired_vs_S55_bb_per_100": 5.51,
+        "paired_ci95": 5.0
+      },
+      "T03": {
+        "hands": 8000,
+        "bb_per_100": -4.76,
+        "ci95": 17.18,
+        "paired_vs_S55_bb_per_100": -4.76,
+        "paired_ci95": 17.32
+      },
+      "T04": {
+        "hands": 8000,
+        "bb_per_100": 0.8,
+        "ci95": 17.46,
+        "paired_vs_S55_bb_per_100": 0.8,
+        "paired_ci95": 17.57
+      }
+    },
+    "heads_up_12bb_vs_S55": {
+      "S55": {
+        "hands": 8000,
+        "bb_per_100": 0.0,
+        "ci95": 5.56
+      },
+      "T01": {
+        "hands": 8000,
+        "bb_per_100": 2.27,
+        "ci95": 4.26,
+        "paired_vs_S55_bb_per_100": 2.27,
+        "paired_ci95": 3.9
+      },
+      "T02": {
+        "hands": 8000,
+        "bb_per_100": 2.48,
+        "ci95": 5.64,
+        "paired_vs_S55_bb_per_100": 2.48,
+        "paired_ci95": 1.14
+      },
+      "T03": {
+        "hands": 8000,
+        "bb_per_100": -1.4,
+        "ci95": 6.42,
+        "paired_vs_S55_bb_per_100": -1.4,
+        "paired_ci95": 3.91
+      },
+      "T04": {
+        "hands": 8000,
+        "bb_per_100": 0.74,
+        "ci95": 5.04,
+        "paired_vs_S55_bb_per_100": 0.74,
+        "paired_ci95": 4.9
+      }
+    }
+  }
+}
