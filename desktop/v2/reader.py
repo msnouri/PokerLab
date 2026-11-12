@@ -88,11 +88,14 @@ class IncrementalReader:
             pending[key]=spec;self.batch[key]=(None,0.,'Text not recognized')
         for accurate in (False,True):
             if not pending or time.monotonic()>=deadline:break
-            self.attempts+=1
+            request_before=getattr(self.engine,'request_count',None)
+            if request_before is None:self.attempts+=1
             try:reads=self.engine.recognize_fields(image,{k:self.layout.regions[k] for k in pending},accurate)
             except (RuntimeError,ValueError,OSError) as exc:
                 for key in pending:self.batch[key]=(None,0.,str(exc))
                 continue
+            finally:
+                if request_before is not None:self.attempts+=self.engine.request_count-request_before
             for key in list(pending):
                 read=reads.get(key)
                 if not read or read.score<.60:

@@ -44,9 +44,9 @@ needed for Studio on Mac. The Python controller calls native Apple capture/OCR
 and Qt rendering; this does not require rewriting the application in C++.
 There is no Windows capture implementation in this version.
 
-Apple Vision reads changed text regions in a shared full-image pass, with a
-second accurate pass when needed, rather than making a separate native request
-for every field. Word geometry separates adjacent fields; text boxes crossing
+Apple Vision reads large changed-field sets in a shared full-image pass, then
+uses enlarged crops for small changed or uncertain sets. It can make a second
+accurate pass when needed. Word geometry separates adjacent fields; text boxes crossing
 field boundaries are withheld. OCR models
 warm up once in the background before the first timed frame; startup has a
 separate 30-second bound. PyObjC dependencies are aligned at 12.1 to avoid the
@@ -176,8 +176,8 @@ accuracy. It withheld the ante on all 24 frames and one pot reading. Therefore
 optional and critical field read**. This small in-domain test does not estimate
 accuracy on another client, artwork or computer.
 
-Changed-frame recognition measured **47.12 ms median, 100.96 ms P95**; repeated
-pixels measured **10.65 ms median**. These measurements reuse the engine and
+Changed-frame recognition measured **36.73 ms median, 93.60 ms P95**; repeated
+pixels measured **1.16 ms median**. These measurements reuse the engine and
 field cache and exclude screen capture, UI paint, review and startup. They are
 Linux/native-Tesseract measurements, not Mac/Apple-Vision measurements and not
 relative speedup figures. The first read, new artwork and cache expiry can take
@@ -197,9 +197,8 @@ monitor changes or external artwork. Those require a session on the target Mac.
 
 The [offscreen GUI smoke record](validation-v2-gui-linux.json) advances nine
 rendered frames through the actual worker and all four views. Its queued UI
-heartbeat P95 was **63.60 ms**, above the initial 50 ms target on this renderer;
-it is not a native Mac display test. This remains a performance check to improve
-and measure on the target machine, rather than a smoothness guarantee.
+heartbeat P95 was **44.28 ms**. It is not a native Mac display test, physical
+click latency, or a smoothness guarantee on the target machine.
 
 ## Implementation map
 

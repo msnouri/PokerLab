@@ -33,6 +33,7 @@ class AppleVision:
         if sys.platform!='darwin': raise RuntimeError('Apple Vision requires macOS')
         import Vision,Foundation
         self.Vision=Vision;self.Foundation=Foundation
+        self.request_count=0
         # Pay one-time model initialization before accepting a timed frame.
         from PIL import ImageDraw
         warm=Image.new('RGB',(320,90),'white');ImageDraw.Draw(warm).text((12,12),'READY 100',fill='black',font_size=40)
@@ -51,6 +52,7 @@ class AppleVision:
             req.setRecognitionLanguages_(['en-US'])
             req.setMinimumTextHeight_(0.)
             handler=V.VNImageRequestHandler.alloc().initWithData_options_(nsdata,{})
+            self.request_count+=1
             ok,error=handler.performRequests_error_([req],None)
             if not ok: raise RuntimeError(str(error))
             boxes=[]
@@ -71,6 +73,11 @@ class AppleVision:
             return boxes
 
     def recognize_fields(self,image,regions,accurate=False):
+        # Small dirty sets and uncertain single digits benefit from enlarged
+        # crops. A shared table pass avoids dozens of requests for a new frame.
+        if len(regions)<=8:
+            from ..vision import crop
+            return {key:self.recognize(prepare(crop(image,rect)),accurate=accurate) for key,rect in regions.items()}
         return map_text_boxes(self._boxes(image,accurate),regions)
 
     def recognize(self,image,numeric=False,accurate=False):

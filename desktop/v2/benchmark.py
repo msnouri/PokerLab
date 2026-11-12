@@ -14,7 +14,7 @@ def evaluate(frames,layout,folder,backend='auto'):
         raise ValueError('Every frame needs independent labels for every layout field, including explicit null values')
     layout.validate(Path(folder))
     reader=IncrementalReader(layout,folder,backend)
-    changed=[];repeat=[];fully_correct=critical_correct=wrong=known=total=0;failures=[];hits=calls=0
+    changed=[];repeat=[];fully_correct=critical_correct=wrong=known=total=0;failures=[];hits=calls=repeat_calls=repeat_hits=0
     cold_start=time.monotonic()
     for i,(image,truth) in enumerate(frames):
         snap,_=reader.read(image,2*i+1,time.monotonic(),'labelled replay')
@@ -30,7 +30,7 @@ def evaluate(frames,layout,folder,backend='auto'):
         if not any(k in critical for k in set(mismatch)|set(missing)) and not snap.issues:critical_correct+=1
         if mismatch or missing or snap.issues:failures.append({'frame':i,'wrong':mismatch,'unknown':missing,'issues':snap.issues})
         repeated,_=reader.read(image,2*i+2,time.monotonic(),'same pixels')
-        repeat.append(repeated.read_ms)
+        repeat.append(repeated.read_ms);repeat_calls+=repeated.ocr_calls;repeat_hits+=repeated.cache_hits
     reader.close()
     return {'scope':'Generated or independently labelled image replay. Excludes native screen capture, UI paint, human review and one-time worker/model startup. Not a commercial-client or relative-to-Dickreuter benchmark.',
             'platform':platform.platform(),'backend':reader.engine.name,'frames':len(frames),
@@ -39,7 +39,7 @@ def evaluate(frames,layout,folder,backend='auto'):
             'coverage':round(known/max(1,total),5),'accepted_field_accuracy':round((known-wrong)/max(1,known),5),
             'changed_frame_p50_ms':round(percentile(changed,.5),2),'changed_frame_p95_ms':round(percentile(changed,.95),2),
             'changed_frame_p99_ms':round(percentile(changed,.99),2),'repeat_p50_ms':round(percentile(repeat,.5),2),
-            'ocr_calls':calls,'cache_hits':hits,'failures':failures}
+            'ocr_calls':calls,'cache_hits':hits,'repeat_ocr_calls':repeat_calls,'repeat_cache_hits':repeat_hits,'failures':failures}
 
 
 def main():

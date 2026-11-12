@@ -45,8 +45,9 @@ class Snapshot:
         f = self.fields.get(key)
         return f.value if f and f.known else default
 
-    def fingerprint(self):
-        values = {k: (f.value, f.quality) for k, f in self.fields.items()}
+    def fingerprint(self,keys=None):
+        keys=self.fields if keys is None else keys
+        values = {k: (self.fields[k].value,self.fields[k].quality) if k in self.fields else (None,'unknown') for k in keys}
         return hashlib.sha256(json.dumps(values, sort_keys=True).encode()).hexdigest()
 
     def to_dict(self):
@@ -137,8 +138,9 @@ class Tracker:
         validate_snapshot(snap,seats,hero)
         old=self.previous
         if old and snap.frame_id<=old.frame_id: return False
-        signature=snap.fingerprint()
-        self.repeated=self.repeated+1 if old and signature==old.fingerprint() and not snap.issues else 1
+        critical=[s['key'] for s in field_specs(seats) if s['required']]
+        signature=snap.fingerprint(critical)
+        self.repeated=self.repeated+1 if old and signature==old.fingerprint(critical) and not snap.issues else 1
         snap.stable=self.repeated>=2 and not snap.issues
         old_hand=old.value('hand_number') if old else None
         new_hand=snap.value('hand_number')

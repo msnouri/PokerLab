@@ -10,12 +10,12 @@
   "fields_wrong": 0,
   "coverage": 0.98035,
   "accepted_field_accuracy": 1.0,
-  "changed_frame_p50_ms": 47.12,
-  "changed_frame_p95_ms": 100.96,
-  "changed_frame_p99_ms": 158.54,
-  "repeat_p50_ms": 10.65,
-  "ocr_calls": 343,
-  "cache_hits": 898,
+  "changed_frame_p50_ms": 36.73,
+  "changed_frame_p95_ms": 93.6,
+  "changed_frame_p99_ms": 147.25,
+  "repeat_p50_ms": 1.16,
+  "ocr_calls": 297,
+  "cache_hits": 921,
   "failures": [
     {
       "frame": 0,

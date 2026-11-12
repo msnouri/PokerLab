@@ -71,6 +71,13 @@ class SchemaTests(unittest.TestCase):
         b=snapshot({'pot':20},2);t.accept(b);self.assertTrue(b.stable)
         c=snapshot({'hole_1':'As','hole_2':'As'},3);t.accept(c);self.assertFalse(c.stable)
 
+    def test_timer_does_not_block_critical_stability(self):
+        t=Tracker();t.accept(snapshot({'pot':20,'timer':20}))
+        s=snapshot({'pot':20,'timer':19},2);t.accept(s)
+        self.assertTrue(s.stable)
+        # Completeness is still required separately; stability never fills gaps.
+        self.assertEqual(readiness(s,Layout())[0],'Needs review')
+
     def test_fields_scale_to_nine_seats(self):
         self.assertTrue(any(s['key']=='seat_8_stack' for s in field_specs(9)))
         self.assertEqual(len(field_specs(6)),53)
@@ -103,8 +110,11 @@ class IncrementalTests(unittest.TestCase):
         class Uncertain(CountingOCR):
             def recognize(self,*args,**kwargs):return TextRead('?',.1)
         p=Layout(regions={'pot':[0,0,1,1]},confirmed=['pot'])
-        s,_=IncrementalReader(p,Path('.'),engine=Uncertain()).read(Image.new('RGB',(100,40),'white'),1,time.monotonic())
+        reader=IncrementalReader(p,Path('.'),engine=Uncertain());im=Image.new('RGB',(100,40),'white')
+        s,_=reader.read(im,1,time.monotonic())
         self.assertEqual(s.ocr_calls,2);self.assertFalse(s.fields['pot'].known)
+        repeated,_=reader.read(im,2,time.monotonic())
+        self.assertEqual(repeated.ocr_calls,0);self.assertFalse(repeated.fields['pot'].known)
 
     def test_native_batch_reads_changed_fields_once(self):
         class BatchOCR:

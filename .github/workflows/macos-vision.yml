@@ -1,7 +1,7 @@
 name: macOS Vision Studio
 on:
   push:
-    paths: ['desktop/**', 'requirements-gui.txt', 'requirements-vision-test.txt', '.github/workflows/macos-vision.yml']
+    paths: ['desktop/**/*.py', 'desktop/**/*.qml', 'desktop/assets/**', 'requirements-gui.txt', 'requirements-vision-test.txt', '.github/workflows/macos-vision.yml']
   workflow_dispatch:
 permissions:
   contents: read
