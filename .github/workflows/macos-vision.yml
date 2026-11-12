@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-15-intel]
+        os: [macos-15, macos-15-intel]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     env:
@@ -30,6 +30,7 @@ jobs:
       - name: Native API, observation, process and GUI tests
         run: python -m unittest discover -s desktop/tests -v
       - name: Apple Vision labelled replay benchmark
+        if: always()
         run: python -m desktop.v2.benchmark --backend vision --frames 24 --output macos-vision-benchmark.json
       - name: Add benchmark to run summary
         if: always()

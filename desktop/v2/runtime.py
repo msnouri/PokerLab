@@ -61,7 +61,7 @@ class VisionProcess:
             if 'error' in msg:self.ready=False;self.failed=True
             messages.append(msg)
         now=time.monotonic()
-        expired=(self.active_at and now-self.active_at>2.2) or (self.boot_at and now-self.boot_at>15)
+        expired=(self.active_at and now-self.active_at>2.2) or (self.boot_at and now-self.boot_at>30)
         if expired:
             self.stop();self.restarts+=1
             messages.append({'error':'Vision deadline exceeded; old result discarded'})

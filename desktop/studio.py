@@ -38,7 +38,7 @@ class ImageProvider(QQuickImageProvider):
 class Studio(QObject):
     changed=Signal()
     pictureChanged=Signal()
-    frameSignal=Signal(object,float,int)
+    frameReady=Signal()
     errorSignal=Signal(str)
     asyncSignal=Signal(object)
     heartbeat=Signal(float)
@@ -48,6 +48,7 @@ class Studio(QObject):
         base=Path(QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppDataLocation))/'VisionStudio'
         self.base=base;self.folder=base/'layouts'/'current';self.folder.mkdir(parents=True,exist_ok=True)
         self.frame_ring={}
+        self.capture_lock=threading.Lock();self.capture_latest=None;self.capture_scheduled=False
         self.layout=Layout();self.tracker=Tracker();self.metrics=Metrics();self.snapshot=None
         self.worker=None;self.capture=None;self.capture_generation=0;self.selected_window=None;self.last_image=None;self.frame_id=0;self.picture_id=0;self.epoch=0;self.static_confirmed=False
         self.source='Practice replay';self.live=False;self.playing=False;self.recording=False
@@ -55,7 +56,7 @@ class Studio(QObject):
         self.windows=[];self.replay_rows=[];self.replay_folder=None;self.replay_index=0;self.demo=[]
         self.pending=True;self.latest_hashes={};self.accepted_hashes={}
         self.recorder=None;self.record_pending=False;self.last_record_signature='';self.overrides={}
-        self.frameSignal.connect(self.receive_native_frame,Qt.ConnectionType.QueuedConnection)
+        self.frameReady.connect(self.drain_native_frame,Qt.ConnectionType.QueuedConnection)
         self.errorSignal.connect(self.set_error,Qt.ConnectionType.QueuedConnection)
         self.asyncSignal.connect(self.finish_async,Qt.ConnectionType.QueuedConnection)
         self.heartbeat.connect(self.ui_pulse,Qt.ConnectionType.QueuedConnection)
@@ -170,6 +171,21 @@ class Studio(QObject):
     def submit(self):
         if self.worker and self.last_image is not None:
             self.worker.submit(self.last_image,self.frame_id,self.last_stamp,self.source)
+
+    def enqueue_native_frame(self,image,stamp,generation):
+        # A blocked GUI must not accumulate full-resolution queued signals.
+        if generation!=self.capture_generation or not self.live:return
+        with self.capture_lock:
+            self.capture_latest=(image,stamp,generation)
+            notify=not self.capture_scheduled
+            self.capture_scheduled=True
+        if notify:self.frameReady.emit()
+
+    @Slot()
+    def drain_native_frame(self):
+        with self.capture_lock:
+            frame=self.capture_latest;self.capture_latest=None;self.capture_scheduled=False
+        if frame:self.receive_native_frame(*frame)
 
     @Slot(object,float,int)
     def receive_native_frame(self,image,stamp,generation):
@@ -332,6 +348,7 @@ class Studio(QObject):
 
     def stop_source(self):
         self.capture_generation+=1
+        with self.capture_lock:self.capture_latest=None
         self.play_timer.stop();self.playing=False;self.geometry_timer.stop()
         if self.capture:self.capture.stop();self.capture=None
 
@@ -451,7 +468,7 @@ class Studio(QObject):
         generation=self.capture_generation
         def start():
             from .v2.mac_capture import MacWindowCapture
-            return MacWindowCapture(selected['id'],lambda image,stamp:self.frameSignal.emit(image,stamp,generation),self.errorSignal.emit)
+            return MacWindowCapture(selected['id'],lambda image,stamp:self.enqueue_native_frame(image,stamp,generation),self.errorSignal.emit)
         def done(capture,error):
             if generation!=self.capture_generation:
                 if capture:capture.stop()

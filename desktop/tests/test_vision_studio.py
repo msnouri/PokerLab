@@ -8,7 +8,7 @@ from PIL import Image,ImageDraw
 from desktop.v2.state import Field,Snapshot,Tracker,validate_snapshot,field_specs
 from desktop.v2.layout import Layout,Registration,propose_cards
 from desktop.v2.reader import IncrementalReader,readiness,critical_keys
-from desktop.v2.ocr import TextRead,decode_text,make_engine
+from desktop.v2.ocr import TextRead,decode_text,make_engine,map_text_boxes
 from desktop.v2.replay import Recorder,load_session
 from desktop.v2.demo import sample_frames
 from desktop.v2.metrics import percentile
@@ -106,6 +106,24 @@ class IncrementalTests(unittest.TestCase):
         s,_=IncrementalReader(p,Path('.'),engine=Uncertain()).read(Image.new('RGB',(100,40),'white'),1,time.monotonic())
         self.assertEqual(s.ocr_calls,2);self.assertFalse(s.fields['pot'].known)
 
+    def test_native_batch_reads_changed_fields_once(self):
+        class BatchOCR:
+            name='batch test double'
+            def recognize_fields(self,image,regions,accurate=False):
+                return {k:TextRead('100' if k=='pot' else '20',.99) for k in regions}
+        p=Layout(regions={'pot':[0,0,.5,1],'to_call':[.5,0,.5,1]},confirmed=['pot','to_call'])
+        reader=IncrementalReader(p,Path('.'),engine=BatchOCR());im=Image.new('RGB',(200,50),'white')
+        a,_=reader.read(im,1,time.monotonic());b,_=reader.read(im,2,time.monotonic())
+        self.assertEqual(a.ocr_calls,1);self.assertEqual(a.value('pot'),100);self.assertEqual(a.value('to_call'),20)
+        self.assertEqual(b.ocr_calls,0);self.assertEqual(b.cache_hits,2)
+
+    def test_crossing_ocr_line_is_withheld(self):
+        regions={'pot':[0,0,.45,1],'to_call':[.55,0,.45,1]}
+        reads=map_text_boxes([(.1,.2,.8,.2,'100 20',.99)],regions)
+        self.assertFalse(reads['pot'].text);self.assertFalse(reads['to_call'].text)
+        reads=map_text_boxes([(.1,.2,.2,.2,'100',.99)],regions)
+        self.assertEqual(reads['pot'].text,'100')
+
     def test_lost_anchor_withholds_entire_state(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);im=Image.new('RGB',(100,100),'black');draw=ImageDraw.Draw(im);draw.rectangle((20,20,39,39),fill='white');draw.line((20,20,39,39),fill='red',width=3)
@@ -155,7 +173,8 @@ class RealRecognitionTests(unittest.TestCase):
     def test_rich_fixture_no_silent_wrong_fields(self):
         im,p,truth=sample_frames(1)[0]
         s,_=IncrementalReader(p,Path('.'),engine=self.engine).read(im,1,time.monotonic(),budget=5)
-        self.assertGreater(sum(f.known for f in s.fields.values()),40)
+        self.assertGreater(sum(f.known for f in s.fields.values()),40,
+            {k:f.reason for k,f in s.fields.items() if not f.known})
         for key,f in s.fields.items():
             if f.known:self.assertEqual(f.value,truth[key],key)
 
@@ -164,13 +183,14 @@ class RealRecognitionTests(unittest.TestCase):
         v=VisionProcess(p,Path('.'),backend='auto')
         try:
             for i in range(1,8):v.submit(im,i,time.monotonic(),'test')
-            end=time.monotonic()+12;ids=[]
+            end=time.monotonic()+(40 if sys.platform=='darwin' else 12);ids=[];errors=[]
             while time.monotonic()<end:
                 for msg in v.poll():
                     if 'snapshot' in msg:ids.append(msg['snapshot'].frame_id)
+                    if 'error' in msg:errors.append(msg['error'])
                 if 7 in ids:break
                 time.sleep(.02)
-            self.assertIn(7,ids);self.assertEqual(ids,sorted(ids));self.assertLess(len(ids),7)
+            self.assertIn(7,ids,str(errors));self.assertEqual(ids,sorted(ids));self.assertLess(len(ids),7)
         finally:v.stop()
 
     def test_process_deadline_terminates_old_worker(self):

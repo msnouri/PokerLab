@@ -13,14 +13,32 @@ class TextRead:
     score:float
 
 
+def map_text_boxes(boxes,regions):
+    """Map whole OCR lines to calibrated regions; crossing lines stay unknown."""
+    grouped={key:[] for key in regions}
+    for x,y,w,h,text,score in boxes:
+        matches=[]
+        for key,(rx,ry,rw,rh) in regions.items():
+            overlap=max(0,min(x+w,rx+rw)-max(x,rx))*max(0,min(y+h,ry+rh)-max(y,ry))
+            if rx<=x+w/2<=rx+rw and ry<=y+h/2<=ry+rh and overlap>=.8*w*h:
+                matches.append(key)
+        if len(matches)==1:grouped[matches[0]].append((y,x,text,score))
+    return {key:TextRead(' '.join(b[2] for b in sorted(rows)),min((b[3] for b in rows),default=0.))
+            for key,rows in grouped.items()}
+
+
 class AppleVision:
     name='Apple Vision · on device'
     def __init__(self):
         if sys.platform!='darwin': raise RuntimeError('Apple Vision requires macOS')
         import Vision,Foundation
         self.Vision=Vision;self.Foundation=Foundation
+        # Pay one-time model initialization before accepting a timed frame.
+        from PIL import ImageDraw
+        warm=Image.new('RGB',(320,90),'white');ImageDraw.Draw(warm).text((12,12),'READY 100',fill='black',font_size=40)
+        self._boxes(warm,False);self._boxes(warm,True)
 
-    def recognize(self,image,numeric=False,accurate=False):
+    def _boxes(self,image,accurate=False):
         import objc
         with objc.autorelease_pool():
             import io
@@ -31,15 +49,24 @@ class AppleVision:
             req.setRecognitionLevel_(V.VNRequestTextRecognitionLevelAccurate if accurate else V.VNRequestTextRecognitionLevelFast)
             req.setUsesLanguageCorrection_(False)
             req.setRecognitionLanguages_(['en-US'])
+            req.setMinimumTextHeight_(0.)
             handler=V.VNImageRequestHandler.alloc().initWithData_options_(nsdata,{})
             ok,error=handler.performRequests_error_([req],None)
             if not ok: raise RuntimeError(str(error))
-            lines=[];scores=[]
+            boxes=[]
             for obs in req.results() or []:
                 choices=obs.topCandidates_(1)
                 if choices:
-                    lines.append(str(choices[0].string()));scores.append(float(choices[0].confidence()))
-            return TextRead(' '.join(lines),min(scores) if scores else 0.)
+                    box=obs.boundingBox();x,y=box.origin.x,box.origin.y;w,h=box.size.width,box.size.height
+                    boxes.append((float(x),float(1-y-h),float(w),float(h),str(choices[0].string()),float(choices[0].confidence())))
+            return boxes
+
+    def recognize_fields(self,image,regions,accurate=False):
+        return map_text_boxes(self._boxes(image,accurate),regions)
+
+    def recognize(self,image,numeric=False,accurate=False):
+        boxes=self._boxes(image,accurate)
+        return TextRead(' '.join(b[4] for b in sorted(boxes,key=lambda b:(b[1],b[0]))),min((b[5] for b in boxes),default=0.))
 
 
 class NativeTesseract:

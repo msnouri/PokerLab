@@ -26,6 +26,7 @@ class IncrementalReader:
         self.registration=Registration(layout,self.folder)
         self.cache={};self.ttl=2.;self.hashes={}
         self.attempts=0
+        self.batch={}
         self.visual={}
         for key,bank in layout.templates.items():
             if key=='cards':continue
@@ -58,6 +59,10 @@ class IncrementalReader:
             return value,score,0
         visual=self.classify(key,image,kind)
         if visual:return *visual,0
+        if key in self.batch:
+            value,score,reason=self.batch[key]
+            if reason:raise ValueError(reason)
+            return value,score,0
         im=prepare(image);calls=0;reason='Uncertain text'
         for accurate in (False,True):
             if time.monotonic()>=deadline:raise TimeoutError('Recognition deadline reached')
@@ -69,11 +74,39 @@ class IncrementalReader:
             except ValueError as exc:reason=str(exc)
         raise ValueError(reason)
 
+    def batch_text(self,image,start,deadline):
+        self.batch={}
+        if not hasattr(self.engine,'recognize_fields'):return
+        pending={}
+        for spec in self.layout.specs:
+            key=spec['key']
+            if spec['kind'] in ('card','board') or key in self.visual or key not in self.layout.confirmed or key not in self.layout.regions:continue
+            try:signature=digest(crop(image,self.layout.regions[key]))
+            except ValueError:continue
+            cache=self.cache.get(key)
+            if cache and cache[0]==signature and start-cache[1]<self.ttl:continue
+            pending[key]=spec;self.batch[key]=(None,0.,'Text not recognized')
+        for accurate in (False,True):
+            if not pending or time.monotonic()>=deadline:break
+            self.attempts+=1
+            try:reads=self.engine.recognize_fields(image,{k:self.layout.regions[k] for k in pending},accurate)
+            except (RuntimeError,ValueError,OSError) as exc:
+                for key in pending:self.batch[key]=(None,0.,str(exc))
+                continue
+            for key in list(pending):
+                read=reads.get(key)
+                if not read or read.score<.60:
+                    self.batch[key]=(None,0.,'Uncertain or missing text in calibrated region');continue
+                try:value=decode_text(read.text,pending[key]['kind'],self.layout.scale)
+                except ValueError as exc:self.batch[key]=(None,read.score,str(exc));continue
+                self.batch[key]=(value,read.score,'');pending.pop(key)
+
     def read(self,image,frame_id,captured_at,source='image',budget=1.7):
         start=time.monotonic();deadline=start+budget;fields={};calls=hits=0;attempts_before=self.attempts
         try:image,_,_=self.registration.align(image)
         except ValueError as exc:
             return Snapshot(frame_id,captured_at,source,{},[str(exc)]),{}
+        self.batch_text(image,start,deadline)
         hashes={}
         for spec in self.layout.specs:
             key=spec['key']

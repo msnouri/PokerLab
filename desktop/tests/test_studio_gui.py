@@ -53,6 +53,15 @@ class StudioGuiTests(unittest.TestCase):
         self.studio.receive_native_frame(image,time.monotonic(),9)
         self.assertEqual(self.studio.frame_id,old)
 
+    def test_capture_burst_delivers_only_newest_frame(self):
+        old=self.studio.frame_id;self.studio.live=True;self.studio.capture_generation=10
+        stamp=time.monotonic()
+        for i in range(8):self.studio.enqueue_native_frame(self.studio.last_image,stamp+i*.001,10)
+        self.app.processEvents()
+        self.assertEqual(self.studio.frame_id,old+1)
+        self.assertAlmostEqual(self.studio.last_stamp,stamp+.007)
+        self.assertIsNone(self.studio.capture_latest)
+
     def test_changed_pixels_invalidate_visible_values(self):
         from desktop.v2.state import Snapshot,Field
         self.studio.snapshot=Snapshot(0,time.monotonic(),'test',{'pot':Field('pot',100,'read',1)})
