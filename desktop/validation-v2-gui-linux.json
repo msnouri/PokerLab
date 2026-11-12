@@ -63,14 +63,14 @@
     "timeouts": 0,
     "complete_snapshots": 16,
     "incomplete_snapshots": 2,
-    "read_p50_ms": 30.06,
-    "read_p95_ms": 213.18,
-    "read_p99_ms": 270.86,
-    "source_age_p95_ms": 474.37,
-    "ui_dispatch_p95_ms": 44.28,
-    "ui_dispatch_p99_ms": 64.28,
-    "ocr_calls": 164,
-    "cache_hits": 770,
+    "read_p50_ms": 20.74,
+    "read_p95_ms": 115.89,
+    "read_p99_ms": 126.42,
+    "source_age_p95_ms": 301.98,
+    "ui_dispatch_p95_ms": 30.42,
+    "ui_dispatch_p99_ms": 99.08,
+    "ocr_calls": 99,
+    "cache_hits": 794,
     "note": "UI dispatch measures queued heartbeat delivery, not physical click latency or screen refresh FPS."
   }
 }

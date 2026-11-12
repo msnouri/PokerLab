@@ -10,12 +10,14 @@
   "fields_wrong": 0,
   "coverage": 0.98035,
   "accepted_field_accuracy": 1.0,
-  "changed_frame_p50_ms": 36.73,
-  "changed_frame_p95_ms": 93.6,
-  "changed_frame_p99_ms": 147.25,
-  "repeat_p50_ms": 1.16,
-  "ocr_calls": 297,
+  "changed_frame_p50_ms": 36.78,
+  "changed_frame_p95_ms": 72.93,
+  "changed_frame_p99_ms": 143.84,
+  "repeat_p50_ms": 1.64,
+  "ocr_calls": 205,
   "cache_hits": 921,
+  "repeat_ocr_calls": 0,
+  "repeat_cache_hits": 1272,
   "failures": [
     {
       "frame": 0,
@@ -210,5 +212,6 @@
       ],
       "issues": []
     }
-  ]
+  ],
+  "fixture_calibration": "Bundled card art and independent labelled ON/OFF/status examples from write_examples(); text/amounts use OCR. No per-hand labels enter the reader."
 }

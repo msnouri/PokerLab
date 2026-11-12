@@ -8,9 +8,9 @@ from PIL import Image,ImageDraw
 from desktop.v2.state import Field,Snapshot,Tracker,validate_snapshot,field_specs
 from desktop.v2.layout import Layout,Registration,propose_cards
 from desktop.v2.reader import IncrementalReader,readiness,critical_keys
-from desktop.v2.ocr import TextRead,decode_text,make_engine,map_text_boxes
+from desktop.v2.ocr import TextRead,decode_text,make_engine,map_text_boxes,AppleVision
 from desktop.v2.replay import Recorder,load_session
-from desktop.v2.demo import sample_frames
+from desktop.v2.demo import sample_frames,write_examples
 from desktop.v2.metrics import percentile
 from desktop.v2.runtime import VisionProcess
 
@@ -133,6 +133,34 @@ class IncrementalTests(unittest.TestCase):
         self.assertFalse(reads['pot'].text);self.assertFalse(reads['to_call'].text)
         reads=map_text_boxes([(.1,.2,.2,.2,'100',.99)],regions)
         self.assertEqual(reads['pot'].text,'100')
+
+    def test_learned_absence_and_color_only_indicators(self):
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d);off=Image.new('RGB',(80,30),(30,30,30));on=Image.new('RGB',(80,30),(190,190,190))
+            off.save(folder/'off.png');on.save(folder/'on.png')
+            layout=Layout(regions={'turn':[0,0,1,1]},confirmed=['turn'],templates={'turn':{'false':'off.png','true':'on.png'}})
+            engine=CountingOCR();reader=IncrementalReader(layout,folder,engine=engine)
+            a,_=reader.read(off,1,time.monotonic());b,_=reader.read(on,2,time.monotonic())
+            self.assertIs(a.value('turn'),False);self.assertIs(b.value('turn'),True)
+            c,_=reader.read(Image.new('RGB',(80,30),(31,31,31)),3,time.monotonic())
+            self.assertIs(c.value('turn'),False)
+            self.assertEqual(engine.calls,0)
+
+    def test_indicator_ocr_keeps_table_context(self):
+        engine=AppleVision.__new__(AppleVision);seen=[]
+        def boxes(image,accurate):
+            seen.append(image.size);return [(.1,.2,.2,.2,'ON',.99)]
+        engine._boxes=boxes
+        reads=engine.recognize_fields(Image.new('RGB',(200,100)),{'button_fold':[0,0,.5,1]})
+        self.assertEqual(reads['button_fold'].text,'ON');self.assertEqual(seen,[(200,100)])
+
+    def test_calibrated_fixture_indicators_change_correctly(self):
+        with tempfile.TemporaryDirectory() as d:
+            rows=sample_frames(9,example_folder=Path(d));reader=IncrementalReader(rows[0][1],Path(d),engine=CountingOCR())
+            for i,(image,layout,truth) in enumerate(rows):
+                snap,_=reader.read(image,i,time.monotonic())
+                for key in layout.templates:
+                    self.assertEqual(snap.value(key),truth[key],key)
 
     def test_lost_anchor_withholds_entire_state(self):
         with tempfile.TemporaryDirectory() as d:

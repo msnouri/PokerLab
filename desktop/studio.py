@@ -37,6 +37,7 @@ class ImageProvider(QQuickImageProvider):
 
 class Studio(QObject):
     changed=Signal()
+    configurationChanged=Signal()
     pictureChanged=Signal()
     frameReady=Signal()
     errorSignal=Signal(str)
@@ -74,6 +75,9 @@ class Studio(QObject):
 
     @Property(str,notify=pictureChanged)
     def imageSource(self):return f'image://table/frame/{self.picture_id}'
+
+    @Property('QVariantMap',notify=configurationChanged)
+    def configuration(self):return {'seats':self.layout.seats,'hero':self.layout.hero,'scale':self.layout.scale}
 
     @Property('QVariantMap',notify=changed)
     def info(self):
@@ -349,6 +353,7 @@ class Studio(QObject):
         allowed={s['key'] for s in self.layout.specs}
         self.layout.regions={k:v for k,v in self.layout.regions.items() if k in allowed}
         self.layout.confirmed=[k for k in self.layout.confirmed if k in allowed]
+        self.configurationChanged.emit()
         self.restart_reader()
 
     def stop_source(self):
@@ -364,8 +369,9 @@ class Studio(QObject):
     def loadDemo(self):
         self.stop_source();self.live=False;self.source='Practice replay';self.replay_index=0
         self.folder=self.base/'layouts'/'current';self.folder.mkdir(parents=True,exist_ok=True)
-        self.demo=sample_frames(12);self.replay_rows=[]
+        self.demo=sample_frames(12,example_folder=self.folder);self.replay_rows=[]
         image,self.layout,_=self.demo[0]
+        self.configurationChanged.emit()
         self.last_image=image;self.last_stamp=time.monotonic();self.frame_id+=1
         self.frame_ring[self.frame_id]=image;self.static_confirmed=False
         self.metrics.frames+=1
@@ -416,6 +422,7 @@ class Studio(QObject):
             data=load_session(name);self.stop_source();self.live=False;self.source='Recorded replay'
             self.demo=[];self.replay_rows=data['frames'];self.replay_folder=Path(name).parent
             self.layout=Layout(**data['layout']);self.layout.validate(self.replay_folder)
+            self.configurationChanged.emit()
             self.folder=self.replay_folder;self.last_image=None;self.restart_reader();self.seek(0)
             self.note='Recorded observations are not benchmark ground truth';self.changed.emit()
         except (ValueError,OSError,TypeError) as exc:self.set_error(str(exc))
@@ -439,6 +446,7 @@ class Studio(QObject):
         if not name:return
         try:
             self.layout=Layout.load(name);self.folder=Path(name).parent
+            self.configurationChanged.emit()
             self.note='Layout loaded. Check the overlay against the chosen window.';self.restart_reader()
         except (ValueError,OSError,TypeError) as exc:self.set_error(str(exc))
 
@@ -464,6 +472,7 @@ class Studio(QObject):
         self.stop_source();self.demo=[];self.replay_rows=[];self.live=True
         selected=self.windows[index];self.selected_window=selected;self.source=selected['app']+' · '+selected['title']
         self.layout=Layout(name=selected['app']+' table');self.folder=self.base/'layouts'/'current';self.folder.mkdir(parents=True,exist_ok=True)
+        self.configurationChanged.emit()
         self.last_image=None;self.restart_reader()
         self.resume_capture()
 

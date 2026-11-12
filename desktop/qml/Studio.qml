@@ -357,11 +357,11 @@ ApplicationWindow {
                             Caption { text: "CHIP SCALE"; font.pixelSize: 8; Layout.preferredWidth: 70 }
                         }
                         RowLayout {
-                            SeatSpin { id: seatCount; from: 2; to: 9; value: root.state.seats }
-                            SeatSpin { id: heroSeat; from: 1; to: seatCount.value; value: root.state.hero+1 }
-                            Choice { id: units; model: ["×1","×100"]; implicitWidth: 70 }
+                            SeatSpin { id: seatCount; objectName: "seatCount"; from: 2; to: 9; value: studio.configuration.seats }
+                            SeatSpin { id: heroSeat; objectName: "heroSeat"; from: 1; to: seatCount.value; value: studio.configuration.hero+1 }
+                            Choice { id: units; objectName: "chipUnits"; model: [1,100].includes(studio.configuration.scale) ? ["×1","×100"] : ["×1","×100","×"+studio.configuration.scale]; currentIndex: studio.configuration.scale === 1 ? 0 : studio.configuration.scale === 100 ? 1 : 2; implicitWidth: 70 }
                         }
-                        Action { text: "Apply seats / hero / units"; Layout.fillWidth: true; onClicked: studio.configure(seatCount.value,heroSeat.value-1,units.currentIndex === 0 ? 1 : 100) }
+                        Action { text: "Apply seats / hero / units"; Layout.fillWidth: true; onClicked: studio.configure(seatCount.value,heroSeat.value-1,parseInt(units.currentText.replace("×",""))) }
                     }
                     ColumnLayout {
                         Layout.fillWidth: true; visible: root.page !== 1 && root.page !== 3; spacing: 9

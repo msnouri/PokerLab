@@ -4,7 +4,7 @@ os.environ.setdefault('QT_QUICK_BACKEND','software')
 import time,unittest
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import QUrl,QCoreApplication,QEvent
+from PySide6.QtCore import QUrl,QCoreApplication,QEvent,QObject
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
 from desktop.studio import Studio,ImageProvider
@@ -38,6 +38,15 @@ class StudioGuiTests(unittest.TestCase):
             image=self.window.grabWindow()
             self.assertFalse(image.isNull())
             self.assertGreater(image.width(),1200)
+
+    def test_setup_drafts_survive_live_metrics(self):
+        seats=self.window.findChild(QObject,'seatCount')
+        self.assertIsNotNone(seats);seats.setProperty('value',8)
+        self.studio.changed.emit();self.app.processEvents()
+        self.assertEqual(seats.property('value'),8)
+        self.studio.configure(6,0,100);self.app.processEvents()
+        units=self.window.findChild(QObject,'chipUnits')
+        self.assertEqual(units.property('currentText'),'×100')
 
     def test_proposal_requires_confirmation(self):
         self.studio.propose()

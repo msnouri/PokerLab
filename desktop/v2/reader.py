@@ -14,17 +14,28 @@ def digest(image): return hashlib.blake2b(image.tobytes(),digest_size=16).hexdig
 
 def visual_feature(image):
     a=np.asarray(image.convert('RGB').resize((48,32)),dtype=np.float32)/255
-    a=(a-a.mean(axis=(0,1))).ravel()
-    return a/max(float(np.linalg.norm(a)),1e-8)
+    shape=(a-a.mean(axis=(0,1))).ravel()
+    norm=float(np.linalg.norm(shape))
+    shape=shape/norm if norm>.01 else np.zeros_like(shape)
+    # Retain absolute appearance: an absent marker can be uniform felt, and
+    # enabled/disabled controls can differ in brightness or color alone.
+    appearance=np.concatenate([a.ravel(),(1-a).ravel()])
+    appearance/=max(float(np.linalg.norm(appearance)),1e-8)
+    feature=np.concatenate([shape,appearance])
+    return feature/max(float(np.linalg.norm(feature)),1e-8)
 
 
 class IncrementalReader:
     def __init__(self,layout,folder,backend='auto',engine=None):
+        import cv2
+        # These are small ROI kernels. Large OpenCV thread pools add latency
+        # and compete with capture/OCR, especially during worker startup.
+        cv2.setNumThreads(1)
         self.layout=layout;self.folder=Path(folder)
         self.engine=engine or make_engine(backend)
         self.cards=Reader(Profile(templates=layout.templates.get('cards',{})),self.folder)
         self.registration=Registration(layout,self.folder)
-        self.cache={};self.ttl=2.;self.hashes={}
+        self.cache={};self.ttl=30.;self.unknown_ttl=2.;self.hashes={}
         self.attempts=0
         self.batch={}
         self.visual={}
@@ -32,6 +43,9 @@ class IncrementalReader:
             if key=='cards':continue
             self.visual[key]={label:visual_feature(Image.open(self.folder/rel)) for label,rel in bank.items()}
         self.empty_board={k:Image.open(self.folder/p).convert('RGB') for k,p in layout.blank_board.items()}
+
+    def cache_fresh(self,cache,signature,now):
+        return bool(cache and cache[0]==signature and now-cache[1]<(self.ttl if cache[2].known else self.unknown_ttl))
 
     def classify(self,key,image,kind):
         bank=self.visual.get(key)
@@ -84,10 +98,18 @@ class IncrementalReader:
             try:signature=digest(crop(image,self.layout.regions[key]))
             except ValueError:continue
             cache=self.cache.get(key)
-            if cache and cache[0]==signature and start-cache[1]<self.ttl:continue
+            if self.cache_fresh(cache,signature,start):continue
             pending[key]=spec;self.batch[key]=(None,0.,'Text not recognized')
-        for accurate in (False,True):
+        previous_count=0
+        for pass_index,accurate in enumerate((False,True,True)):
+            if pass_index==2:
+                # A focused fallback adds information after a shared pass.
+                # Do not repeat an already focused request with identical input.
+                if previous_count<=8:break
+                pending={k:s for k,s in pending.items() if s['kind'] not in ('turn','control','status','dealer')}
+                if len(pending)>8:break
             if not pending or time.monotonic()>=deadline:break
+            previous_count=len(pending)
             request_before=getattr(self.engine,'request_count',None)
             if request_before is None:self.attempts+=1
             try:reads=self.engine.recognize_fields(image,{k:self.layout.regions[k] for k in pending},accurate)
@@ -121,7 +143,7 @@ class IncrementalReader:
             try:
                 im=crop(image,self.layout.regions[key]);signature=digest(im);hashes[key]=signature
                 cache=self.cache.get(key)
-                if cache and cache[0]==signature and start-cache[1]<self.ttl:
+                if self.cache_fresh(cache,signature,start):
                     cached=cache[2]
                     fields[key]=Field(key,cached.value,cached.quality,cached.score,cached.reason,captured_at,True)
                     hits+=1;continue

@@ -52,10 +52,13 @@ def main():
         if any(not isinstance(row.get('ground_truth'),dict) for row in data['frames']):parser.error('Every benchmark frame needs independent ground_truth labels; recorded OCR output is insufficient')
         from PIL import Image
         frames=[(Image.open(folder/row['image']).convert('RGB'),row['ground_truth']) for row in data['frames'][:args.frames]]
+        report=evaluate(frames,layout,folder,args.backend)
     else:
-        rows=sample_frames(args.frames);layout=rows[0][1];folder=Path('.')
-        frames=[(im,truth) for im,_,truth in rows]
-    report=evaluate(frames,layout,folder,args.backend)
+        with tempfile.TemporaryDirectory() as temp:
+            folder=Path(temp);rows=sample_frames(args.frames,example_folder=folder);layout=rows[0][1]
+            frames=[(im,truth) for im,_,truth in rows]
+            report=evaluate(frames,layout,folder,args.backend)
+        report['fixture_calibration']='Bundled card art and independent labelled ON/OFF/status examples from write_examples(); text/amounts use OCR. No per-hand labels enter the reader.'
     text=json.dumps(report,indent=2)+'\n'
     if args.output:args.output.write_text(text)
     print(text)

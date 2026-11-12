@@ -77,7 +77,13 @@ class AppleVision:
         # crops. A shared table pass avoids dozens of requests for a new frame.
         if len(regions)<=8:
             from ..vision import crop
-            return {key:self.recognize(prepare(crop(image,rect)),accurate=accurate) for key,rect in regions.items()}
+            # Narrow ON/OFF crops caused false control changes in native CI.
+            # Keep indicator words in context; learned visuals take precedence.
+            focused={key:rect for key,rect in regions.items() if not (key=='turn' or key.startswith('button_') or key.endswith(('_status','_dealer')))}
+            result={key:self.recognize(prepare(crop(image,rect)),accurate=accurate) for key,rect in focused.items()}
+            remaining={key:rect for key,rect in regions.items() if key not in focused}
+            if remaining:result.update(map_text_boxes(self._boxes(image,accurate),remaining))
+            return result
         return map_text_boxes(self._boxes(image,accurate),regions)
 
     def recognize(self,image,numeric=False,accurate=False):

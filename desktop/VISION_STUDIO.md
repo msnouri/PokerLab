@@ -45,8 +45,10 @@ and Qt rendering; this does not require rewriting the application in C++.
 There is no Windows capture implementation in this version.
 
 Apple Vision reads large changed-field sets in a shared full-image pass, then
-uses enlarged crops for small changed or uncertain sets. It can make a second
-accurate pass when needed. Word geometry separates adjacent fields; text boxes crossing
+uses enlarged crops for small changed or uncertain numeric/text sets. Indicator
+OCR retains wider context because tight ON/OFF crops failed native validation.
+Calibrated visual indicator examples take precedence over OCR. Accurate and
+focused fallback passes run within the reading budget when needed. Word geometry separates adjacent fields; text boxes crossing
 field boundaries are withheld. OCR models
 warm up once in the background before the first timed frame; startup has a
 separate 30-second bound. PyObjC dependencies are aligned at 12.1 to avoid the
@@ -65,8 +67,10 @@ The initial dependency installation needs internet; observation is local.
 * **Diagnostics:** recognition percentiles, cache use, source freshness,
   discarded results and snapshot coverage, with JSON export.
 
-The opening demo is a generated six-seat table. OCR analyzes its rendered
-pixels; fixture labels are used only by the separate benchmark. No strategy
+The opening demo is a generated six-seat table. The reader analyzes its rendered
+pixels, using known card art and independently rendered labelled control/status
+examples. Names and amounts use OCR. Per-hand fixture labels enter only the
+separate benchmark. No strategy
 runs in Studio. To use the existing practice game and all 80 policies:
 
 ```bash
@@ -135,7 +139,8 @@ critical fields. Runtime timestamps are monotonic seconds within a session;
 the export also includes UTC wall time. A future consumer must check validity,
 unknowns and conflicts rather than treating exported fields as action-ready.
 
-Two matching reads can verify a visual snapshot's critical fields. They do not
+Two matching reads of critical fields can verify a visual snapshot; changes
+to optional names or the timer do not prevent this check. They do not
 establish a complete betting history, strategy correctness, legal actions on
 an arbitrary site, or accuracy of a wrong template. The tracker labels changed
 contributions and status, but does not invent calls/raises or their order.
@@ -169,19 +174,23 @@ Development on Linux can use the optional native Tesseract backend with
 replay development; the product target remains Mac.
 
 The included [Linux replay measurement](validation-v2-linux.json) uses 24
-generated labelled frames, 53 fields each. It read **1,247 of 1,272 fields**
+generated labelled frames, 53 fields each. The fixture renderer supplies
+independent labelled artwork for control/status calibration, just as the card
+recognizer has known card art. No per-hand labels are used by the reader. It read **1,247 of 1,272 fields**
 with **zero wrong accepted values**: **98.0% coverage**, not 100% complete-state
 accuracy. It withheld the ante on all 24 frames and one pot reading. Therefore
 **23/24 frames had every critical field correct**, while **0/24 had every
 optional and critical field read**. This small in-domain test does not estimate
 accuracy on another client, artwork or computer.
 
-Changed-frame recognition measured **36.73 ms median, 93.60 ms P95**; repeated
-pixels measured **1.16 ms median**. These measurements reuse the engine and
+Changed-frame recognition measured **36.78 ms median, 72.93 ms P95**; repeated
+pixels measured **1.64 ms median**. These measurements reuse the engine and
 field cache and exclude screen capture, UI paint, review and startup. They are
 Linux/native-Tesseract measurements, not Mac/Apple-Vision measurements and not
 relative speedup figures. The first read, new artwork and cache expiry can take
-longer. Inspect changed-frame and repeated-frame numbers separately.
+longer. Known fields are rechecked after 30 seconds and unknowns after 2 seconds;
+any pixel change invalidates that field immediately. Small OpenCV ROI kernels
+use one thread to avoid contention with capture and OCR. Inspect changed-frame and repeated-frame numbers separately.
 
 Initial engineering targets for a calibrated single table are changed-frame
 recognition P95 ≤250 ms, frame-to-observation P95 ≤750 ms, and warm queued UI
@@ -197,7 +206,7 @@ monitor changes or external artwork. Those require a session on the target Mac.
 
 The [offscreen GUI smoke record](validation-v2-gui-linux.json) advances nine
 rendered frames through the actual worker and all four views. Its queued UI
-heartbeat P95 was **44.28 ms**. It is not a native Mac display test, physical
+heartbeat P95 was **30.42 ms**. It is not a native Mac display test, physical
 click latency, or a smoothness guarantee on the target machine.
 
 ## Implementation map
@@ -214,5 +223,7 @@ click latency, or a smoothness guarantee on the target machine.
 
 The fixture renderer bundles DejaVu Sans for consistent test text; see
 [`assets/DejaVu-LICENSE.txt`](assets/DejaVu-LICENSE.txt). Card artwork uses the
-existing repository's rendered card templates. Uploaded books and private
+existing repository's rendered card templates. `v2/demo.py:write_examples`
+creates labelled indicator assets from fixed label strings independently of
+the generated hands; these are saved with demo layouts and recordings. Uploaded books and private
 table captures are not included in the repository.

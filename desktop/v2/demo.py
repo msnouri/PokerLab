@@ -13,6 +13,25 @@ FONT=Path(__file__).resolve().parents[1]/'assets'/'DejaVuSans.ttf'
 def font(size):return ImageFont.truetype(str(FONT),size)
 
 
+def write_examples(folder):
+    """Labelled fixture artwork, independent of any generated hand or labels."""
+    folder=Path(folder);assets=folder/'demo-examples';assets.mkdir(parents=True,exist_ok=True)
+    banks={}
+    groups=[('control',100,30,14,'#101e26',{'true':'ON','false':'OFF'}),
+            ('turn',120,30,17,'#101e26',{'true':'ON','false':'OFF'}),
+            ('dealer',52,24,13,'#152a33',{'true':'ON','false':'OFF'}),
+            ('status',110,24,13,'#152a33',{s:s.upper() for s in ('active','folded','all-in','empty')})]
+    for group,w,h,size,outside,labels in groups:
+        banks[group]={}
+        for label,text in labels.items():
+            image=Image.new('RGB',(w,h),outside);draw=ImageDraw.Draw(image)
+            draw.rounded_rectangle((0,0,w,h),5,fill='#192e37')
+            draw.text((w/2,h/2),text,font=font(size),fill='#f0f1e6',anchor='mm')
+            rel=f'demo-examples/{group}_{label}.png';image.save(folder/rel);banks[group][label]=rel
+    return {'turn':banks['turn'],**{'button_'+a:banks['control'] for a in ('fold','check','call','bet','raise','all_in')},
+            **{f'seat_{i}_dealer':banks['dealer'] for i in range(6)},**{f'seat_{i}_status':banks['status'] for i in range(6)}}
+
+
 def fixture(view):
     o=view['observation'] or {}
     v={'hole_1':view['hole'][0],'hole_2':view['hole'][1],
@@ -81,10 +100,12 @@ def render(view):
     return im,layout,values
 
 
-def sample_frames(count=12):
+def sample_frames(count=12,example_folder=None):
     table=PracticeTable(seed=20261111);rows=[]
+    examples=write_examples(example_folder) if example_folder is not None else {}
     while len(rows)<count:
         while table.view()['pending'] and len(rows)<count:
-            rows.append(render(table.view()));table.act('call')
+            image,layout,truth=render(table.view());layout.templates.update(examples)
+            rows.append((image,layout,truth));table.act('call')
         if len(rows)<count:table.new_hand()
     return rows
