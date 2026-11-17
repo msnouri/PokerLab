@@ -29,7 +29,7 @@ def worker(inputs,outputs,layout_data,folder,backend):
 class VisionProcess:
     def __init__(self,layout,folder,backend='auto',epoch=0):
         self.layout=layout;self.folder=str(folder);self.backend=backend;self.epoch=epoch
-        self.ctx=mp.get_context('spawn');self.process=None
+        self.ctx=mp.get_context('spawn');self.process=None;self.inputs=None;self.outputs=None
         self.replaced=0;self.restarts=0;self.active_at=None;self.pending=None;self.latest_job=None;self.busy=False;self.ready=False;self.failed=False;self.boot_at=0;self.engine='Starting OCR'
         self._start()
 
@@ -39,6 +39,7 @@ class VisionProcess:
         self.process.start();self.boot_at=time.monotonic();self.active_at=None;self.ready=False;self.busy=False;self.failed=False
 
     def submit(self,image,frame_id,captured_at,source):
+        if self.process is None:return
         job={'id':frame_id,'at':captured_at,'source':source,'size':image.size,'pixels':image.convert('RGB').tobytes(),'epoch':self.epoch}
         if self.pending is not None:self.replaced+=1
         self.pending=job
@@ -52,6 +53,9 @@ class VisionProcess:
             self.pending=None;self.busy=True
 
     def poll(self):
+        # The UI timer may keep polling after stop or watchdog exhaustion.
+        # A stopped worker has no queues and must stay stopped until replaced.
+        if self.process is None:return []
         messages=[]
         while True:
             try:msg=self.outputs.get_nowait()
@@ -66,9 +70,13 @@ class VisionProcess:
         if expired:
             phase='frame' if self.active_at else 'initialization'
             retry=self.pending or self.latest_job
-            self.stop();self.pending=retry;self.latest_job=retry;self.restarts+=1
+            self.stop();self.restarts+=1
             messages.append({'error':f'Vision {phase} deadline exceeded; old result discarded'})
-            if self.restarts<3:self._start()
+            if self.restarts<3:
+                self.pending=retry;self.latest_job=retry;self._start()
+            else:
+                self.failed=True
+                messages[-1]['error']+='; retry limit reached. Restart the session.'
         elif self.process and not self.process.is_alive() and not self.failed and not any('error' in m for m in messages):
             self.failed=True
             messages.append({'error':'Vision worker stopped. Restart the session.'})
@@ -77,6 +85,7 @@ class VisionProcess:
 
     def stop(self):
         self.ready=False;self.busy=False
+        self.active_at=None;self.boot_at=0;self.pending=None;self.latest_job=None
         if self.process:
             try:self.inputs.put_nowait(None)
             except (queue.Full,ValueError):pass
@@ -85,3 +94,4 @@ class VisionProcess:
             for q in (self.inputs,self.outputs):
                 q.cancel_join_thread();q.close()
             self.process=None
+        self.inputs=None;self.outputs=None

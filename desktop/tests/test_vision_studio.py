@@ -233,31 +233,28 @@ class RealRecognitionTests(unittest.TestCase):
         for key,f in s.fields.items():
             if f.known:self.assertEqual(f.value,truth[key],key)
 
-    def test_process_latest_frame_contract(self):
+    def test_process_recognizes_calibrated_native_fields(self):
         folder=tempfile.TemporaryDirectory();root=Path(folder.name)
         im,p,truth=sample_frames(1,example_folder=root)[0]
+        # Native OCR integration is separate from the queue/coalescing contract.
+        # The full 53-field replay retains its independent accuracy gates.
+        p.confirmed=['hole_1','hole_2','pot']
         v=VisionProcess(p,root,backend='auto')
         try:
-            for i in range(1,8):v.submit(im,i,time.monotonic(),'test')
-            end=time.monotonic()+(40 if sys.platform=='darwin' else 12);ids=[];errors=[]
+            v.submit(im,1,time.monotonic(),'native integration')
+            end=time.monotonic()+(40 if sys.platform=='darwin' else 12);snap=None;errors=[]
             while time.monotonic()<end:
                 for msg in v.poll():
-                    if 'snapshot' in msg:ids.append(msg['snapshot'].frame_id)
+                    if 'snapshot' in msg:snap=msg['snapshot']
                     if 'error' in msg:errors.append(msg['error'])
-                if 7 in ids:break
+                if snap is not None:break
                 time.sleep(.02)
-            self.assertIn(7,ids,str(errors));self.assertEqual(ids,sorted(ids));self.assertLess(len(ids),7)
+            self.assertIsNotNone(snap,str(errors))
+            for key in p.confirmed:
+                self.assertTrue(snap.fields[key].known,snap.fields[key].reason)
+                self.assertEqual(snap.value(key),truth[key],key)
+            if sys.platform=='darwin':self.assertEqual(v.engine,'Apple Vision · on device')
         finally:v.stop();folder.cleanup()
-
-    def test_process_deadline_terminates_old_worker(self):
-        _,p,_=sample_frames(1)[0]
-        v=VisionProcess(p,Path('.'),backend='auto');old=v.process
-        try:
-            v.active_at=time.monotonic()-6;v.boot_at=0
-            messages=v.poll()
-            self.assertFalse(old.is_alive());self.assertEqual(v.restarts,1)
-            self.assertTrue(any('deadline' in m.get('error','') for m in messages))
-        finally:v.stop()
 
 
 class MacNativeTests(unittest.TestCase):

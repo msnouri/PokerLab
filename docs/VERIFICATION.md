@@ -48,6 +48,24 @@ is unknown, not correct. The original 250 ms recognition target remains unmet.
 
 ## Verification that runs on new commits
 
+### Vision worker lifecycle repair
+
+The latest failure at `6f97ad8` was an Apple Silicon process-test error:
+after three watchdog expirations, polling attempted to read a closed queue.
+Stopped workers now ignore polling and submissions, clear retained frames and
+deadline clocks, and report a terminal failure when their retry limit is
+reached. The 5-second frame watchdog, 30-second startup deadline and three-attempt
+limit are unchanged.
+
+`desktop/tests/test_vision_process.py` checks coalescing to the newest frame,
+startup and frame timeouts, retry exhaustion, and repeated polling/shutdown
+with real spawned processes and deterministic test workers. Native OCR has a
+separate process integration check for calibrated cards and a numeric field;
+the rich-frame test and 24-frame Apple Vision benchmark still check the full
+table, with the same wrong-read and coverage gates. Recorded native results above remain
+tied to their stated historical commits; consult the new commit's checks for
+the repair's native Mac results.
+
 - **Native Mac CI:** GUI, observation validity, selected-window protocol imports,
   buffer stride conversion, process deadlines, latest-frame behavior, CFR
   correctness, legality and native OCR replay, on ARM and Intel.
