@@ -2,7 +2,14 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { join } = require('node:path');
 const retryMacRunner = require('../scripts/retry-macos-runner.cjs');
+
+test('Mac workflow keeps the job names used by recovery when matrix fields change', () => {
+  const workflow = readFileSync(join(__dirname, '../workflows/macos-vision.yml'), 'utf8');
+  assert.match(workflow, /^    name: native-mac \(\$\{\{ matrix\.os \}\}\)$/m);
+});
 
 function fixture() {
   const run = {
