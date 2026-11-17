@@ -23,6 +23,8 @@ jobs:
             poker_lab/requirements.txt
             poker_lab/requirements-dev.txt
       - run: python -m pip install -r requirements.txt
+      - name: Mac runner recovery policy tests
+        run: node --test .github/tests/*.test.cjs
       - name: Original engine legality, evaluation and tournament tests
         run: PYTHONPATH=poker_lab python -m unittest discover -s poker_lab/tests -v
       - name: Audit raw hands, confidence intervals, model hashes and README media

@@ -1,0 +1,27 @@
+name: Recover unassigned Mac runner
+on:
+  workflow_run:
+    workflows: [macOS Vision Studio]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: macos-runner-recovery-${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # This workflow has actions:write. Execute only trusted default-branch
+      # code, never the triggering PR's checkout or uploaded artifacts.
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            await require('./.github/scripts/retry-macos-runner.cjs')({github, context, core});

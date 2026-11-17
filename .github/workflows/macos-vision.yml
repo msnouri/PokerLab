@@ -13,7 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, macos-15-intel]
+        include:
+          - os: macos-15
+            arch: arm64
+          - os: macos-15-intel
+            arch: x86_64
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     env:
@@ -26,6 +30,17 @@ jobs:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: requirements-gui.txt
+      - name: Verify native runner architecture
+        env:
+          EXPECTED_ARCH: ${{ matrix.arch }}
+        run: |
+          python - <<'PY'
+          import os, platform
+          actual = platform.machine()
+          expected = os.environ['EXPECTED_ARCH']
+          print(f'Native runner: {platform.platform()} / {actual}')
+          assert actual == expected, f'Expected {expected}, got {actual}'
+          PY
       - run: python -m pip install -r requirements-gui.txt
       - name: Native API, observation, process and GUI tests
         run: python -m unittest discover -s desktop/tests -v

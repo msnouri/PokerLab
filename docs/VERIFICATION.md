@@ -1,6 +1,6 @@
 # What has been verified
 
-Reviewed 12 November 2026. Evidence is tied to a commit and a run; a green check
+Reviewed 17 November 2026. Evidence is tied to a commit and a run; a green check
 does not certify arbitrary table artwork, a live poker client, or profitability.
 
 ## The commit that was reported
@@ -47,6 +47,32 @@ Timing excludes capture, display, review and one-time startup. A withheld value
 is unknown, not correct. The original 250 ms recognition target remains unmet.
 
 ## Verification that runs on new commits
+
+### Cancelled before a Mac runner started
+
+At `2d46b68`, the first attempt of
+[run 44114065844](https://github.com/msnouri/PokerLab/actions/runs/44114065844/attempts/1)
+passed on Intel. The `macos-15` Apple Silicon job was cancelled after roughly
+15 minutes with runner ID 0 and no steps: neither setup nor application tests
+ran. This matches the hosted ARM provisioning incident described by the
+[runner-images maintainer](https://github.com/actions/runner-images/issues/15291#issuecomment-6828064085).
+Increasing the test timeout does not repair host provisioning.
+
+`Recover unassigned Mac runner` checks completed default-branch Mac runs on an
+Ubuntu host. It requests a rerun only for a cancelled native Mac job with
+explicitly empty steps and runner ID 0, within an otherwise failed workflow.
+It allows at most three total attempts (two retries, including manual retries),
+requests one job per completion, and skips superseded commits, PRs, forks,
+active runs, and whole-workflow cancellations. Its write permission is scoped
+to Actions; the helper executes trusted default-branch code without persisted
+checkout credentials or downloaded artifacts. Policy tests run in repository CI.
+
+Both `macos-15` (ARM) and `macos-15-intel` coverage remain enabled, with an
+explicit CPU architecture assertion. Test failures, started jobs, watchdogs,
+and OCR accuracy gates are unchanged. A recovery summary is not a passing Mac
+check: only the original native job's rerun establishes that result. Hosting
+availability is outside this repository's control; after the retry limit,
+inspect the original Actions run and use **Re-run jobs** if appropriate.
 
 ### Vision worker lifecycle repair
 
