@@ -19,6 +19,7 @@ ApplicationWindow {
     property var state: studio.info
     property var vals: studio.values
     property var allFields: studio.fields
+    property var screenState: studio.screen
     property string selected: root.state.selected || "hole_1"
     property string filterGroup: "Cards"
     function value(key) { return vals[key] === undefined || vals[key] === null ? "—" : vals[key].toString() }
@@ -126,7 +127,7 @@ ApplicationWindow {
             Item { width: 1; height: 35 }
             Caption { text: "WORKSPACE"; font.pixelSize: 9 }
             Repeater {
-                model: [{name:"Overview",symbol:"◈"},{name:"Table setup",symbol:"⌖"},{name:"Replay lab",symbol:"↺"},{name:"Diagnostics",symbol:"≋"}]
+                model: [{name:"Overview",symbol:"◈"},{name:"Table setup",symbol:"⌖"},{name:"Replay lab",symbol:"↺"},{name:"Diagnostics",symbol:"≋"},{name:"Mac screen",symbol:"▣"}]
                 delegate: Rectangle {
                     required property var modelData
                     required property int index
@@ -164,13 +165,14 @@ ApplicationWindow {
         RowLayout {
             Layout.fillWidth: true; Layout.preferredHeight: 58
             Column { spacing: 6
-                Text { text: ["Vision overview","Guided table setup","Replay laboratory","Performance & trust"][root.page]; color: "#edf2e9"; font.pixelSize: 27; font.weight: Font.Medium; font.letterSpacing: -.7 }
-                Text { text: ["Every card. Every change. In view.","Map once. Verify visually. Reuse your layout.","Inspect the pixels behind every observation.","Measured responsiveness, freshness, and reading coverage."][root.page]; color: root.muted; font.pixelSize: 12 }
+                Text { text: ["Vision overview","Guided table setup","Replay laboratory","Performance & trust","Mac screen recording"][root.page]; color: "#edf2e9"; font.pixelSize: 27; font.weight: Font.Medium; font.letterSpacing: -.7 }
+                Text { text: ["Every card. Every change. In view.","Map once. Verify visually. Reuse your layout.","Inspect the pixels behind every observation.","Measured responsiveness, freshness, and reading coverage.","Choose a window. Record locally. Inspect the captured table."][root.page]; color: root.muted; font.pixelSize: 12 }
             }
             Item { Layout.fillWidth: true }
             Badge { label: "MAC / LOCAL"; tint: root.gold }
+            Action { objectName: "macScreenButton"; text: "Mac screen"; strong: root.page === 4; onClicked: root.page=4 }
             Action { objectName: "sourceButton"; text: "Choose source  ⌄"; onClicked: sourcePopup.open() }
-            Action { text: root.state.recording ? "● Recording" : "○ Record"; onClicked: studio.toggleRecord() }
+            Action { text: root.state.recording ? "● Readings" : "Record readings"; onClicked: studio.toggleRecord() }
         }
         RowLayout {
             Layout.fillWidth: true; spacing: 14
@@ -236,8 +238,9 @@ ApplicationWindow {
                         RowLayout {
                             Layout.fillWidth: true
                             Caption { text: root.page === 1 ? "DRAG A REGION FOR: " + root.selected.replace(/_/g," ").toUpperCase() : root.state.engine; font.pixelSize: 9; Layout.fillWidth: true }
+                            Action { objectName: "quickRecordScreenVideo"; visible: root.page === 4; text: root.screenState.saving ? "Saving…" : root.screenState.videoActive ? "■ Stop MP4" : "● Record MP4"; strong: true; enabled: !root.screenState.saving && (root.screenState.videoActive || root.screenState.canRecord); onClicked: studio.toggleVideo() }
                             Action { text: root.state.live ? (root.state.playing ? "Pause capture" : "Resume capture") : (root.state.playing ? "Pause" : "Play replay"); quiet: true; onClicked: studio.togglePlay() }
-                            Action { text: "Next frame  →"; onClicked: studio.stepForward() }
+                            Action { text: "Next frame  →"; enabled: !root.state.live; onClicked: studio.stepForward() }
                         }
                     }
                 }
@@ -287,28 +290,28 @@ ApplicationWindow {
                     anchors { fill: parent; margins: 18 } spacing: 13
                     RowLayout {
                         Layout.fillWidth: true
-                        Caption { text: root.page === 1 ? "FIELD INSPECTOR" : root.page === 3 ? "SESSION DIAGNOSTICS" : "OBSERVED TABLE"; Layout.fillWidth: true }
+                        Caption { text: root.page === 4 ? "LOCAL SCREEN CAPTURE" : root.page === 1 ? "FIELD INSPECTOR" : root.page === 3 ? "SESSION DIAGNOSTICS" : "OBSERVED TABLE"; Layout.fillWidth: true }
                         Text { text: "●"; color: root.mint; font.pixelSize: 10 }
                     }
-                    Row { spacing: 10; visible: root.page !== 1 && root.page !== 3
+                    Row { spacing: 10; visible: root.page !== 1 && root.page !== 3 && root.page !== 4
                         ReadCard { keyName: "hole_1" } ReadCard { keyName: "hole_2" }
                         Column { y: 9; spacing: 8
                             Caption { text: "YOUR HAND"; font.pixelSize: 9 }
                             Body { text: "Pot  " + value("pot"); font.pixelSize: 17 }
                         }
                     }
-                    Row { spacing: 6; visible: root.page !== 1 && root.page !== 3
+                    Row { spacing: 6; visible: root.page !== 1 && root.page !== 3 && root.page !== 4
                         Repeater { model: 5; delegate: ReadCard { required property int index; keyName: "board_"+(index+1); width: 43; height: 52 } }
                     }
                     Rectangle { Layout.fillWidth: true; height: 1; color: "#2b4144" }
-                    RowLayout { Layout.fillWidth: true; visible: root.page !== 3
+                    RowLayout { Layout.fillWidth: true; visible: root.page !== 3 && root.page !== 4
                         Repeater { model: ["Cards","Table","Seats","Controls"]
                             delegate: Action { required property string modelData; text: modelData; implicitHeight: 28; leftPadding: 5; rightPadding: 5; strong: root.filterGroup === modelData; onClicked: root.filterGroup = modelData }
                         }
                     }
                     ListView {
                         id: fieldList; Layout.fillWidth: true; Layout.fillHeight: true; clip: true; spacing: 4
-                        visible: root.page !== 3; model: root.allFields.filter(f => f.group === root.filterGroup); reuseItems: true
+                        visible: root.page !== 3 && root.page !== 4; model: root.allFields.filter(f => f.group === root.filterGroup); reuseItems: true
                         delegate: Rectangle {
                             required property var modelData
                             width: fieldList.width; height: root.page === 1 ? 47 : 42; radius: 6
@@ -324,6 +327,36 @@ ApplicationWindow {
                             MouseArea { id: fieldMouse; anchors.fill: parent; hoverEnabled: true; onClicked: studio.selectField(modelData.key) }
                         }
                         ScrollBar.vertical: ScrollBar { }
+                    }
+                    ScrollView {
+                        id: captureScroll; Layout.fillWidth: true; Layout.fillHeight: true
+                        visible: root.page === 4; clip: true; contentWidth: availableWidth
+                        ColumnLayout {
+                            width: captureScroll.availableWidth; spacing: 12
+                            Badge { label: root.screenState.capturing ? "●  CAPTURING" : "CAPTURE STOPPED"; tint: root.screenState.capturing ? root.mint : root.gold }
+                            Body { Layout.fillWidth: true; text: root.screenState.selected; font.pixelSize: 12 }
+                            Body { Layout.fillWidth: true; text: root.state.platformMac ? "Capture only the game window you select. Preview and recording stay on this Mac." : "Live capture requires macOS 13+. This view and the generated replay are available for inspection here."; color: root.muted; font.pixelSize: 11 }
+                            Caption { text: "1  SCREEN RECORDING ACCESS"; font.pixelSize: 9; color: root.gold }
+                            Action { objectName: "screenPermissionButton"; text: "Allow Screen Recording"; Layout.fillWidth: true; enabled: root.state.platformMac; onClicked: studio.requestPermission() }
+                            Body { Layout.fillWidth: true; text: "Permission: " + root.screenState.permission; color: root.muted; font.pixelSize: 10 }
+                            Caption { text: "2  CHOOSE YOUR GAME WINDOW"; font.pixelSize: 9; color: root.gold }
+                            Action { objectName: "refreshScreenWindows"; text: root.screenState.discovering ? "Finding windows…" : "Refresh Mac windows"; Layout.fillWidth: true; enabled: root.state.platformMac && !root.screenState.discovering; onClicked: studio.refreshWindows() }
+                            Choice { id: screenWindow; objectName: "screenWindowChoice"; Layout.fillWidth: true; textRole: "label"; model: studio.windowRows; displayText: count ? currentText : "Refresh to find your browser / game" }
+                            Action { objectName: "startScreenCapture"; text: "Start selected window"; strong: true; Layout.fillWidth: true; enabled: root.state.platformMac && screenWindow.count > 0; onClicked: studio.useWindow(screenWindow.currentIndex) }
+                            Action { objectName: "stopScreenCapture"; text: "Stop capture"; Layout.fillWidth: true; enabled: root.state.live; onClicked: studio.stopCapture() }
+                            Caption { text: "3  CALIBRATE THE TABLE READER"; font.pixelSize: 9; color: root.gold }
+                            RowLayout {
+                                Layout.fillWidth: true
+                                Action { text: "Table setup"; onClicked: { studio.pause(); root.page=1 } }
+                                Action { text: "Load layout"; onClicked: studio.loadLayout() }
+                            }
+                            Body { Layout.fillWidth: true; text: "Video works before calibration. Reading cards and amounts needs a layout and labelled examples for this table design."; color: root.muted; font.pixelSize: 10 }
+                            Caption { text: "4  RECORD A LOCAL MP4"; font.pixelSize: 9; color: root.gold }
+                            Action { objectName: "recordScreenVideo"; text: root.screenState.saving ? "Saving…" : root.screenState.videoActive ? "■ Stop video recording" : "● Record MP4 video"; strong: true; Layout.fillWidth: true; enabled: !root.screenState.saving && (root.screenState.videoActive || root.screenState.canRecord); onClicked: studio.toggleVideo() }
+                            Body { objectName: "screenRecordingNote"; Layout.fillWidth: true; text: root.screenState.note; color: root.screenState.videoActive ? root.mint : root.muted; font.pixelSize: 10 }
+                            Action { text: "Show recording folder"; Layout.fillWidth: true; enabled: root.screenState.path.length > 0; onClicked: studio.revealVideo() }
+                            Body { Layout.fillWidth: true; text: "Silent video · 10 fps target · latest frame only. Pausing capture ends the clip. Use Record readings for a separate replay session with observed fields."; color: root.muted; font.pixelSize: 10 }
+                        }
                     }
                     ColumnLayout {
                         Layout.fillWidth: true; visible: root.page === 3; spacing: 14
@@ -365,7 +398,7 @@ ApplicationWindow {
                         Action { text: "Apply seats / hero / units"; Layout.fillWidth: true; onClicked: studio.configure(seatCount.value,heroSeat.value-1,parseInt(units.currentText.replace("×",""))) }
                     }
                     ColumnLayout {
-                        Layout.fillWidth: true; visible: root.page !== 1 && root.page !== 3; spacing: 9
+                        Layout.fillWidth: true; visible: root.page !== 1 && root.page !== 3 && root.page !== 4; spacing: 9
                         Caption { text: "OBSERVED CHANGES"; font.pixelSize: 9 }
                         ListView {
                             Layout.fillWidth: true; Layout.preferredHeight: 100; clip: true; spacing: 10
@@ -377,7 +410,7 @@ ApplicationWindow {
                         }
                         Text { text: "Action history completeness: unknown"; color: "#b69e73"; font.pixelSize: 9 }
                     }
-                    Action { text: "Export observed state  ↗"; Layout.fillWidth: true; onClicked: studio.exportState() }
+                    Action { text: "Export observed state  ↗"; visible: root.page !== 4; Layout.fillWidth: true; onClicked: studio.exportState() }
                 }
             }
         }
@@ -406,7 +439,7 @@ ApplicationWindow {
                 Action { text: "Screen Recording access"; onClicked: studio.requestPermission() }
                 Action { text: "Refresh windows"; onClicked: studio.refreshWindows() }
             }
-            Choice { id: windowChoice; Layout.fillWidth: true; textRole: "title"; model: studio.windowRows; displayText: count ? currentText : "Refresh to discover windows" }
+            Choice { id: windowChoice; Layout.fillWidth: true; textRole: "label"; model: studio.windowRows; displayText: count ? currentText : "Refresh to discover windows" }
             Action { text: "Capture selected window"; strong: true; Layout.fillWidth: true; enabled: windowChoice.count > 0; onClicked: { studio.useWindow(windowChoice.currentIndex); sourcePopup.close(); root.page=1 } }
             Text { text: root.state.note; color: root.muted; font.pixelSize: 10; Layout.fillWidth: true; wrapMode: Text.WordWrap }
         }

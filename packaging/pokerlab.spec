@@ -37,5 +37,5 @@ if sys.platform == 'darwin':
                      'NSHighResolutionCapable': True,
                      'LSMinimumSystemVersion': '13.0',
                      'NSScreenCaptureUsageDescription':
-                         'Vision Studio reads the table window you choose. Nothing leaves this Mac.',
+                         'PokerLab previews and records only the window you choose. Files stay on this Mac.',
                  })

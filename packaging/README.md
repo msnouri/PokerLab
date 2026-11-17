@@ -7,6 +7,8 @@ pyinstaller packaging/pokerlab.spec --noconfirm
 
 Result: `dist/PokerLab/` on any platform and `dist/PokerLab.app` on macOS. The
 app opens Vision Studio; `PokerLab --lab` opens the Agent Lab directly.
+`PokerLab --screen` opens the [Mac screen-recording
+view](../docs/MAC_SCREEN_RECORDING.md), including local MP4 controls.
 
 Status: the recipe was built and started headless on Linux
 (`PokerLab --lab --screenshot out.png`). The macOS bundle has not been built or

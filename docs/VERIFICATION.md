@@ -78,6 +78,14 @@ the repair's native Mac results.
 
 ## Remaining gaps, kept explicit
 
+The Mac screen view and background MP4 recorder are covered by
+`desktop/tests/test_screen_recording.py`: actual MP4 write/decode, resize handling,
+bounded latest-frame behavior during slow encoding, error/limit finalization,
+permissions and selected-window routing, stale errors, and pause/stop behavior.
+The GUI renders all five Studio views and tests the Agent Lab launch button.
+These tests use generated frames and mocked capture for workflow checks; they
+do not establish successful capture of an external game on the user's Mac.
+
 | Area | Status / what would establish it |
 |---|---|
 | Live capture on the user's Mac | Requires a selected real window, Screen Recording permission, and move/resize/display-change checks on that device. CI cannot grant the user's permissions. |

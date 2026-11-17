@@ -6,7 +6,7 @@ from collections import deque
 import numpy as np
 from PIL import Image
 from PySide6.QtCore import QObject,Signal,Slot,Property,QTimer,QStandardPaths,QUrl,Qt
-from PySide6.QtGui import QImage
+from PySide6.QtGui import QImage,QDesktopServices
 from PySide6.QtQuick import QQuickImageProvider
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication,QFileDialog
@@ -43,6 +43,7 @@ class Studio(QObject):
     errorSignal=Signal(str)
     asyncSignal=Signal(object)
     heartbeat=Signal(float)
+    captureError=Signal(int,str)
 
     def __init__(self,provider,backend='auto',start_worker=True):
         super().__init__();self.provider=provider;self.backend=backend;self.start_worker=start_worker
@@ -57,8 +58,11 @@ class Studio(QObject):
         self.windows=[];self.replay_rows=[];self.replay_folder=None;self.replay_index=0;self.demo=[]
         self.pending=True;self.latest_hashes={};self.accepted_hashes={}
         self.recorder=None;self.record_pending=False;self.last_record_signature='';self.overrides={}
+        self.video=None;self.video_saving=False;self.video_path=None;self.video_note='MP4 video stays on this Mac'
+        self.permission_state='Not checked';self.discovery_busy=False
         self.frameReady.connect(self.drain_native_frame,Qt.ConnectionType.QueuedConnection)
         self.errorSignal.connect(self.set_error,Qt.ConnectionType.QueuedConnection)
+        self.captureError.connect(self.capture_error,Qt.ConnectionType.QueuedConnection)
         self.asyncSignal.connect(self.finish_async,Qt.ConnectionType.QueuedConnection)
         self.heartbeat.connect(self.ui_pulse,Qt.ConnectionType.QueuedConnection)
         self.ui_epoch=time.monotonic()+1.
@@ -98,6 +102,16 @@ class Studio(QObject):
                 'historyComplete':False,'stable':bool(snap and snap.stable),'metrics':metrics,
                 'replayCount':len(self.demo or self.replay_rows),'replayIndex':self.replay_index,
                 'layout':self.layout.name,'selected':self.selected,'platformMac':sys.platform=='darwin'}
+
+    @Property('QVariantMap',notify=changed)
+    def screen(self):
+        return {'permission':self.permission_state,'discovering':self.discovery_busy,
+                'selected':self.source if self.live else 'No Mac window selected',
+                'capturing':bool(self.live and self.playing and self.capture),
+                'videoActive':self.video is not None and not self.video_saving,
+                'saving':self.video_saving,'frames':self.video.frames if self.video else 0,
+                'note':self.video_note,'path':str(self.video_path or ''),
+                'canRecord':bool(self.live and self.playing and self.capture and self.last_image is not None)}
 
     @Property('QVariantList',notify=changed)
     def fields(self):
@@ -200,6 +214,7 @@ class Studio(QObject):
     @Slot(object,float)
     def receive_frame(self,image,stamp):
         self.frame_id+=1;self.last_stamp=stamp;self.last_image=image
+        if self.video and self.live and self.playing:self.video.offer(image,stamp)
         self.frame_ring[self.frame_id]=image
         while len(self.frame_ring)>12:self.frame_ring.pop(next(iter(self.frame_ring)))
         try:self.latest_hashes={k:digest(crop(image,self.layout.regions[k])) for k in critical_keys(self.layout) if k in self.layout.regions}
@@ -363,6 +378,7 @@ class Studio(QObject):
         self.restart_reader()
 
     def stop_source(self):
+        self.stopVideo()
         self.capture_generation+=1
         with self.capture_lock:self.capture_latest=None
         self.play_timer.stop();self.playing=False;self.geometry_timer.stop()
@@ -458,17 +474,25 @@ class Studio(QObject):
 
     @Slot()
     def refreshWindows(self):
+        if self.discovery_busy:return
         from .v2.mac_capture import list_windows
+        self.discovery_busy=True;self.changed.emit()
         def done(rows,error):
+            self.discovery_busy=False
             if error:self.set_error(error)
-            else:self.windows=rows;self.note=f'{len(rows)} Mac windows available';self.changed.emit()
+            else:
+                self.permission_state='Granted'
+                self.windows=[dict(r,label=r['app']+' — '+r['title']) for r in rows]
+                self.note=f'{len(rows)} Mac windows available'
+            self.changed.emit()
         self.async_job(list_windows,done)
 
     @Slot()
     def requestPermission(self):
         try:
             from .v2.mac_capture import permission
-            granted=permission(True);self.note='Permission granted; refresh windows' if granted else 'Allow Screen Recording in System Settings, then relaunch'
+            granted=permission(True);self.permission_state='Granted' if granted else 'Permission required'
+            self.note='Permission granted; refresh windows' if granted else 'Allow Screen Recording in System Settings, then relaunch'
             self.changed.emit()
         except RuntimeError as exc:self.set_error(str(exc))
 
@@ -488,14 +512,63 @@ class Studio(QObject):
         generation=self.capture_generation
         def start():
             from .v2.mac_capture import MacWindowCapture
-            return MacWindowCapture(selected['id'],lambda image,stamp:self.enqueue_native_frame(image,stamp,generation),self.errorSignal.emit)
+            return MacWindowCapture(selected['id'],lambda image,stamp:self.enqueue_native_frame(image,stamp,generation),lambda message:self.captureError.emit(generation,message))
         def done(capture,error):
             if generation!=self.capture_generation:
                 if capture:capture.stop()
                 return
-            if error:self.set_error(error)
+            if error:self.playing=False;self.set_error(error)
             else:self.capture=capture;self.playing=True;self.geometry_timer.start();self.note='Window capture active. Check your layout overlay.';self.changed.emit()
         self.async_job(start,done)
+
+    @Slot(int,str)
+    def capture_error(self,generation,message):
+        if generation!=self.capture_generation:return
+        self.stop_source();self.snapshot=None;self.pending=True;self.set_error(message)
+
+    @Slot()
+    def stopCapture(self):
+        self.stop_source();self.selected_window=None;self.snapshot=None;self.pending=True
+        self.note='Window capture stopped. Choose a window to start again.';self.changed.emit()
+
+    def start_video(self,path):
+        if not self.screen['canRecord']:
+            self.set_error('Start Mac window capture and wait for its first frame before recording');return
+        if self.video:return
+        from .v2.video import VideoRecorder
+        try:
+            def finished(result):
+                self.asyncSignal.emit((lambda value,error:self.video_finished(rec,value),result,None))
+            rec=VideoRecorder(path,self.source,on_finished=finished)
+            self.video=rec;self.video_saving=False;self.video_path=Path(path)
+            self.video_note='Recording MP4 · 10 fps · no audio · local only'
+            rec.offer(self.last_image,self.last_stamp);self.changed.emit()
+        except (ValueError,OSError) as exc:self.set_error(str(exc))
+
+    def video_finished(self,rec,result):
+        if self.video is not rec:return
+        self.video=None;self.video_saving=False
+        self.video_note=(result.get('error') or f"Saved {result['frames']} video frames")+' · '+str(rec.path)
+        self.changed.emit()
+
+    @Slot()
+    def toggleVideo(self):
+        if self.video:self.stopVideo();return
+        if not self.screen['canRecord']:
+            self.set_error('Start Mac window capture and wait for its first frame before recording');return
+        folder=self.base/'videos';folder.mkdir(parents=True,exist_ok=True)
+        path,_=QFileDialog.getSaveFileName(None,'Record selected window locally',str(folder/time.strftime('table-%Y%m%d-%H%M%S.mp4')),'MP4 video (*.mp4)')
+        if path:self.start_video(path)
+
+    @Slot()
+    def stopVideo(self):
+        if self.video and not self.video_saving:
+            self.video_saving=True;self.video.request_stop()
+            self.video_note='Saving MP4 and capture timestamps…';self.changed.emit()
+
+    @Slot()
+    def revealVideo(self):
+        if self.video_path:QDesktopServices.openUrl(QUrl.fromLocalFile(str(self.video_path.parent)))
 
     def refresh_geometry(self):
         if not self.capture or self.geometry_busy:return
@@ -547,9 +620,10 @@ class Studio(QObject):
     def close(self):
         self.stop_source();self.stop_event.set();self.poll_timer.stop();self.age_timer.stop()
         if self.worker:self.worker.stop();self.worker=None
+        if self.video:self.video.close()
 
 
-def main(backend='auto'):
+def main(backend='auto',start_page=0):
     from PySide6.QtQuickControls2 import QQuickStyle
     QQuickStyle.setStyle('Basic')
     import multiprocessing
@@ -560,5 +634,6 @@ def main(backend='auto'):
     engine.rootContext().setContextProperty('studio',controller)
     engine.load(QUrl.fromLocalFile(str(Path(__file__).with_name('qml')/'Studio.qml')))
     if not engine.rootObjects():controller.close();raise SystemExit('The Studio interface could not be loaded')
+    engine.rootObjects()[0].setProperty('page',start_page)
     app.aboutToQuit.connect(controller.close)
     app.exec()

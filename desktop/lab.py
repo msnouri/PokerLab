@@ -568,6 +568,10 @@ class LabWindow(QMainWindow):
                 bar.setSpacing(0)
         bar.setSpacing(10)
         bar.addStretch()
+        self.screen_button = QPushButton('Mac screen ↗')
+        self.screen_button.setToolTip('Open local Mac window capture and MP4 recording')
+        self.screen_button.clicked.connect(self.open_screen)
+        bar.addWidget(self.screen_button)
         self.players = QComboBox()
         self.players.addItem("6-max", 6)
         self.players.addItem("Heads-up", 2)
@@ -578,7 +582,7 @@ class LabWindow(QMainWindow):
         self.players.currentIndexChanged.connect(self.new_table)
         self.depth.currentIndexChanged.connect(self.new_table)
         self.strategy = QComboBox()
-        self.strategy.setMinimumWidth(300)
+        self.strategy.setMinimumWidth(250)
         self.strategy.setMaxVisibleItems(24)
         order = sorted(STRATEGIES, key=lambda k: ("STR".index(k[0]), k))
         for sid in ["S55"] + [s for s in order if s != "S55"]:
@@ -709,6 +713,14 @@ class LabWindow(QMainWindow):
             QShortcut(QKeySequence(str(k)), self, activated=lambda k=k: self.preset(k - 1))
 
     # ----- state changes --------------------------------------------------
+    def open_screen(self):
+        import subprocess
+        command = [sys.executable, '--screen'] if getattr(sys, 'frozen', False) else [sys.executable, '-m', 'desktop', '--screen']
+        try:
+            subprocess.Popen(command, cwd=None if getattr(sys, 'frozen', False) else str(Path(__file__).resolve().parents[1]))
+        except OSError as exc:
+            self.status.setText(f'Could not open Mac screen recording: {exc}')
+
     def sid(self):
         return self.strategy.currentData()
 

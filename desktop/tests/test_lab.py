@@ -1,6 +1,7 @@
 import os
 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 import unittest
+from unittest.mock import patch
 
 from PySide6.QtWidgets import QApplication
 from desktop.labmodel import (LabTable, Coach, STRATEGIES, DEPTHS, RANDOM, PRESETS, RANDOM_POOL, autoplay, bet_presets,
@@ -180,6 +181,13 @@ class LabWindowTests(unittest.TestCase):
         self.assertIsNotNone(w.grid.matrix)
         self.assertEqual(w.compare_box.count(), len(w.pinned))
         self.assertFalse(w.grab().isNull())
+
+    def test_mac_screen_button_opens_the_recording_view(self):
+        with patch('subprocess.Popen') as launch:
+            self.window.screen_button.click()
+        self.assertEqual(launch.call_count, 1)
+        self.assertEqual(launch.call_args.args[0][-1], '--screen')
+        self.assertNotIn('shell', launch.call_args.kwargs)
 
     def test_playing_hands_updates_session_and_grades_decisions(self):
         w = self.window

@@ -4,6 +4,12 @@ Vision Studio is the new default GUI. It focuses on observing a poker table,
 checking the readings, and recording evidence for future strategy models.
 The previous strategy workbench remains available with `--classic`.
 
+**New: [Mac screen recording](../docs/MAC_SCREEN_RECORDING.md).** The **Mac screen**
+view provides permission, window selection, live preview, capture stop, and
+silent local MP4 controls. Start it with `python -m desktop --screen` or the
+Agent Lab's **Mac screen ↗** button. Video and the existing observation replay
+are separate outputs, and neither depends on the other being enabled.
+
 ![Vision Studio overview](previews/studio-overview.png)
 
 ## The complete GUI improvement plan
@@ -57,7 +63,7 @@ CoreMedia 13.0 Intel-wheel loading failure found by native CI.
 This is a source application with a launcher, not a signed/notarized `.app`.
 The initial dependency installation needs internet; observation is local.
 
-## Four views
+## Five views
 
 * **Overview:** actual source image, recognized cards, per-seat summaries,
   field inspector, observation timeline and live timing cards.
@@ -66,6 +72,9 @@ The initial dependency installation needs internet; observation is local.
 * **Replay lab:** step, play and scrub generated or recorded frames.
 * **Diagnostics:** recognition percentiles, cache use, source freshness,
   discarded results and snapshot coverage, with JSON export.
+* **Mac screen:** a guided selected-window capture workflow and independent
+  10 fps target MP4 recording with capture/encode timing metadata. Video can
+  be recorded before calibrating the reader. See the linked recording guide.
 
 The opening demo is a generated six-seat table. The reader analyzes its rendered
 pixels, using known card art and independently rendered labelled control/status
@@ -154,11 +163,18 @@ exact action order and unseen activity require another verified data source.
 
 ## Record and replay
 
-**Record** writes local PNG frames plus `session.json`, capped at 500 MB. It
+**Record readings** writes local PNG frames plus `session.json`, capped at 500 MB. It
 records changed recognized states and the exact image used for each reading;
 it is not a continuous 20 fps video recorder. Changing layouts ends the recording.
 Sessions live in the application's local data directory under `VisionStudio/sessions`.
 Open a session through **Choose source → Open replay** or Replay lab.
+
+**Mac screen → Record MP4 video** saves continuous sampled window video and
+an adjacent `.capture.json` timing file to the folder you choose. It targets
+10 fps, records no audio, and ends on capture pause/stop/source change. It has
+a 30-minute and approximate 500 MB limit. MP4 uses a background encoder and
+the latest frame; these files open in a video player, separately from JSON
+observation replays. Details and device-test steps are in the recording guide.
 
 Recorded OCR is stored as `observed`. Its `ground_truth` starts as `null`.
 To benchmark a real recording, independently check **all** field labels for

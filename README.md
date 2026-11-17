@@ -17,6 +17,7 @@ on-device Apple Vision OCR connect observed table state to agent research.
 [**Get started on Mac →**](#run-the-desktop-gui-on-mac) ·
 [Agent Lab guide](docs/AGENT_LAB.md) ·
 [Vision Studio guide](desktop/VISION_STUDIO.md) ·
+[Mac screen recording](docs/MAC_SCREEN_RECORDING.md) ·
 [Research results](research/README.md) ·
 [What is verified](docs/VERIFICATION.md)
 
@@ -59,6 +60,13 @@ the reduced-game research proxies nor the library policies beat it here.
 **Observe → calibrate → replay → inspect.** Follow cards, pot amounts, stacks,
 controls and per-field uncertainty. Trace a reading back to its source pixels.
 Save layouts and replay observations before changing the model.
+
+**Record a game window locally on Mac.** Open **Mac screen** in Studio (or
+**Mac screen ↗** in Agent Lab), allow Screen Recording, choose your browser/game
+window, and preview or save a silent MP4. Video recording runs independently
+of OCR and includes a capture-timing sidecar. Start directly with
+`bash "Launch Poker Lab.command" --screen`.
+[Setup, recording controls, calibration and limits](docs/MAC_SCREEN_RECORDING.md).
 
 | See the state | Keep the evidence | Compare the policies |
 |---|---|---|

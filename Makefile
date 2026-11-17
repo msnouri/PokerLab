@@ -1,4 +1,4 @@
-.PHONY: install test report gui lab test-gui test-research research-report library-benchmark
+.PHONY: install test report gui lab screen test-gui test-research research-report library-benchmark
 install:
 	python3 -m pip install -r requirements.txt
 test:
@@ -7,6 +7,8 @@ gui:
 	python3 -m desktop
 lab:
 	python3 -m desktop --lab
+screen:
+	python3 -m desktop --screen
 library-benchmark:
 	cd poker_lab && python3 -m pokerlab.library.benchmark --deals 4000 --workers 4
 test-gui:

@@ -32,12 +32,21 @@ class StudioGuiTests(unittest.TestCase):
         self.engine.deleteLater();QCoreApplication.sendPostedEvents(None,QEvent.Type.DeferredDelete);self.app.processEvents()
 
     def test_every_view_renders(self):
-        for page in range(4):
+        for page in range(5):
             self.window.setProperty('page',page)
             for _ in range(4):self.app.processEvents()
             image=self.window.grabWindow()
             self.assertFalse(image.isNull())
             self.assertGreater(image.width(),1200)
+
+    def test_mac_screen_controls_render_and_video_requires_a_live_source(self):
+        self.window.setProperty('page',4)
+        self.app.processEvents()
+        for name in ('screenPermissionButton','refreshScreenWindows','screenWindowChoice',
+                     'startScreenCapture','stopScreenCapture','recordScreenVideo','quickRecordScreenVideo','screenRecordingNote'):
+            self.assertIsNotNone(self.window.findChild(QObject,name),name)
+        record=self.window.findChild(QObject,'recordScreenVideo')
+        self.assertFalse(record.property('enabled'))
 
     def test_setup_drafts_survive_live_metrics(self):
         seats=self.window.findChild(QObject,'seatCount')
