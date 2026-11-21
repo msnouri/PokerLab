@@ -1,5 +1,8 @@
 # Record a game window on your Mac
 
+Linux users: see [Linux installation and sharing](LINUX.md). Video encoding,
+calibration and observation replay are shared; source selection differs.
+
 PokerLab can preview a selected Mac window and record a silent local MP4 while
 the table reader works independently. Use a browser window containing your
 practice game, or another game window you are permitted to capture. Nothing
@@ -22,7 +25,7 @@ bash "Launch Poker Lab.command" --screen
 
 With the GUI environment already activated, use `python -m desktop --screen`
 or `make screen`. You can also choose **Mac screen** in Vision Studio's sidebar
-or click **Mac screen ↗** in Agent Lab. Phone-camera input is a later extension.
+or click **Screen recording ↗** in Agent Lab. Phone-camera input is a later extension.
 
 ## Select and preview a window
 

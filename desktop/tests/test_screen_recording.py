@@ -127,6 +127,9 @@ class CaptureWorkflowTests(unittest.TestCase):
         cls.app = QApplication.instance() or QApplication([])
 
     def setUp(self):
+        from desktop.v2 import mac_capture
+        self.adapter=patch('desktop.v2.capture.backend',return_value=mac_capture)
+        self.adapter.start();self.addCleanup(self.adapter.stop)
         self.studio = Studio(ImageProvider(), start_worker=False)
 
     def tearDown(self):
@@ -212,7 +215,7 @@ class CaptureWorkflowTests(unittest.TestCase):
             self.studio.start_video(path)
             self.assertIsNone(self.studio.video)
             self.assertFalse(path.exists())
-            self.assertIn('Start Mac window capture', self.studio.note)
+            self.assertIn('Start screen capture', self.studio.note)
 
     def test_screen_cli_opens_the_capture_view(self):
         from desktop.__main__ import main

@@ -127,7 +127,7 @@ ApplicationWindow {
             Item { width: 1; height: 35 }
             Caption { text: "WORKSPACE"; font.pixelSize: 9 }
             Repeater {
-                model: [{name:"Overview",symbol:"◈"},{name:"Table setup",symbol:"⌖"},{name:"Replay lab",symbol:"↺"},{name:"Diagnostics",symbol:"≋"},{name:"Mac screen",symbol:"▣"}]
+                model: [{name:"Overview",symbol:"◈"},{name:"Table setup",symbol:"⌖"},{name:"Replay lab",symbol:"↺"},{name:"Diagnostics",symbol:"≋"},{name:root.screenState.label,symbol:"▣"}]
                 delegate: Rectangle {
                     required property var modelData
                     required property int index
@@ -165,12 +165,12 @@ ApplicationWindow {
         RowLayout {
             Layout.fillWidth: true; Layout.preferredHeight: 58
             Column { spacing: 6
-                Text { text: ["Vision overview","Guided table setup","Replay laboratory","Performance & trust","Mac screen recording"][root.page]; color: "#edf2e9"; font.pixelSize: 27; font.weight: Font.Medium; font.letterSpacing: -.7 }
+                Text { text: ["Vision overview","Guided table setup","Replay laboratory","Performance & trust",root.screenState.label + " recording"][root.page]; color: "#edf2e9"; font.pixelSize: 27; font.weight: Font.Medium; font.letterSpacing: -.7 }
                 Text { text: ["Every card. Every change. In view.","Map once. Verify visually. Reuse your layout.","Inspect the pixels behind every observation.","Measured responsiveness, freshness, and reading coverage.","Choose a window. Record locally. Inspect the captured table."][root.page]; color: root.muted; font.pixelSize: 12 }
             }
             Item { Layout.fillWidth: true }
             Badge { label: "MAC / LOCAL"; tint: root.gold }
-            Action { objectName: "macScreenButton"; text: "Mac screen"; strong: root.page === 4; onClicked: root.page=4 }
+            Action { objectName: "screenCaptureButton"; text: root.screenState.label; strong: root.page === 4; onClicked: root.page=4 }
             Action { objectName: "sourceButton"; text: "Choose source  ⌄"; onClicked: sourcePopup.open() }
             Action { text: root.state.recording ? "● Readings" : "Record readings"; onClicked: studio.toggleRecord() }
         }
@@ -335,14 +335,14 @@ ApplicationWindow {
                             width: captureScroll.availableWidth; spacing: 12
                             Badge { label: root.screenState.capturing ? "●  CAPTURING" : "CAPTURE STOPPED"; tint: root.screenState.capturing ? root.mint : root.gold }
                             Body { Layout.fillWidth: true; text: root.screenState.selected; font.pixelSize: 12 }
-                            Body { Layout.fillWidth: true; text: root.state.platformMac ? "Capture only the game window you select. Preview and recording stay on this Mac." : "Live capture requires macOS 13+. This view and the generated replay are available for inspection here."; color: root.muted; font.pixelSize: 11 }
+                            Body { Layout.fillWidth: true; text: root.screenState.help; color: root.muted; font.pixelSize: 11 }
                             Caption { text: "1  SCREEN RECORDING ACCESS"; font.pixelSize: 9; color: root.gold }
-                            Action { objectName: "screenPermissionButton"; text: "Allow Screen Recording"; Layout.fillWidth: true; enabled: root.state.platformMac; onClicked: studio.requestPermission() }
+                            Action { objectName: "screenPermissionButton"; text: root.screenState.permissionLabel; Layout.fillWidth: true; enabled: root.screenState.supported; onClicked: studio.requestPermission() }
                             Body { Layout.fillWidth: true; text: "Permission: " + root.screenState.permission; color: root.muted; font.pixelSize: 10 }
                             Caption { text: "2  CHOOSE YOUR GAME WINDOW"; font.pixelSize: 9; color: root.gold }
-                            Action { objectName: "refreshScreenWindows"; text: root.screenState.discovering ? "Finding windows…" : "Refresh Mac windows"; Layout.fillWidth: true; enabled: root.state.platformMac && !root.screenState.discovering; onClicked: studio.refreshWindows() }
+                            Action { objectName: "refreshScreenWindows"; text: root.screenState.discovering ? "Finding sources…" : root.screenState.refreshLabel; Layout.fillWidth: true; enabled: root.screenState.supported && !root.screenState.discovering; onClicked: studio.refreshWindows() }
                             Choice { id: screenWindow; objectName: "screenWindowChoice"; Layout.fillWidth: true; textRole: "label"; model: studio.windowRows; displayText: count ? currentText : "Refresh to find your browser / game" }
-                            Action { objectName: "startScreenCapture"; text: "Start selected window"; strong: true; Layout.fillWidth: true; enabled: root.state.platformMac && screenWindow.count > 0; onClicked: studio.useWindow(screenWindow.currentIndex) }
+                            Action { objectName: "startScreenCapture"; text: root.screenState.startLabel; strong: true; Layout.fillWidth: true; enabled: root.screenState.supported && screenWindow.count > 0; onClicked: studio.useWindow(screenWindow.currentIndex) }
                             Action { objectName: "stopScreenCapture"; text: "Stop capture"; Layout.fillWidth: true; enabled: root.state.live; onClicked: studio.stopCapture() }
                             Caption { text: "3  CALIBRATE THE TABLE READER"; font.pixelSize: 9; color: root.gold }
                             RowLayout {
@@ -427,20 +427,20 @@ ApplicationWindow {
         background: Panel { color: "#1a2d30"; border.color: "#476055" }
         ColumnLayout { anchors.fill: parent; spacing: 14
             Text { text: "Choose your source"; color: "#e3eee4"; font.pixelSize: 20 }
-            Body { Layout.fillWidth: true; text: "Capture a single Mac window, inspect an image, or replay a recorded session."; color: root.muted; font.pixelSize: 12 }
+            Body { Layout.fillWidth: true; text: root.screenState.help; color: root.muted; font.pixelSize: 12 }
             RowLayout {
                 Action { text: "Practice demo"; strong: true; onClicked: { studio.loadDemo(); sourcePopup.close() } }
                 Action { text: "Open image"; onClicked: { sourcePopup.close(); studio.openImage() } }
                 Action { text: "Open replay"; onClicked: { sourcePopup.close(); studio.openReplay() } }
             }
             Rectangle { Layout.fillWidth: true; height: 1; color: "#3b5553" }
-            Caption { text: "MAC WINDOW CAPTURE"; color: root.gold }
+            Caption { text: root.screenState.label.toUpperCase(); color: root.gold }
             RowLayout {
-                Action { text: "Screen Recording access"; onClicked: studio.requestPermission() }
-                Action { text: "Refresh windows"; onClicked: studio.refreshWindows() }
+                Action { text: root.screenState.permissionLabel; enabled: root.screenState.supported; onClicked: studio.requestPermission() }
+                Action { text: "Refresh sources"; enabled: root.screenState.supported; onClicked: studio.refreshWindows() }
             }
             Choice { id: windowChoice; Layout.fillWidth: true; textRole: "label"; model: studio.windowRows; displayText: count ? currentText : "Refresh to discover windows" }
-            Action { text: "Capture selected window"; strong: true; Layout.fillWidth: true; enabled: windowChoice.count > 0; onClicked: { studio.useWindow(windowChoice.currentIndex); sourcePopup.close(); root.page=1 } }
+            Action { text: root.screenState.startLabel; strong: true; Layout.fillWidth: true; enabled: root.screenState.supported && windowChoice.count > 0; onClicked: { studio.useWindow(windowChoice.currentIndex); sourcePopup.close(); root.page=4 } }
             Text { text: root.state.note; color: root.muted; font.pixelSize: 10; Layout.fillWidth: true; wrapMode: Text.WordWrap }
         }
     }

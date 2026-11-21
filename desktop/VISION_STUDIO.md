@@ -1,4 +1,4 @@
-# macOS Vision Studio
+# Vision Studio for macOS and Linux
 
 Vision Studio is the new default GUI. It focuses on observing a poker table,
 checking the readings, and recording evidence for future strategy models.
@@ -7,8 +7,14 @@ The previous strategy workbench remains available with `--classic`.
 **New: [Mac screen recording](../docs/MAC_SCREEN_RECORDING.md).** The **Mac screen**
 view provides permission, window selection, live preview, capture stop, and
 silent local MP4 controls. Start it with `python -m desktop --screen` or the
-Agent Lab's **Mac screen ↗** button. Video and the existing observation replay
+Agent Lab's **Screen recording ↗** button. Video and the existing observation replay
 are separate outputs, and neither depends on the other being enabled.
+
+**Linux:** [installation and capture guide](../docs/LINUX.md). The same interface
+shows **Linux screen**, with X11 selected-window capture or a Wayland sharing
+picker. Linux uses native Tesseract; Mac keeps Apple Vision. Start Linux with
+`bash launch-linux.sh --screen`. Wayland requires PipeWire and a matching XDG
+Desktop Portal backend; its real permission flow still needs device testing.
 
 ![Vision Studio overview](previews/studio-overview.png)
 
@@ -72,7 +78,7 @@ The initial dependency installation needs internet; observation is local.
 * **Replay lab:** step, play and scrub generated or recorded frames.
 * **Diagnostics:** recognition percentiles, cache use, source freshness,
   discarded results and snapshot coverage, with JSON export.
-* **Mac screen:** a guided selected-window capture workflow and independent
+* **Mac screen / Linux screen:** a guided native capture workflow and independent
   10 fps target MP4 recording with capture/encode timing metadata. Video can
   be recorded before calibrating the reader. See the linked recording guide.
 
@@ -89,7 +95,8 @@ python -m desktop --lab
 
 ## Read your own table
 
-1. Choose **Choose source → Screen Recording access**. Allow the launching
+1. On Linux, first follow the [source selection steps](../docs/LINUX.md#choose-a-source).
+   On Mac, choose **Choose source → Allow Screen Recording**. Allow the launching
    Terminal/Python application in **System Settings → Privacy & Security →
    Screen Recording**, then relaunch if macOS requests it.
 2. **Refresh windows**, choose the table window, and capture it. Prefer a window
@@ -191,9 +198,9 @@ python -m desktop.v2.benchmark --backend vision --frames 24 --min-coverage 0.98 
 python -m desktop.v2.benchmark --backend vision --session /path/to/session.json --output replay-benchmark.json
 ```
 
-Development on Linux can use the optional native Tesseract backend with
-`requirements-vision-test.txt` and English Tesseract data. This is for tests and
-replay development; the product target remains Mac.
+Linux uses the native Tesseract backend included in `requirements-gui.txt`,
+with English language data installed by the system package manager. The
+[Linux guide](../docs/LINUX.md) covers X11/Wayland capture and setup.
 
 The included [Linux replay measurement](validation-v2-linux.json) uses 24
 generated labelled frames, 53 fields each. It uses independently rendered card,

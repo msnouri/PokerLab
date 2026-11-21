@@ -4,6 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml"><img src="https://github.com/msnouri/PokerLab/actions/workflows/macos-vision.yml/badge.svg?branch=main" alt="Native Mac checks"></a>
+  <a href="https://github.com/msnouri/PokerLab/actions/workflows/linux-vision.yml"><img src="https://github.com/msnouri/PokerLab/actions/workflows/linux-vision.yml/badge.svg?branch=main" alt="Linux capture and OCR checks"></a>
   <a href="https://github.com/msnouri/PokerLab/actions/workflows/repository-verification.yml"><img src="https://github.com/msnouri/PokerLab/actions/workflows/repository-verification.yml/badge.svg?branch=main" alt="Repository evidence checks"></a>
 </p>
 
@@ -12,9 +13,10 @@
 **A research AI agent for testing and comparing poker strategies.** Explore
 heuristic, CFR-family and textbook-theory policies, run reproducible benchmarks,
 and play against them in a desktop lab that shows each policy's reasoning and ranges. Table vision, replay tools, and
-on-device Apple Vision OCR connect observed table state to agent research.
+on-device OCR (Apple Vision on Mac, Tesseract on Linux) connect observed table state to agent research.
 
 [**Get started on Mac →**](#run-the-desktop-gui-on-mac) ·
+[**Get started on Linux →**](#run-the-desktop-gui-on-linux) ·
 [Agent Lab guide](docs/AGENT_LAB.md) ·
 [Vision Studio guide](desktop/VISION_STUDIO.md) ·
 [Mac screen recording](docs/MAC_SCREEN_RECORDING.md) ·
@@ -61,12 +63,14 @@ the reduced-game research proxies nor the library policies beat it here.
 controls and per-field uncertainty. Trace a reading back to its source pixels.
 Save layouts and replay observations before changing the model.
 
-**Record a game window locally on Mac.** Open **Mac screen** in Studio (or
-**Mac screen ↗** in Agent Lab), allow Screen Recording, choose your browser/game
-window, and preview or save a silent MP4. Video recording runs independently
+**Record locally on Mac or Linux.** Open **Mac screen** / **Linux screen** in Studio (or
+**Screen recording ↗** in Agent Lab), choose a source, and preview or save a silent MP4.
+Mac uses ScreenCaptureKit; Linux uses X11 window capture or the Wayland desktop
+sharing picker. Video recording runs independently
 of OCR and includes a capture-timing sidecar. Start directly with
 `bash "Launch Poker Lab.command" --screen`.
 [Setup, recording controls, calibration and limits](docs/MAC_SCREEN_RECORDING.md).
+[Linux installation and sharing](docs/LINUX.md).
 
 | See the state | Keep the evidence | Compare the policies |
 |---|---|---|
@@ -81,6 +85,9 @@ latency benchmarks. [Recording scripts and provenance](docs/VERIFICATION.md#read
 - **Native Mac CI:** Apple Silicon and Intel, GUI/worker/observation checks,
   research-solver checks and native Apple Vision replay. JSON artifacts are
   uploaded by each job. [Verification ledger](docs/VERIFICATION.md).
+- **Linux CI:** GUI, capture/recording lifecycle, native Tesseract replay, and
+  capture/resize/move/MP4 checks on a real X11 fixture under Xvfb/Openbox.
+  Wayland portal integration still needs a real desktop session.
 - **Recorded Mac replay:** 1,270/1,272 fields read on ARM and 1,268/1,272 on
   Intel, with zero wrong accepted values. Changed-frame recognition p95:
   **1.36 s / 3.54 s**. These 24-frame calibrated fixtures exclude capture,
@@ -161,6 +168,24 @@ opens the [Agent Lab](docs/AGENT_LAB.md): two- or six-player practice at five
 stack depths with all 90 policies, including research options R01–R06 and
 library policies T01–T04, each showing whether its own model or the S55
 fallback produced the action. `python -m desktop --classic` opens the first workbench.
+
+## Run the desktop GUI on Linux
+
+Use Python 3.12 on Ubuntu 24.04 x86_64 (the Linux CI target). Install the
+[system dependencies](docs/LINUX.md#install-and-launch), then run:
+
+```bash
+bash launch-linux.sh
+bash launch-linux.sh --lab
+bash launch-linux.sh --screen
+```
+
+The launcher installs isolated GUI dependencies on first use. X11 supports
+selected-window capture; Wayland uses your desktop's sharing picker through
+PipeWire/XDG Desktop Portal. Linux OCR uses a persistent native Tesseract
+instance. All policies, practice modes, calibration, replay and local MP4
+recording are shared with the Mac version. See the [Linux guide](docs/LINUX.md)
+for permission behavior, libraries, troubleshooting and validation limits.
 
 ## Install and test
 

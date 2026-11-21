@@ -1,8 +1,11 @@
 # Classic desktop workbench
 
-The new default app is **[macOS Vision Studio](VISION_STUDIO.md)**. This guide
+The new default app is **[Vision Studio for Mac and Linux](VISION_STUDIO.md)**. This guide
 covers the previous workbench, available with `python -m desktop --classic`.
 The Mac launcher now opens Vision Studio.
+
+Linux setup and capture are documented in the [Linux guide](../docs/LINUX.md).
+After installation, `bash launch-linux.sh --classic` opens this workbench.
 
 A local Python/Qt GUI for the existing Poker Agent Lab policies. The default
 game is six-player no-limit Texas Hold'em, with practice chips and 100-big-blind

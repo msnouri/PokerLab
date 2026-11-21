@@ -568,8 +568,8 @@ class LabWindow(QMainWindow):
                 bar.setSpacing(0)
         bar.setSpacing(10)
         bar.addStretch()
-        self.screen_button = QPushButton('Mac screen ↗')
-        self.screen_button.setToolTip('Open local Mac window capture and MP4 recording')
+        self.screen_button = QPushButton('Screen recording ↗')
+        self.screen_button.setToolTip('Open local Mac / Linux capture and MP4 recording')
         self.screen_button.clicked.connect(self.open_screen)
         bar.addWidget(self.screen_button)
         self.players = QComboBox()
@@ -719,7 +719,7 @@ class LabWindow(QMainWindow):
         try:
             subprocess.Popen(command, cwd=None if getattr(sys, 'frozen', False) else str(Path(__file__).resolve().parents[1]))
         except OSError as exc:
-            self.status.setText(f'Could not open Mac screen recording: {exc}')
+            self.status.setText(f'Could not open screen recording: {exc}')
 
     def sid(self):
         return self.strategy.currentData()

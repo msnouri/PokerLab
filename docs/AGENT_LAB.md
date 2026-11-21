@@ -11,10 +11,13 @@ The lab opens on a hand that is already waiting for you. Everything on screen
 is computed locally from the practice engine (PokerKit) and the selected
 policy; it does not read the screen or talk to another program.
 
-**Mac screen ↗** opens the separate [window-capture and recording
+**Screen recording ↗** opens the separate [window-capture and recording
 view](MAC_SCREEN_RECORDING.md). It can preview an authorized browser/game
 window and save a local MP4; the practice coach continues to use its own
 engine state rather than the captured window.
+
+For Linux installation, X11 capture and Wayland sharing, see the
+[Linux guide](LINUX.md). Use `bash launch-linux.sh --lab` after setup.
 
 ## What is on screen
 

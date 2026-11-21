@@ -1,7 +1,8 @@
 import os
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 os.environ.setdefault('QT_QUICK_BACKEND','software')
-import time,unittest
+import time,unittest,sys
+from unittest.mock import patch
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QUrl,QCoreApplication,QEvent,QObject
@@ -57,6 +58,28 @@ class StudioGuiTests(unittest.TestCase):
         units=self.window.findChild(QObject,'chipUnits')
         self.assertEqual(units.property('currentText'),'×100')
         self.assertNotIn('ante',self.studio.layout.templates)
+
+    @unittest.skipUnless(sys.platform.startswith('linux'),'Linux controls')
+    def test_wayland_controls_offer_the_desktop_picker(self):
+        with patch('desktop.v2.linux_capture.is_wayland',return_value=True):
+            self.window.setProperty('page',4)
+            self.studio.windows=[dict(id='wayland-portal',label='Desktop picker')]
+            self.studio.changed.emit();self.app.processEvents()
+            refresh=self.window.findChild(QObject,'refreshScreenWindows')
+            start=self.window.findChild(QObject,'startScreenCapture')
+            self.assertTrue(refresh.property('enabled'))
+            self.assertEqual(refresh.property('text'),'Find sharing source')
+            self.assertTrue(start.property('enabled'))
+            self.assertEqual(start.property('text'),'Choose in desktop picker')
+
+    @unittest.skipUnless(sys.platform.startswith('linux'),'Linux native handle')
+    def test_x11_window_handle_survives_the_qml_source_model(self):
+        from PySide6.QtMultimedia import QCapturableWindow
+        self.studio.windows=[dict(id=QCapturableWindow(),label='Opaque Qt handle')]
+        self.studio.changed.emit();self.app.processEvents()
+        choice=self.window.findChild(QObject,'screenWindowChoice')
+        self.assertEqual(choice.property('count'),1)
+        self.assertEqual(choice.property('currentText'),'Opaque Qt handle')
 
     def test_proposal_requires_confirmation(self):
         self.studio.propose()

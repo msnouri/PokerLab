@@ -1,0 +1,52 @@
+name: Linux Vision Studio
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: linux-vision-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      QT_QPA_PLATFORM: offscreen
+      QT_QUICK_BACKEND: software
+      QT_MEDIA_BACKEND: ffmpeg
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-gui.txt
+      - name: Linux native libraries and test display
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng libtesseract-dev libleptonica-dev xvfb xauth openbox libegl1 libgl1 libpulse0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-xinerama0 libxcb-render-util0 libxkbcommon-x11-0
+      - run: python -m pip install -r requirements-gui.txt
+      - name: GUI, capture, recorder, OCR and worker tests
+        run: python -m unittest discover -s desktop/tests -v
+      - name: Research solver tests
+        run: PYTHONPATH=poker_lab python -m unittest discover -s poker_lab/tests_research -v
+      - name: Native Tesseract labelled replay
+        run: python -m desktop.v2.benchmark --backend native --frames 24 --min-coverage 0.98 --min-critical-coverage 0.85 --output linux-vision-benchmark.json
+      - name: Capture, resize, move, record and close a real X11 window
+        run: |
+          xvfb-run -a -s '-screen 0 1600x1000x24 +extension COMPOSITE' bash -c '
+            openbox > /tmp/pokerlab-openbox.log 2>&1 &
+            wm_pid=$!
+            trap "kill $wm_pid 2>/dev/null || true" EXIT
+            QT_QPA_PLATFORM=xcb python scripts/linux_capture_smoke.py
+          '
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: linux-vision-evidence
+          path: |
+            linux-vision-benchmark.json
+            linux-capture-smoke.json
+          if-no-files-found: warn

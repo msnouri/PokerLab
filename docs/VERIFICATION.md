@@ -104,7 +104,23 @@ the repair's native Mac results.
 
 ## Remaining gaps, kept explicit
 
-The Mac screen view and background MP4 recorder are covered by
+### Linux extension
+
+`Linux Vision Studio` adds Ubuntu 24.04 / Python 3.12 coverage for the desktop,
+native Tesseract replay, research solvers, and a real X11 fixture window under
+Xvfb/Openbox. `scripts/linux_capture_smoke.py` checks source pixels, resizing,
+movement, MP4 write/decode, pause/resume, and stopping after window closure.
+`desktop/tests/test_linux_capture.py` checks Qt GUI-thread ownership, window
+identity, pixel stride/copy/size bounds, bounded frame replacement, the Wayland
+picker route, permission state, cancellation/error handling and stale callbacks.
+CI uploads the replay and capture reports. As with the Mac checks, consult the
+exact commit's run for its result.
+
+The real Wayland portal/compositor grant is not established by these tests;
+that requires a GNOME/KDE or other supported desktop session with PipeWire and
+the matching portal. Linux support and setup are detailed in [LINUX.md](LINUX.md).
+
+The screen view and background MP4 recorder are covered by
 `desktop/tests/test_screen_recording.py`: actual MP4 write/decode, resize handling,
 bounded latest-frame behavior during slow encoding, error/limit finalization,
 permissions and selected-window routing, stale errors, and pause/stop behavior.

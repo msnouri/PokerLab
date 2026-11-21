@@ -3,6 +3,12 @@ import sys,threading,time
 import numpy as np
 from PIL import Image
 
+GUI_THREAD=False
+
+
+def create_capture(window_id,on_frame,on_error):
+    return MacWindowCapture(window_id,on_frame,on_error)
+
 
 def require_mac():
     if sys.platform!='darwin':raise RuntimeError('Live window capture is available on macOS only. Use replay or practice here.')

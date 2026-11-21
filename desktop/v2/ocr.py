@@ -96,7 +96,8 @@ class NativeTesseract:
     def __init__(self):
         import tesserocr
         paths=[os.environ.get('TESSDATA_PREFIX',''),'/usr/share/tesseract-ocr/5/tessdata',
-               '/opt/homebrew/share/tessdata','/usr/local/share/tessdata']
+               '/usr/share/tesseract-ocr/4.00/tessdata','/usr/share/tesseract/tessdata',
+               '/usr/share/tessdata','/opt/homebrew/share/tessdata','/usr/local/share/tessdata']
         path=next((p for p in paths if p and (Path(p)/'eng.traineddata').exists()),None)
         if path is None: raise RuntimeError('English Tesseract language data was not found')
         self.api=tesserocr.PyTessBaseAPI(path=path,lang='eng',psm=7)

@@ -1,4 +1,4 @@
-"""Qt Quick macOS Vision Studio. Recognition runs in a bounded worker process."""
+"""Qt Quick Vision Studio. Recognition runs in a bounded worker process."""
 from dataclasses import asdict
 from pathlib import Path
 import json,sys,time,threading,shutil
@@ -58,7 +58,7 @@ class Studio(QObject):
         self.windows=[];self.replay_rows=[];self.replay_folder=None;self.replay_index=0;self.demo=[]
         self.pending=True;self.latest_hashes={};self.accepted_hashes={}
         self.recorder=None;self.record_pending=False;self.last_record_signature='';self.overrides={}
-        self.video=None;self.video_saving=False;self.video_path=None;self.video_note='MP4 video stays on this Mac'
+        self.video=None;self.video_saving=False;self.video_path=None;self.video_note='MP4 video stays on this computer'
         self.permission_state='Not checked';self.discovery_busy=False
         self.frameReady.connect(self.drain_native_frame,Qt.ConnectionType.QueuedConnection)
         self.errorSignal.connect(self.set_error,Qt.ConnectionType.QueuedConnection)
@@ -105,13 +105,16 @@ class Studio(QObject):
 
     @Property('QVariantMap',notify=changed)
     def screen(self):
+        from .v2.capture import controls
+        ui=controls()
+        active=bool(self.live and self.playing and self.capture and getattr(self.capture,'running',True))
         return {'permission':self.permission_state,'discovering':self.discovery_busy,
-                'selected':self.source if self.live else 'No Mac window selected',
-                'capturing':bool(self.live and self.playing and self.capture),
+                **ui,'selected':self.source if self.live else 'No capture source selected',
+                'capturing':active,
                 'videoActive':self.video is not None and not self.video_saving,
                 'saving':self.video_saving,'frames':self.video.frames if self.video else 0,
                 'note':self.video_note,'path':str(self.video_path or ''),
-                'canRecord':bool(self.live and self.playing and self.capture and self.last_image is not None)}
+                'canRecord':bool(active and self.last_image is not None)}
 
     @Property('QVariantList',notify=changed)
     def fields(self):
@@ -475,24 +478,38 @@ class Studio(QObject):
     @Slot()
     def refreshWindows(self):
         if self.discovery_busy:return
-        from .v2.mac_capture import list_windows
+        from .v2.capture import backend
+        try:adapter=backend()
+        except RuntimeError as exc:self.set_error(str(exc));return
         self.discovery_busy=True;self.changed.emit()
         def done(rows,error):
             self.discovery_busy=False
             if error:self.set_error(error)
             else:
-                self.permission_state='Granted'
+                self.permission_state='Choose in desktop picker' if self.screen['portal'] else 'Available'
                 self.windows=[dict(r,label=r['app']+' — '+r['title']) for r in rows]
-                self.note=f'{len(rows)} Mac windows available'
+                self.note=f'{len(rows)} capture sources available'
             self.changed.emit()
-        self.async_job(list_windows,done)
+        self.capture_job(adapter,adapter.list_windows,done)
+
+    def capture_job(self,adapter,fn,done):
+        # Qt Multimedia objects must be constructed on the GUI thread. The
+        # macOS adapter retains its existing background discovery/start path.
+        if getattr(adapter,'GUI_THREAD',False):
+            try:result,error=fn(),None
+            except Exception as exc:result,error=None,f'{type(exc).__name__}: {exc}'
+            done(result,error)
+        else:self.async_job(fn,done)
 
     @Slot()
     def requestPermission(self):
         try:
-            from .v2.mac_capture import permission
-            granted=permission(True);self.permission_state='Granted' if granted else 'Permission required'
-            self.note='Permission granted; refresh windows' if granted else 'Allow Screen Recording in System Settings, then relaunch'
+            from .v2.capture import backend
+            granted=backend().permission(True)
+            portal=self.screen['portal']
+            self.permission_state='Choose in desktop picker' if portal else 'Granted' if granted else 'Permission required'
+            self.note=('Refresh sources, then start capture to open your desktop sharing picker' if portal else
+                       'Capture access available; refresh sources' if granted else 'Allow Screen Recording in System Settings, then relaunch')
             self.changed.emit()
         except RuntimeError as exc:self.set_error(str(exc))
 
@@ -508,18 +525,23 @@ class Studio(QObject):
 
     def resume_capture(self):
         if not self.selected_window:return
+        from .v2.capture import backend
+        try:adapter=backend()
+        except RuntimeError as exc:self.set_error(str(exc));return
         selected=self.selected_window
         generation=self.capture_generation
         def start():
-            from .v2.mac_capture import MacWindowCapture
-            return MacWindowCapture(selected['id'],lambda image,stamp:self.enqueue_native_frame(image,stamp,generation),lambda message:self.captureError.emit(generation,message))
+            return adapter.create_capture(selected['id'],lambda image,stamp:self.enqueue_native_frame(image,stamp,generation),lambda message:self.captureError.emit(generation,message))
         def done(capture,error):
             if generation!=self.capture_generation:
                 if capture:capture.stop()
                 return
             if error:self.playing=False;self.set_error(error)
-            else:self.capture=capture;self.playing=True;self.geometry_timer.start();self.note='Window capture active. Check your layout overlay.';self.changed.emit()
-        self.async_job(start,done)
+            else:
+                self.capture=capture;self.playing=True;self.geometry_timer.start()
+                self.note='Waiting for captured pixels. Complete the desktop sharing picker if shown.'
+                self.changed.emit()
+        self.capture_job(adapter,start,done)
 
     @Slot(int,str)
     def capture_error(self,generation,message):
@@ -533,7 +555,7 @@ class Studio(QObject):
 
     def start_video(self,path):
         if not self.screen['canRecord']:
-            self.set_error('Start Mac window capture and wait for its first frame before recording');return
+            self.set_error('Start screen capture and wait for its first frame before recording');return
         if self.video:return
         from .v2.video import VideoRecorder
         try:
@@ -555,7 +577,7 @@ class Studio(QObject):
     def toggleVideo(self):
         if self.video:self.stopVideo();return
         if not self.screen['canRecord']:
-            self.set_error('Start Mac window capture and wait for its first frame before recording');return
+            self.set_error('Start screen capture and wait for its first frame before recording');return
         folder=self.base/'videos';folder.mkdir(parents=True,exist_ok=True)
         path,_=QFileDialog.getSaveFileName(None,'Record selected window locally',str(folder/time.strftime('table-%Y%m%d-%H%M%S.mp4')),'MP4 video (*.mp4)')
         if path:self.start_video(path)

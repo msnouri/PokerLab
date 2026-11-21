@@ -1,1 +1,1 @@
-"""Vision Studio: macOS capture, incremental recognition, and auditable state."""
+"""Vision Studio: native Mac/Linux capture, incremental recognition, auditable state."""
