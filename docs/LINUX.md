@@ -14,7 +14,8 @@ sudo apt-get update
 sudo apt-get install -y python3.12 python3.12-venv tesseract-ocr tesseract-ocr-eng \
   libtesseract-dev libleptonica-dev libegl1 libgl1 libpulse0 \
   libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-xinerama0 \
-  libxcb-render-util0 libxkbcommon-x11-0 libwayland-client0 libwayland-cursor0 libwayland-egl1
+  libxcb-render-util0 libxcb-xinput0 libxcb-shape0 libxcb-xfixes0 libxcb-randr0 \
+  libxcb-sync1 libx11-xcb1 libxkbcommon-x11-0 libwayland-client0 libwayland-cursor0 libwayland-egl1
 bash launch-linux.sh
 ```
 

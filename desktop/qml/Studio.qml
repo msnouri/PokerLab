@@ -155,7 +155,7 @@ ApplicationWindow {
             }
         }
         Column { id: edition; anchors { left: parent.left; right: parent.right; bottom: parent.bottom; margins: 24 } spacing: 6
-            Text { text: "●   macOS edition"; color: root.mint; font.pixelSize: 11 }
+            Text { text: "●   " + root.screenState.platform + " edition"; color: root.mint; font.pixelSize: 11 }
             Text { text: "All processing stays local"; color: "#648282"; font.pixelSize: 9 }
         }
     }
@@ -169,7 +169,7 @@ ApplicationWindow {
                 Text { text: ["Every card. Every change. In view.","Map once. Verify visually. Reuse your layout.","Inspect the pixels behind every observation.","Measured responsiveness, freshness, and reading coverage.","Choose a window. Record locally. Inspect the captured table."][root.page]; color: root.muted; font.pixelSize: 12 }
             }
             Item { Layout.fillWidth: true }
-            Badge { label: "MAC / LOCAL"; tint: root.gold }
+            Badge { label: root.screenState.platform.toUpperCase() + " / LOCAL"; tint: root.gold }
             Action { objectName: "screenCaptureButton"; text: root.screenState.label; strong: root.page === 4; onClicked: root.page=4 }
             Action { objectName: "sourceButton"; text: "Choose source  ⌄"; onClicked: sourcePopup.open() }
             Action { text: root.state.recording ? "● Readings" : "Record readings"; onClicked: studio.toggleRecord() }
@@ -339,7 +339,7 @@ ApplicationWindow {
                             Caption { text: "1  SCREEN RECORDING ACCESS"; font.pixelSize: 9; color: root.gold }
                             Action { objectName: "screenPermissionButton"; text: root.screenState.permissionLabel; Layout.fillWidth: true; enabled: root.screenState.supported; onClicked: studio.requestPermission() }
                             Body { Layout.fillWidth: true; text: "Permission: " + root.screenState.permission; color: root.muted; font.pixelSize: 10 }
-                            Caption { text: "2  CHOOSE YOUR GAME WINDOW"; font.pixelSize: 9; color: root.gold }
+                            Caption { text: root.screenState.portal ? "2  CHOOSE A SHARING SOURCE" : "2  CHOOSE YOUR GAME WINDOW"; font.pixelSize: 9; color: root.gold }
                             Action { objectName: "refreshScreenWindows"; text: root.screenState.discovering ? "Finding sources…" : root.screenState.refreshLabel; Layout.fillWidth: true; enabled: root.screenState.supported && !root.screenState.discovering; onClicked: studio.refreshWindows() }
                             Choice { id: screenWindow; objectName: "screenWindowChoice"; Layout.fillWidth: true; textRole: "label"; model: studio.windowRows; displayText: count ? currentText : "Refresh to find your browser / game" }
                             Action { objectName: "startScreenCapture"; text: root.screenState.startLabel; strong: true; Layout.fillWidth: true; enabled: root.screenState.supported && screenWindow.count > 0; onClicked: studio.useWindow(screenWindow.currentIndex) }
