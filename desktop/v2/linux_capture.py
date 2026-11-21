@@ -34,6 +34,12 @@ def _gui_thread():
 
 def _multimedia():
     os.environ.setdefault('QT_MEDIA_BACKEND', 'ffmpeg')
+    # Qt 6.8 probes XDG_SESSION_TYPE rather than the actual Qt platform when
+    # enabling X11 capture. Xvfb, VNC and manually started X sessions may omit
+    # it. Infer it from the active connection, without bypassing Wayland.
+    if (QGuiApplication.instance() and QGuiApplication.platformName() == 'xcb'
+            and not is_wayland()):
+        os.environ['XDG_SESSION_TYPE'] = 'x11'
     try:
         from PySide6 import QtMultimedia
         return QtMultimedia

@@ -49,7 +49,7 @@ jobs:
             openbox > /tmp/pokerlab-openbox.log 2>&1 &
             wm_pid=$!
             trap "kill $wm_pid 2>/dev/null || true" EXIT
-            if ! QT_DEBUG_PLUGINS=1 QT_QPA_PLATFORM=xcb python scripts/linux_capture_smoke.py > linux-x11-smoke.log 2>&1; then
+            if ! XDG_SESSION_TYPE=x11 QT_DEBUG_PLUGINS=1 QT_QPA_PLATFORM=xcb python scripts/linux_capture_smoke.py > linux-x11-smoke.log 2>&1; then
               cat linux-x11-smoke.log
               exit 1
             fi
@@ -63,4 +63,5 @@ jobs:
             linux-vision-benchmark.json
             linux-capture-smoke.json
             linux-x11-smoke.log
+            /tmp/pokerlab-openbox.log
           if-no-files-found: warn

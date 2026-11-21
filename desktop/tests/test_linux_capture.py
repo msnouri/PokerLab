@@ -70,6 +70,11 @@ class LinuxCaptureTests(unittest.TestCase):
             with patch.object(linux_capture,'_multimedia',return_value=self.media()), patch.object(linux_capture.QGuiApplication,'platformName',return_value='xcb'):
                 with self.assertRaisesRegex(RuntimeError,'QT_QPA_PLATFORM=wayland'): linux_capture.permission()
 
+    def test_x11_capture_is_enabled_when_the_session_variable_is_missing(self):
+        with patch.dict(os.environ,{'XDG_SESSION_TYPE':'','WAYLAND_DISPLAY':''}), patch.object(linux_capture.QGuiApplication,'platformName',return_value='xcb'):
+            linux_capture._multimedia()
+            self.assertEqual(os.environ['XDG_SESSION_TYPE'],'x11')
+
     def test_rgb_padding_is_copied_and_large_frames_are_bounded(self):
         image=QImage(3,2,QImage.Format.Format_RGB888);image.fill(QColor('red'))
         copied=linux_capture.qimage_image(image)
